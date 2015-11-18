@@ -1,0 +1,39 @@
+<!doctype html>
+<html>
+<head>
+    <title>Sketch Pad</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <script src="js/script.js"></script>
+</head>
+<body>
+<div id="page">
+    <div class="header">
+        <a id="new" class="navbtn">New</a>
+        <div class="title">Sketch Your Word</div>
+    </div>
+    <div id="content" onload="pencil()"><p style="text-align:center">Loading Canvas...</p></div>
+    <div class="footer">
+        <div class="palette-case">
+            <div class="palette-box">
+                <div class="palette white" onclick="eraser()"></div>
+            </div>
+            <div class="palette-box">
+                <div class="palette red"></div>
+            </div>
+            <div class="palette-box">
+                <div class="palette blue"></div>
+            </div>
+            <div class="palette-box">
+                <div class="palette green"></div>
+            </div>
+            <div class="palette-box">
+                <div class="palette black"></div>
+            </div>
+            <div style="clear:both"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
