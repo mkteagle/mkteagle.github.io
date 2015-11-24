@@ -16,12 +16,15 @@ var
 
 // State vars
     currentState,
-
+    a,
+    b,
+    d,
 // Our game has three states: the splash screen, gameplay, and the score display.
     states = {
-        Splash: 0,
-        Game: 1,
-        Score: 2
+        Difficulty: 0,
+        Splash: 1,
+        Game: 2,
+        Score: 3
     };
 
 localStorage.setItem("bestScore", 0);
@@ -129,9 +132,6 @@ function Turkey() {
         renderingContext.restore();
     };
 }
-function Forks () {
-
-}
 /**
  * Called on mouse or touch press. Update and change state depending on current game state.
  * @param  {MouseEvent/TouchEvent} evt - the onpress event
@@ -150,6 +150,38 @@ $(document).keydown(function(e){
 });
 function onpress(evt) {
     switch (currentState) {
+
+        case states.Difficulty:
+            var mouseX = evt.offsetX, mouseY = evt.offsetY;
+
+            if (mouseX == null || mouseY == null) {
+                mouseX = evt.touches[0].clientX;
+                mouseY = evt.touches[0].clientY;
+            }
+            if (mouseX == null || mouseY == null) {
+                mouseX = evt.touches[0].clientX;
+                mouseY = evt.touches[0].clientY;
+            }
+            // Check if within the okButton
+            if (easyButton.x < mouseX && mouseX < easyButton.x + easyButton.width &&
+                easyButton.y < mouseY && mouseY < easyButton.y + easyButton.height
+            ) {
+                a = 120;
+                b = 200;
+                d = 500;
+                currentState = states.Splash;
+            }
+            if (hardButton.x < mouseX && mouseX < hardButton.x + hardButton.width &&
+                hardButton.y < mouseY && mouseY < hardButton.y + hardButton.height
+            ) {
+                a = 120;
+                b = 110;
+                d = 200;
+                currentState = states.Splash;
+            }
+
+            //turkey.jump();
+            break;
         case states.Splash: // Start the game and update the turkey velocity.
             currentState = states.Game;
 
@@ -196,6 +228,11 @@ function windowSetup() {
         height = 500;
         inputEvent = "mousedown";
     }
+    if (width < 600) {
+        width = 300;
+        height = 500;
+        inputEvent = "mousedown";
+    }
 
     // Create a listener on the input event.
     document.addEventListener(inputEvent, onpress);
@@ -221,7 +258,18 @@ function loadGraphics() {
     img.onload = function () {
         initSprites(this);
         renderingContext.fillStyle = backgroundSprite.color;
-
+        easyButton = {
+            x: 209,
+            y: 225,
+            width: 36,
+            height: 16
+        };
+        hardButton = {
+            x: 209,
+            y: 275,
+            width: 36,
+            height: 16
+        };
         okButton = {
             x: (width - okButtonSprite.width) / 2,
             y: height - 200,
@@ -237,14 +285,14 @@ function ForkCollection() {
     this._forks = [];
 
     /**
-     * Empty corals array
+     * Empty forks array
      */
     this.reset = function () {
         this._forks = [];
     };
 
     /**
-     * Creates and adds a new Coral to the game.
+     * Creates and adds a new Fork to the game.
      */
     this.add = function () {
         this._forks.push(new Fork()); // Create and push coral to array
@@ -292,8 +340,8 @@ function ForkCollection() {
  * The Fork class. Creates instances of Fork.
  */
 function Fork() {
-    this.x = 500;
-    this.y = height - (bottomObstacleSprite.height + foregroundSprite.height + 120 + 200 * Math.random());
+    this.x = d;
+    this.y = height - (bottomObstacleSprite.height + foregroundSprite.height + a + b * Math.random());
     this.width = bottomObstacleSprite.width;
     this.height = bottomObstacleSprite.height;
 
@@ -332,7 +380,7 @@ function main() {
     windowSetup();
     canvasSetup();
 
-    currentState = states.Splash; // Game begins at the splash screen.
+    currentState = states.Difficulty; // Game begins at the splash screen.
 
     document.body.appendChild(canvas); // Append the canvas we've created to the body element in our HTML document.
 
@@ -385,6 +433,14 @@ function render() {
     foregroundSprite.draw(renderingContext, foregroundPosition, height - foregroundSprite.height);
     foregroundSprite.draw(renderingContext, foregroundPosition + foregroundSprite.width, height - foregroundSprite.height);
 
+    if (currentState == states.Difficulty) {
+        titleSprite.draw(renderingContext, 90, 100);
+        renderingContext.font = "30px Comic Sans MS";
+        renderingContext.textAlign = "center";
+        renderingContext.fillText("Easy", 209, 225);
+        renderingContext.fillText("Hard", 209, 275);
+    }
+
     if (currentState == states.Splash) {
         titleSprite.draw(renderingContext, 90, 100);
         okButtonSprite.draw(renderingContext, 200, 300);
@@ -400,7 +456,9 @@ function render() {
         }
         gameoverSprite.draw(renderingContext, 110, 110);
         overOKSprite.draw(renderingContext, 200, 300);
+        renderingContext.fillStyle = "white";
         renderingContext.fillText("Score: " + score, 209, 225);
         renderingContext.fillText("Best: " + localStorage.bestScore, 200, 260);
+        renderingContext.fillStyle = "black";
     }
 }
