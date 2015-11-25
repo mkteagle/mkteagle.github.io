@@ -1,0 +1,403 @@
+html, body {
+}
+h1 {
+    font-family: 'Ubuntu', sans-serif;
+    color: #235485;
+    font-size: 2em;
+}
+
+.menu {
+    display: block;
+    width: 100px;
+    height: 100px;
+    border-radius: 50px;
+    font-size: 20px;
+    color: #fff;
+    line-height: 100px;
+    text-align: center;
+    text-decoration: none;
+    background: #235485;
+}
+
+.menu:hover {
+    color: #ccc;
+    text-decoration: none;
+    background: #333;
+}
+
+h45 {
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+}
+
+#msg {
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+}
+.text_target {
+    font-size: 3em;
+}
+#aboutli {
+
+}
+#experienceli {
+
+}
+#quizli {
+
+}
+#contactli {
+
+}
+.myRow {
+    width: 100%;
+    float: left;
+}
+#about {
+    height: 400px;
+    width: 100%;
+}
+#experience {
+    height: 500px;
+    width: 100%;
+}
+#eE {
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+}
+#cE {
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+}
+#socialLinks {
+    font-size: 1.5em;
+}
+#socialLinks ul {
+    display: block;
+    list-style: none;
+}
+#socialLinks li {
+    display: inline-block;
+    padding: .5em 1em;
+    margin: 0 .5em .5em 0;
+    border: 1px solid #d9d9d9;
+    background: #f7f7f7;
+    border-radius: 3px;
+}
+#skills ul {
+    display: block;
+    list-style: none;
+}
+#skills li {
+    display: inline-block;
+    padding: .5em 1em;
+    margin: 0 .5em .5em 0;
+    border: 1px solid #d9d9d9;
+    background: #f7f7f7;
+    border-radius: 3px;
+}
+
+#quiz {
+    height: 600px;
+    width: 100%;
+}
+#vE {
+    font-family: 'Pacifico', cursive;
+    font-size: 3em;
+}
+ul.events {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 20px 0;
+}
+
+ul.events li {
+    -webkit-border-radius: 11px;
+    -moz-border-radius: 11px;
+    border-radius: 11px;
+    background: #eee;
+    border: 1px solid #ddd;
+    color: #707070;
+    font-size: .9em;
+    font-weight: bold;
+    margin-bottom: 6px;
+    padding: 3px 0;
+    position: relative;
+    text-align: center;
+}
+
+ul.events li em {
+    color: #aaa;
+    font-weight: normal;
+    font-size: 0.9em;
+}
+ul.events a {
+    text-decoration: none;
+}
+
+ul.intervals {
+    list-style-type: none;
+    padding: 0;
+    display: block;
+}
+
+/* The width depends on the number of intervals. For example 100 / 7 = 14.29% -- then subtract a little bit for room for the borders */
+ul.intervals li {
+    background: #fff repeat-x left 10%;
+    border-right: 1px solid #ccc;
+    color: #999;
+    float: left;
+    font-size: .9em;
+    margin: 0;
+    padding: 15px 0;
+    text-align: center;
+    width: 7%;
+}
+
+ul.intervals li.first {
+    border-left: 1px solid #ccc;
+}
+.bottomBord {
+    border-bottom: 1px solid black;
+}
+#xactware {
+    text-align: left;
+}
+#delta {
+    width: 15%;
+    text-align: left;
+}
+#ihc {
+    text-align: left;
+}
+#usu {
+    text-align: left;
+}
+#travelhost {
+    text-align: left;
+}
+#techmedia {
+    text-align: left;
+}
+#matc {
+    text-align: left;
+}
+[contentEditable=true]:empty:not(:focus):before{
+    content:attr(data-placeholder) }
+.col-lg-75 {
+    width: 62.49%;
+}
+.col-lg-55 {
+    width: 45.83%;
+}
+#draggable-items ul {
+    display: block;
+    list-style: none;
+}
+#draggable-items li {
+    display: inline-block;
+    padding: .5em 1em;
+    margin: 0 .5em .5em 0;
+    border: 1px solid #d9d9d9;
+    background: #f7f7f7;
+    border-radius: 3px;
+}
+#answers {
+    margin-top: 50px;
+}
+/*sidebar navigation css*/
+
+#wrapper {
+    padding-left: 0;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+}
+
+#wrapper.toggled {
+    padding-left: 250px;
+}
+
+#sidebar-wrapper {
+    z-index: 1000;
+    position: fixed;
+    left: 250px;
+    width: 0;
+    height: 100%;
+    margin-left: -250px;
+    overflow-y: auto;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    border-right: 2px solid #0F2439;
+}
+
+#wrapper.toggled #sidebar-wrapper {
+    width: 250px;
+}
+
+#page-content-wrapper {
+    width: 100%;
+    position: absolute;
+    padding: 15px;
+}
+
+#wrapper.toggled #page-content-wrapper {
+    position: absolute;
+    margin-right: -250px;
+}
+
+/* Sidebar Styles */
+
+.sidebar-nav {
+    position: absolute;
+    top: 0;
+    width: 190px;
+    margin: 200px 0 0px 50px;
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar-nav li {
+    text-indent: 20px;
+    line-height: 40px;
+}
+
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+
+.sidebar-nav li a:hover {
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
+.sidebar-nav li a:active,
+.sidebar-nav li a:focus {
+    text-decoration: none;
+}
+
+.sidebar-nav > .sidebar-brand {
+    height: 65px;
+    font-size: 18px;
+    line-height: 60px;
+}
+
+.sidebar-nav > .sidebar-brand a {
+    color: #999999;
+}
+
+.sidebar-nav > .sidebar-brand a:hover {
+    color: #fff;
+    background: none;
+}
+
+@media(min-width:768px) {
+
+    #wrapper {
+        padding-left: 250px;
+    }
+
+    #wrapper.toggled {
+        padding-left: 0;
+    }
+
+    #sidebar-wrapper {
+        width: 250px;
+    }
+
+    #wrapper.toggled #sidebar-wrapper {
+        width: 0;
+    }
+
+    #page-content-wrapper {
+        padding: 20px;
+        position: relative;
+    }
+
+    #wrapper.toggled #page-content-wrapper {
+        position: relative;
+        margin-right: 0;
+    }
+}
+/*media queries*/
+
+@media (min-width:320px) {
+    #about {
+        height: 800px;
+    }
+    #experience {
+        height: 500px;
+    }
+    #quiz {
+        height: 1600px;
+    }
+    ul.intervals li {
+        font-size: 0.5em;
+    }
+    ul.events li {
+        font-size: 0.5em;
+    }
+}
+@media (min-width:481px) {
+    #about {
+        height: 700px;
+    }
+    #experience {
+        height: 500px;
+    }
+    #quiz {
+        height: 1350px;
+    }
+}
+@media (min-width: 550px) {
+    #about {
+        height: 600px;
+    }
+    #quiz {
+        height: 1000px;
+    }
+}
+@media (min-width:641px) {
+    #about {
+        height: 600px;
+    }
+    #experience {
+        height: 595px;
+    }
+    #quiz {
+        height: 1200px;
+    }
+    ul.events li {
+        font-size: 0.9em;
+    }
+    ul.intervals li {
+        font-size: 0.9em;
+    }
+}
+@media (min-width:961px) {
+    #about {
+        height: 450px;
+    }
+    #quiz {
+        height: 1200px;
+    }
+}
+@media (min-width:1025px) {
+    #about {
+        height: 450px;
+    }
+    #quiz {
+        height: 900px;
+    }
+}
+@media (min-width:1281px) {
+    #experience {
+        height: 500px;
+    }
+}

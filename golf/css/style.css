@@ -1,0 +1,321 @@
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: #6C554B;
+}
+#map {
+    height: 75%;
+    width: 100%;
+}
+input[type=submit] {
+    background-color: #2ecc71;
+    border: 0;
+    border-radius: 4px;
+    color: #FFF;
+    cursor: pointer;
+    display: inline-block;
+    font-size:16px;
+    text-align: center;
+    padding: 12px 20px 14px;
+}
+#mask {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9000;
+    background-color: #000;
+    display: none;
+}
+#maskeg {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 9000;
+    background-color: #000;
+    display: none;
+}
+
+.window {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 440px;
+    height: 200px;
+    display: none;
+    z-index: 9999;
+    padding: 20px;
+    border-radius: 15px;
+    text-align: center;
+}
+.holder{
+}
+
+#egdialog {
+    width: 400px;
+    margin:100px auto;
+    padding:30px 20px 20px;
+    height: 300px;
+    border-radius:5px;
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,.1);
+    background: #fff;
+    font-family: 'Segoe UI Light', sans-serif;
+    font-size: 15pt;
+
+}
+#dialog {
+    width: 400px;
+    margin:100px auto;
+    padding:30px 20px 20px;
+    height: 300px;
+    border-radius:5px;
+    box-shadow: 0 2px 3px 0 rgba(0,0,0,.1);
+    background: #fff;
+    font-family: 'Segoe UI Light', sans-serif;
+    font-size: 15pt;
+}
+#endgametitle {
+    font-size: 1em;
+    padding: 30px;
+}
+.logos {
+    margin-left: 20px;
+}
+
+
+
+#tables {
+    margin: 10px 10px 10px 10px;
+    background: white;
+    padding: 20px;
+}
+
+.playersName {
+    /*width: 50px;*/
+}
+.hide {
+    display: none;
+}
+.show-cell {
+    display: table-cell;
+}
+.show-row {
+    display: table-row;
+}
+#playersTable td {
+    height: 40px;
+}
+.card-resize {
+    height: 50%;
+    width: 70%;
+}
+#legend {
+    margin: 10px 10px 10px 10px;
+    background: white;
+    padding: 20px;
+}
+a {
+    cursor: pointer;
+}
+.addStyle {
+    padding: 20px;
+}
+a {
+    color: #548dc4;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+table.testgrid {
+    border-collapse: collapse;
+    border: 1px solid #CCB;
+    width: 95%;
+}
+
+table.testgrid td, table.testgrid th {
+    padding: 5px;
+    border: 1px solid #E0E0E0;
+}
+
+table.testgrid th {
+    background: #E5E5E5;
+    text-align: left;
+}
+
+input.invalid {
+    background: red;
+    color: #FDFDFD;
+}
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    border: 1px solid #38678f;
+    background: white;
+    margin: 10px 10px 10px 10px;
+}
+th {
+    background: steelblue;
+    height: 54px;
+    font-weight: lighter;
+    text-shadow: 0 1px 0 #38678f;
+    color: white;
+    border: 1px solid #38678f;
+    box-shadow: inset 0px 1px 2px #568ebd;
+    transition: all 0.2s;
+}
+tr {
+    border-bottom: 1px solid #cccccc;
+}
+tr:last-child {
+    border-bottom: 0px;
+}
+td {
+    border-right: 1px solid #cccccc;
+    padding: 10px;
+    transition: all 0.2s;
+}
+td:last-child {
+    border-right: 0px;
+}
+td.selected {
+    background: #d7e4ef;
+    z-index: ;
+}
+td input {
+    font-size: 14px;
+    background: none;
+    outline: none;
+    border: 0;
+    display: table-cell;
+    height: 100%;
+    width: 100%;
+}
+td input:focus {
+    box-shadow: 0 1px 0 steelblue;
+    color: steelblue;
+}
+::-moz-selection {
+    background: steelblue;
+    color: white;
+}
+::selection {
+    background: steelblue;
+    color: white;
+}
+.heavyTable {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    animation: float 5s infinite;
+}
+.main {
+    max-width: 600px;
+    padding: 10px;
+    margin: auto;
+}
+.content {
+    color: white;
+    text-align: center;
+}
+.content p,
+.content pre,
+.content h2 {
+    text-align: left;
+}
+.content pre {
+    padding: 1.2em 0 0.5em;
+    background: white;
+    background: rgba(255, 255, 255, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.9);
+    color: #38678f;
+}
+.content .download {
+    margin: auto;
+    background: rgba(255, 255, 255, 0.1);
+    display: inline-block;
+    padding: 1em 1em;
+    border-radius: 12em;
+    margin-bottom: 2em;
+}
+.content .button {
+    display: inline-block;
+    text-decoration: none;
+    color: white;
+    height: 48px;
+    line-height: 48px;
+    padding: 0 20px;
+    border-radius: 24px;
+    border: 1px solid #38678f;
+    background: steelblue;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 1px 3px rgba(255, 255, 255, 0.2);
+    transition: all 0.1s;
+}
+.content .button:hover {
+    background: #4f8aba;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 10px rgba(255, 255, 255, 0.1);
+}
+.content .button:active {
+    color: #294d6b;
+    background: #427aa9;
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.1), inset 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.content .button:focus {
+    outline: none;
+}
+h1 {
+    text-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+#legendTable th:hover {
+    cursor: pointer;
+}
+.checkactive {
+    color: green;
+}
+.cbhover {
+    cursor: pointer;
+}
+#EmailIt {
+    height: 75px;
+    width: 500px;
+}
+#nameh {
+    width: 100px;
+}
+.btn {
+    background: silver;
+    padding: 5px 5px 5px 5px;
+}
+.btn :hover {
+    text-decoration: none;
+    background: steelblue;
+}
+a:hover {
+    text-decoration: none;
+}
+#outer
+{
+    width:100%;
+    text-align: center;
+    padding: 20px;
+}
+#outer2 {
+    padding: 20px;
+    width:100%;
+}
+.inner
+{
+    display: inline-block;
+}
+#pnamewin {
+    font-size: .75em;
+    color: green;
+}
+#pnamelose {
+    font-size: .75em;
+    color: red;
+}

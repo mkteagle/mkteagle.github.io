@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Inputs Received</title>
+	<style>
+		* {
+			color: black;
+		}
+		body {
+			background-color: white;
+			padding-top: 20px;
+			padding-left: 40px;
+			font-size: 20pt;
+		}
+		.paramName, .paramValue {
+			font-family: "Courier New", Courier, monospace;
+		}
+		input[type=button] {
+			background-color: white;
+			color: black;
+		}
+	</style>
+	<script>
+		function parseParams() {
+            var paramMap = {};
+
+			var fullUrl = window.location.href;
+			if (fullUrl.indexOf('?') !== -1) {
+				var endIndex = fullUrl.indexOf('#') === -1 ? fullUrl.length : fullUrl.indexOf('#');
+				var query = fullUrl.substring(fullUrl.indexOf('?') + 1, endIndex);
+                var paramPairs = query.split('&');
+                var i;
+                for (i = 0; i < paramPairs.length; i++) {
+                    var curPair = paramPairs[i].split('=');
+                    var paramName = decodeURIComponent(curPair[0]);
+                    var paramValue = curPair[1].replace(/\+/g, ' ');
+                    paramMap[paramName] = decodeURIComponent(paramValue);
+                }
+			}
+
+            return paramMap;
+		}
+        function showParams(params) {
+            var infoSection = document.getElementsByClassName("paramInfo")[0];
+            var insertionPoint = infoSection.parentNode;
+            for (var eachParam in params) {
+                var currentSection = infoSection.cloneNode(true);
+                currentSection.setAttribute("style", null);
+                currentSection.getElementsByClassName("paramName")[0].textContent = eachParam;
+                currentSection.getElementsByClassName("paramValue")[0].textContent = params[eachParam];
+                insertionPoint.appendChild(currentSection);
+            }
+        }
+        window.addEventListener('load', function() {
+            var paramMap = parseParams();
+            showParams(paramMap);
+        });
+	</script>
+</head>
+<body>
+	<h1>Parameters Received:</h1>
+    <div>
+        <div class="paramInfo" style="display:none;">
+            <b>Name:</b> <span class="paramName"></span>,
+            <b>Value:</b> <span class="paramValue"></span>
+        </div>
+    </div>
+    <input type="button" value="&lt;&lt; Back" onclick="window.history.back();">
+</body>
+</html>
