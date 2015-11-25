@@ -251,7 +251,7 @@ function windowSetup() {
     if (width < 600) {
         width = 300;
         height = 500;
-        inputEvent = "mousedown";
+        inputEvent = "touchstart";
     }
 
     // Create a listener on the input event.
