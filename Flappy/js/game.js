@@ -1,5 +1,6 @@
 var
     canvas,
+    stage,
     renderingContext,
     width,
     height,
@@ -18,7 +19,9 @@ var
     currentState,
     a,
     b,
+    c,
     d,
+    speed,
 // Our game has three states: the splash screen, gameplay, and the score display.
     states = {
         Difficulty: 0,
@@ -163,20 +166,37 @@ function onpress(evt) {
                 mouseY = evt.touches[0].clientY;
             }
             // Check if within the okButton
+            if (grandmaButton.x < mouseX && mouseX < grandmaButton.x + grandmaButton.width &&
+                grandmaButton.y < mouseY && mouseY < grandmaButton.y + grandmaButton.height
+            ) {
+                grandmaButton.cursor = "pointer";
+                speed = 200;
+                a = 120;
+                b = 200;
+                c = 200;
+                d = 500;
+                currentState = states.Splash;
+            }
             if (easyButton.x < mouseX && mouseX < easyButton.x + easyButton.width &&
                 easyButton.y < mouseY && mouseY < easyButton.y + easyButton.height
             ) {
+                easyButton.cursor = "pointer";
+                speed = 100;
                 a = 120;
                 b = 200;
+                c = 110;
                 d = 500;
                 currentState = states.Splash;
             }
             if (hardButton.x < mouseX && mouseX < hardButton.x + hardButton.width &&
                 hardButton.y < mouseY && mouseY < hardButton.y + hardButton.height
             ) {
+                hardButton.cursor = "pointer";
+                speed = 100;
                 a = 120;
                 b = 110;
-                d = 200;
+                c = 90;
+                d = 250;
                 currentState = states.Splash;
             }
 
@@ -243,7 +263,9 @@ function windowSetup() {
  */
 function canvasSetup() {
     canvas = document.createElement("canvas");
+    //stage = new createjs.Stage(canvas);
     canvas.style.border = "15px solid #FF9B34";
+    //createjs.Touch.enable(stage);
 
     canvas.width = width;
     canvas.height = height;
@@ -258,23 +280,32 @@ function loadGraphics() {
     img.onload = function () {
         initSprites(this);
         renderingContext.fillStyle = backgroundSprite.color;
+        grandmaButton = {
+            x: 235,
+            y: 240,
+            width: 50,
+            height: 16,
+            cursor: "pointer"
+        };
         easyButton = {
             x: 209,
-            y: 225,
+            y: 280,
             width: 36,
-            height: 16
+            height: 16,
+            cursor: "pointer"
         };
         hardButton = {
             x: 209,
-            y: 275,
+            y: 320,
             width: 36,
-            height: 16
+            height: 16,
+            cursor: "pointer"
         };
         okButton = {
-            x: (width - okButtonSprite.width) / 2,
-            y: height - 200,
-            width: okButtonSprite.width,
-            height: okButtonSprite.height
+            x: 200,
+            y: 300,
+            width: overOKSprite.width,
+            height: overOKSprite.height
         };
         title.draw(renderingContext);
         gameLoop();
@@ -302,7 +333,7 @@ function ForkCollection() {
      * Update the position of existing forks and add new forks when necessary.
      */
     this.update = function () {
-        if (frames % 100 === 0) { // Add a new fork to the game every 100 frames.
+        if (frames % speed === 0) { // Add a new fork to the game every 100 frames.
             this.add();
         }
 
@@ -319,7 +350,7 @@ function ForkCollection() {
                 i--;
                 len--;
             } // if turkey has reached it past the fork than increment score.
-            if (fork.x - 10 == turkey.x) {
+            if (fork.x + 10 == turkey.x) {
                 score++;
             }
         }
@@ -353,7 +384,7 @@ function Fork() {
 // intersection
         var cx = Math.min(Math.max(turkey.x, this.x), this.x + this.width);
         var cy1 = Math.min(Math.max(turkey.y, this.y), this.y + this.height);
-        var cy2 = Math.min(Math.max(turkey.y, this.y + this.height + 110), this.y + 2 * this.height + 80);
+        var cy2 = Math.min(Math.max(turkey.y, this.y + this.height + c), this.y + 2 * this.height + 80);
 // Closest difference
         var dx = turkey.x - cx;
         var dy1 = turkey.y - cy1;
@@ -437,8 +468,11 @@ function render() {
         titleSprite.draw(renderingContext, 90, 100);
         renderingContext.font = "30px Comic Sans MS";
         renderingContext.textAlign = "center";
-        renderingContext.fillText("Easy", 209, 225);
-        renderingContext.fillText("Hard", 209, 275);
+        renderingContext.fillStyle = "white";
+        renderingContext.fillText("Grandma", 235, 240);
+        renderingContext.fillText("Easy", 209, 280);
+        renderingContext.fillText("Hard", 209, 320);
+        renderingContext.fillStyle = "black";
     }
 
     if (currentState == states.Splash) {
