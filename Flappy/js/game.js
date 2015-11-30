@@ -1,6 +1,5 @@
 var
     canvas,
-    stage,
     renderingContext,
     width,
     height,
@@ -19,7 +18,6 @@ var
     currentState,
     a,
     b,
-    c,
     d,
     speed,
 // Our game has three states: the splash screen, gameplay, and the score display.
@@ -36,7 +34,7 @@ localStorage.setItem("bestScore", 0);
  * @constructor
  */
 function Turkey() {
-    this.x = 140;
+    this.x = 120;
     this.y = 0;
 
     this.frame = 0;
@@ -165,42 +163,35 @@ function onpress(evt) {
                 mouseX = evt.touches[0].clientX;
                 mouseY = evt.touches[0].clientY;
             }
-            // Check if within the okButton
             if (grandmaButton.x < mouseX && mouseX < grandmaButton.x + grandmaButton.width &&
                 grandmaButton.y < mouseY && mouseY < grandmaButton.y + grandmaButton.height
             ) {
-                grandmaButton.cursor = "pointer";
-                speed = 200;
+                speed = 300;
                 a = 120;
-                b = 200;
-                c = 200;
-                d = 500;
+                b = 110;
+                d = 800;
+                turkey.gravity = 0.20;
                 currentState = states.Splash;
             }
             if (easyButton.x < mouseX && mouseX < easyButton.x + easyButton.width &&
                 easyButton.y < mouseY && mouseY < easyButton.y + easyButton.height
             ) {
-                easyButton.cursor = "pointer";
-                speed = 100;
+                speed = 200;
                 a = 120;
-                b = 200;
-                c = 110;
-                d = 500;
+                b = 110;
+                d = 600;
                 currentState = states.Splash;
             }
             if (hardButton.x < mouseX && mouseX < hardButton.x + hardButton.width &&
                 hardButton.y < mouseY && mouseY < hardButton.y + hardButton.height
             ) {
-                hardButton.cursor = "pointer";
                 speed = 100;
                 a = 120;
                 b = 110;
-                c = 90;
-                d = 250;
+                d = 600;
                 currentState = states.Splash;
             }
-
-            //turkey.jump();
+            turkey.jump();
             break;
         case states.Splash: // Start the game and update the turkey velocity.
             currentState = states.Game;
@@ -242,20 +233,96 @@ function windowSetup() {
     height = window.innerHeight;
 
     // Set the width and height if we are on a display with a width > 500px (e.g., a desktop or tablet environment).
-    var inputEvent = "touchstart";
+    var touchEvent = "touchstart";
+    var inputEvent = "mousedown";
     if (width >= 600) {
         width = 600;
         height = 500;
+        fTX = 100;
+        fTY = 260;
+        fTW = 228;
+        fTH = 30;
+        oBX = 293;
+        oBY = 402;
+        oBW = 83;
+        oBH = 24;
+        gOX = 293;
+        gOY = 451;
+        gOW = 86;
+        gOH = 28;
+        if (currentState == states.Difficulty) {
+            titleSprite.draw(renderingContext, 90, 100);
+            renderingContext.font = "20px Comic Sans MS";
+            renderingContext.textAlign = "center";
+            renderingContext.fillStyle = "white";
+            renderingContext.fillText("Grandma", 50, 240);
+            renderingContext.fillText("Easy", 50, 280);
+            renderingContext.fillText("Hard", 50, 320);
+            renderingContext.fillStyle = "black";
+        }
+
+        if (currentState == states.Splash) {
+            titleSprite.draw(renderingContext, 50, 100);
+            okButtonSprite.draw(renderingContext, 100, 300);
+        }
+        if (currentState == states.Game) {
+            renderingContext.font = "30px Comic Sans MS";
+            renderingContext.textAlign = "center";
+            renderingContext.fillText("" + score, 520, 85);
+        }
+        if (currentState == states.Score) {
+            if (score > localStorage.bestScore) {
+                localStorage.setItem("bestScore", score);
+            }
+            gameoverSprite.draw(renderingContext, 110, 110);
+            overOKSprite.draw(renderingContext, 200, 300);
+            renderingContext.fillStyle = "white";
+            renderingContext.fillText("Score: " + score, 209, 225);
+            renderingContext.fillText("Best: " + localStorage.bestScore, 200, 260);
+            renderingContext.fillStyle = "black";
+        }
         inputEvent = "mousedown";
+        touchEvent = "touchstart";
     }
+    //if (height > 500) {
+    //    width = 600;
+    //    height = 400;
+    //    fTW = 116;
+    //    fTH = 31;
+    //    fTX = 158;
+    //    fTY = 451;
+    //    gOX = 119;
+    //    gOY = 295;
+    //    gOW = 174;
+    //    gOH = 47;
+    //    oBX = 158;
+    //    oBY = 399;
+    //    oBW = 116;
+    //    oBH = 32;
+    //    inputEvent = "mousedown";
+    //    touchEvent = "touchstart";
+    //}
     if (width < 600) {
         width = 300;
         height = 500;
-        inputEvent = "touchstart";
+        fTW = 116;
+        fTH = 31;
+        fTX = 158;
+        fTY = 451;
+        gOX = 119;
+        gOY = 295;
+        gOW = 174;
+        gOH = 47;
+        oBX = 158;
+        oBY = 399;
+        oBW = 116;
+        oBH = 32;
+        touchEvent = "touchstart";
     }
 
     // Create a listener on the input event.
     document.addEventListener(inputEvent, onpress);
+    document.addEventListener(touchEvent, onpress);
 }
 
 /**
@@ -263,9 +330,7 @@ function windowSetup() {
  */
 function canvasSetup() {
     canvas = document.createElement("canvas");
-    //stage = new createjs.Stage(canvas);
     canvas.style.border = "15px solid #FF9B34";
-    //createjs.Touch.enable(stage);
 
     canvas.width = width;
     canvas.height = height;
@@ -284,22 +349,19 @@ function loadGraphics() {
             x: 235,
             y: 240,
             width: 50,
-            height: 16,
-            cursor: "pointer"
+            height: 16
         };
         easyButton = {
             x: 209,
             y: 280,
             width: 36,
-            height: 16,
-            cursor: "pointer"
+            height: 16
         };
         hardButton = {
             x: 209,
             y: 320,
             width: 36,
-            height: 16,
-            cursor: "pointer"
+            height: 16
         };
         okButton = {
             x: 200,
@@ -384,7 +446,7 @@ function Fork() {
 // intersection
         var cx = Math.min(Math.max(turkey.x, this.x), this.x + this.width);
         var cy1 = Math.min(Math.max(turkey.y, this.y), this.y + this.height);
-        var cy2 = Math.min(Math.max(turkey.y, this.y + this.height + c), this.y + 2 * this.height + 80);
+        var cy2 = Math.min(Math.max(turkey.y, this.y + this.height + 110), this.y + 2 * this.height + 110);
 // Closest difference
         var dx = turkey.x - cx;
         var dy1 = turkey.y - cy1;

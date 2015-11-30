@@ -11,6 +11,18 @@ var
     textSprites,
     titleSprite,
     okButtonSprite,
+    fTX = 100,
+    fTY = 260,
+    fTW = 228,
+    fTH = 30,
+    gOX = 119,
+    gOY = 295,
+    gOW = 174,
+    gOH = 47,
+    oBX = 158,
+    oBY = 399,
+    oBW = 116,
+    oBH = 32,
     overOKSprite;
 
 
@@ -38,17 +50,17 @@ function initSprites(img) {
     //backgroundSprite.color = "#ABE1EE";
     backgroundSprite = new Sprite(img, 67, 0, 300, 246);
     foregroundSprite = new Sprite(img, 67, 341, 299, 35);
-    okButtonSprite = new Sprite(img, 158, 399, 116, 32);
-    titleSprite = new Sprite(img, 100, 260, 228, 30);
+    okButtonSprite = new Sprite(img, oBX, oBY, oBW, oBH);
+    titleSprite = new Sprite(img, fTX, fTY, fTW, fTH);
     bottomObstacleSprite = new Sprite(img, 376, 0, 49, 218);
     topObstacleSprite = new Sprite(img, 436, 0, 49, 218);
-    gameoverSprite = new Sprite(img, 119, 295, 174, 47);
+    gameoverSprite = new Sprite(img, gOX, gOY, gOW, gOH);
     overOKSprite = new Sprite(img, 415, 255, 48, 21);
 
-    textSprites = {
-        floppyTurkey: new Sprite(img, 59, 114, 96, 22),
-        gameOver: new Sprite(img, 59, 136, 94, 19),
-        getReady: new Sprite(img, 59, 155, 87, 22)
-
-    };
+    //textSprites = {
+    //    floppyTurkey: new Sprite(img, 59, 114, 96, 22),
+    //    gameOver: new Sprite(img, 59, 136, 94, 19),
+    //    getReady: new Sprite(img, 59, 155, 87, 22)
+    //
+    //};
 }
