@@ -19,16 +19,40 @@ var
     a,
     b,
     d,
-    speed,
+    forkswhen,
+    speed = 2,
+    titleX,
+    titleY,
+    gX,
+    gY,
+    eX,
+    eY,
+    hX,
+    hY,
+    sX,
+    sY,
+    gW = 50,
+    gH = 16,
+    eW = 36,
+    eH = 16,
+    hW = 36,
+    hH = 16,
+    gEndX,
+    gEndY,
+    scoreX,
+    scoreY,
+    bestX,
+    bestY,
+    okX,
+    okY,
 // Our game has three states: the splash screen, gameplay, and the score display.
     states = {
-        Difficulty: 0,
-        Splash: 1,
+
+        Splash: 0,
+        Difficulty: 1,
         Game: 2,
         Score: 3
     };
-
-localStorage.setItem("bestScore", 0);
 /**
  * turkey class. Creates instances of turkey.
  * @constructor
@@ -64,7 +88,7 @@ function Turkey() {
         this.frame += frames % n === 0 ? 1 : 0;
         this.frame %= this.animation.length;
 
-        if (currentState === states.Splash) {
+        if (currentState === states.Splash || currentState === states.Difficulty) {
             this.updateIdleTurkey();
         } else { // Game state
             this.updatePlayingTurkey();
@@ -94,14 +118,14 @@ function Turkey() {
                 currentState = states.Score;
             }
 
-            this.velocity = this._jump; // Set velocity to jump speed for correct rotation
+            this.velocity = this._jump; // Set velocity to jump forkswhen for correct rotation
         }
         if (this.y <= 500 - (height)) {
             if (currentState === states.Game) {
                 currentState = states.Score;
             }
 
-            this.velocity = this._jump; // Set velocity to jump speed for correct rotation
+            this.velocity = this._jump; // Set velocity to jump forkswhen for correct rotation
 
         }
 
@@ -129,7 +153,6 @@ function Turkey() {
 
         // draws the turkey with center in origo
         turkeySprite[n].draw(renderingContext, -turkeySprite[n].width / 2, -turkeySprite[n].height / 2);
-
         renderingContext.restore();
     };
 }
@@ -166,35 +189,38 @@ function onpress(evt) {
             if (grandmaButton.x < mouseX && mouseX < grandmaButton.x + grandmaButton.width &&
                 grandmaButton.y < mouseY && mouseY < grandmaButton.y + grandmaButton.height
             ) {
-                speed = 300;
+                forkswhen = 300;
+                speed = 2;
                 a = 120;
                 b = 110;
                 d = 800;
                 turkey.gravity = 0.20;
-                currentState = states.Splash;
+                currentState = states.Game;
             }
             if (easyButton.x < mouseX && mouseX < easyButton.x + easyButton.width &&
                 easyButton.y < mouseY && mouseY < easyButton.y + easyButton.height
             ) {
-                speed = 200;
+                forkswhen = 200;
+                speed = 5;
                 a = 120;
                 b = 110;
                 d = 600;
-                currentState = states.Splash;
+                currentState = states.Game;
             }
             if (hardButton.x < mouseX && mouseX < hardButton.x + hardButton.width &&
                 hardButton.y < mouseY && mouseY < hardButton.y + hardButton.height
             ) {
-                speed = 100;
+                forkswhen = 100;
+                speed = 10;
                 a = 120;
                 b = 110;
                 d = 600;
-                currentState = states.Splash;
+                currentState = states.Game;
             }
             turkey.jump();
             break;
         case states.Splash: // Start the game and update the turkey velocity.
-            currentState = states.Game;
+            currentState = states.Difficulty;
 
             turkey.jump();
             break;
@@ -232,16 +258,26 @@ function windowSetup() {
     width = window.innerWidth;
     height = window.innerHeight;
 
-    // Set the width and height if we are on a display with a width > 500px (e.g., a desktop or tablet environment).
+    // Set the width and height if we are on a display with a width > 500px (e.g., a desktop or tablet environment). This is for Mobile.
     var touchEvent = "touchstart";
     var inputEvent = "mousedown";
-    if (width >= 600) {
-        width = 600;
+    if (width < 600) {
+        width = 300;
         height = 500;
-        fTX = 100;
-        fTY = 260;
-        fTW = 228;
-        fTH = 30;
+        titleX = 40;
+        titleY = 150;
+        sX = 90;
+        sY = 300;
+        gX = 175;
+        gY = 250;
+        eX = 150;
+        eY = 300;
+        hX = 150;
+        hY = 350;
+        fTX = 159;
+        fTY = 451;
+        fTW = 115;
+        fTH = 16;
         oBX = 293;
         oBY = 402;
         oBW = 83;
@@ -250,65 +286,34 @@ function windowSetup() {
         gOY = 451;
         gOW = 86;
         gOH = 28;
-        if (currentState == states.Difficulty) {
-            titleSprite.draw(renderingContext, 90, 100);
-            renderingContext.font = "20px Comic Sans MS";
-            renderingContext.textAlign = "center";
-            renderingContext.fillStyle = "white";
-            renderingContext.fillText("Grandma", 50, 240);
-            renderingContext.fillText("Easy", 50, 280);
-            renderingContext.fillText("Hard", 50, 320);
-            renderingContext.fillStyle = "black";
-        }
-
-        if (currentState == states.Splash) {
-            titleSprite.draw(renderingContext, 50, 100);
-            okButtonSprite.draw(renderingContext, 100, 300);
-        }
-        if (currentState == states.Game) {
-            renderingContext.font = "30px Comic Sans MS";
-            renderingContext.textAlign = "center";
-            renderingContext.fillText("" + score, 520, 85);
-        }
-        if (currentState == states.Score) {
-            if (score > localStorage.bestScore) {
-                localStorage.setItem("bestScore", score);
-            }
-            gameoverSprite.draw(renderingContext, 110, 110);
-            overOKSprite.draw(renderingContext, 200, 300);
-            renderingContext.fillStyle = "white";
-            renderingContext.fillText("Score: " + score, 209, 225);
-            renderingContext.fillText("Best: " + localStorage.bestScore, 200, 260);
-            renderingContext.fillStyle = "black";
-        }
-        inputEvent = "mousedown";
+        gEndX = 75;
+        gEndY = 110;
+        scoreX = 150;
+        scoreY = 250;
+        bestX = 150;
+        bestY = 300;
+        okX = 100;
+        okY = 350;
         touchEvent = "touchstart";
     }
-    //if (height > 500) {
-    //    width = 600;
-    //    height = 400;
-    //    fTW = 116;
-    //    fTH = 31;
-    //    fTX = 158;
-    //    fTY = 451;
-    //    gOX = 119;
-    //    gOY = 295;
-    //    gOW = 174;
-    //    gOH = 47;
-    //    oBX = 158;
-    //    oBY = 399;
-    //    oBW = 116;
-    //    oBH = 32;
-    //    inputEvent = "mousedown";
-    //    touchEvent = "touchstart";
-    //}
-    if (width < 600) {
-        width = 300;
+    //This is a regular screen
+    else {
+        width = 600;
         height = 500;
-        fTW = 116;
+        titleX = 90;
+        titleY = 100;
+        sX = 200;
+        sY = 300;
+        gX = 235;
+        gY = 240;
+        eX = 209;
+        eY = 280;
+        hX = 209;
+        hY = 320;
+        fTX = 100;
+        fTY = 256;
+        fTW = 228;
         fTH = 31;
-        fTX = 158;
-        fTY = 451;
         gOX = 119;
         gOY = 295;
         gOW = 174;
@@ -317,7 +322,16 @@ function windowSetup() {
         oBY = 399;
         oBW = 116;
         oBH = 32;
+        gEndX = 110;
+        gEndY = 110;
+        scoreX = 209;
+        scoreY = 225;
+        bestX = 200;
+        bestY = 260;
+        okX = 200;
+        okY = 300;
         touchEvent = "touchstart";
+        inputEvent = "mousedown";
     }
 
     // Create a listener on the input event.
@@ -346,26 +360,26 @@ function loadGraphics() {
         initSprites(this);
         renderingContext.fillStyle = backgroundSprite.color;
         grandmaButton = {
-            x: 235,
-            y: 240,
-            width: 50,
-            height: 16
+            x: gX,
+            y: gY,
+            width: gW,
+            height: gH
         };
         easyButton = {
-            x: 209,
-            y: 280,
-            width: 36,
-            height: 16
+            x: eX,
+            y: eY,
+            width: eW,
+            height: eH
         };
         hardButton = {
-            x: 209,
-            y: 320,
-            width: 36,
-            height: 16
+            x: hX,
+            y: hY,
+            width: hW,
+            height: hH
         };
         okButton = {
-            x: 200,
-            y: 300,
+            x: okX,
+            y: okY,
             width: overOKSprite.width,
             height: overOKSprite.height
         };
@@ -395,7 +409,7 @@ function ForkCollection() {
      * Update the position of existing forks and add new forks when necessary.
      */
     this.update = function () {
-        if (frames % speed === 0) { // Add a new fork to the game every 100 frames.
+        if (frames % forkswhen === 0) { // Add a new fork to the game every 100 frames.
             this.add();
         }
 
@@ -406,7 +420,7 @@ function ForkCollection() {
                 fork.detectCollision(); // . . . so, determine if the fish has collided with this leftmost fork.
             }
 
-            fork.x -= 2; // Each frame, move each fork two pixels to the left. Higher/lower values change the movement speed.
+            fork.x -= speed; // Each frame, move each fork two pixels to the left. Higher/lower values change the movement forkswhen.
             if (fork.x < -fork.width) { // If the coral has moved off screen . . .
                 this._forks.splice(i, 1); // . . . remove it.
                 i--;
@@ -473,7 +487,7 @@ function main() {
     windowSetup();
     canvasSetup();
 
-    currentState = states.Difficulty; // Game begins at the splash screen.
+    currentState = states.Splash; // Game begins at the splash screen.
 
     document.body.appendChild(canvas); // Append the canvas we've created to the body element in our HTML document.
 
@@ -501,7 +515,7 @@ function update() {
 
     if (currentState === states.Game) {
         forks.update();
-        foregroundPosition = (foregroundPosition - 2) % 600;
+        foregroundPosition = (foregroundPosition - speed) % 600;
     }
     turkey.update();
 }
@@ -527,19 +541,19 @@ function render() {
     foregroundSprite.draw(renderingContext, foregroundPosition + foregroundSprite.width, height - foregroundSprite.height);
 
     if (currentState == states.Difficulty) {
-        titleSprite.draw(renderingContext, 90, 100);
+        titleSprite.draw(renderingContext, titleX, titleY);
         renderingContext.font = "30px Comic Sans MS";
         renderingContext.textAlign = "center";
         renderingContext.fillStyle = "white";
-        renderingContext.fillText("Grandma", 235, 240);
-        renderingContext.fillText("Easy", 209, 280);
-        renderingContext.fillText("Hard", 209, 320);
+        renderingContext.fillText("Grandma", gX, gY);
+        renderingContext.fillText("Easy", eX, eY);
+        renderingContext.fillText("Hard", hX, hY);
         renderingContext.fillStyle = "black";
     }
 
     if (currentState == states.Splash) {
-        titleSprite.draw(renderingContext, 90, 100);
-        okButtonSprite.draw(renderingContext, 200, 300);
+        titleSprite.draw(renderingContext, titleX, titleY);
+        okButtonSprite.draw(renderingContext, sX, sY);
     }
     if (currentState == states.Game) {
         renderingContext.font = "30px Comic Sans MS";
@@ -547,14 +561,14 @@ function render() {
         renderingContext.fillText("" + score, 520, 85);
     }
     if (currentState == states.Score) {
-        if (score > localStorage.bestScore) {
+        if (score > localStorage.getItem("bestScore")) {
             localStorage.setItem("bestScore", score);
         }
-        gameoverSprite.draw(renderingContext, 110, 110);
-        overOKSprite.draw(renderingContext, 200, 300);
+        gameoverSprite.draw(renderingContext, gEndX, gEndY);
+        overOKSprite.draw(renderingContext, okX, okY);
         renderingContext.fillStyle = "white";
-        renderingContext.fillText("Score: " + score, 209, 225);
-        renderingContext.fillText("Best: " + localStorage.bestScore, 200, 260);
+        renderingContext.fillText("Score: " + score, scoreX, scoreY);
+        renderingContext.fillText("Best: " + localStorage.bestScore, bestX, bestY);
         renderingContext.fillStyle = "black";
     }
 }

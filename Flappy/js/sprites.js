@@ -8,7 +8,6 @@ var
     bottomObstacleSprite,
     topObstacleSprite,
     gameoverSprite,
-    textSprites,
     titleSprite,
     okButtonSprite,
     fTX = 100,
@@ -17,7 +16,7 @@ var
     fTH = 30,
     gOX = 119,
     gOY = 295,
-    gOW = 174,
+    gOW = 176,
     gOH = 47,
     oBX = 158,
     oBY = 399,
@@ -56,11 +55,4 @@ function initSprites(img) {
     topObstacleSprite = new Sprite(img, 436, 0, 49, 218);
     gameoverSprite = new Sprite(img, gOX, gOY, gOW, gOH);
     overOKSprite = new Sprite(img, 415, 255, 48, 21);
-
-    //textSprites = {
-    //    floppyTurkey: new Sprite(img, 59, 114, 96, 22),
-    //    gameOver: new Sprite(img, 59, 136, 94, 19),
-    //    getReady: new Sprite(img, 59, 155, 87, 22)
-    //
-    //};
 }
