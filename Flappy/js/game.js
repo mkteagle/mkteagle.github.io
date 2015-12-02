@@ -45,6 +45,7 @@ var
     bestY,
     okX,
     okY,
+    jump = 4.6,
 // Our game has three states: the splash screen, gameplay, and the score display.
     states = {
 
@@ -69,7 +70,7 @@ function Turkey() {
     this.radius = 12;
 
     this.gravity = 0.25;
-    this._jump = 4.6;
+    this._jump = jump;
 
     /**
      * Makes the turkey jump
@@ -294,6 +295,16 @@ function windowSetup() {
         bestY = 300;
         okX = 100;
         okY = 350;
+        turkey1w = 32;
+        turkey1h = 25;
+        turkey1y = 151;
+        turkey2h = 25;
+        turkey2w = 32;
+        turkey2y = 178;
+        turkey3w = 32;
+        turkey3h = 25;
+        turkey3y = 201;
+        jump = 3.6;
         touchEvent = "touchstart";
     }
     //This is a regular screen
@@ -330,6 +341,15 @@ function windowSetup() {
         bestY = 260;
         okX = 200;
         okY = 300;
+        turkey1w = 66;
+        turkey1h = 46;
+        turkey1y = 0;
+        turkey2h = 46;
+        turkey2w = 66;
+        turkey2y = 56;
+        turkey3w = 66;
+        turkey3h = 46;
+        turkey3y = 102;
         touchEvent = "touchstart";
         inputEvent = "mousedown";
     }

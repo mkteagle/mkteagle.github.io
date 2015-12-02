@@ -22,6 +22,18 @@ var
     oBY = 399,
     oBW = 116,
     oBH = 32,
+    turkey1w = 66,
+    turkey1h = 46,
+    turkey1x = 0,
+    turkey1y = 0,
+    turkey2h = 46,
+    turkey2w = 66,
+    turkey2x = 0,
+    turkey2y = 56,
+    turkey3w = 66,
+    turkey3h = 46,
+    turkey3x = 0,
+    turkey3y = 102,
     overOKSprite;
 
 
@@ -42,9 +54,9 @@ Sprite.prototype.draw = function (renderingContext, x, y) {
 // initialize sprites
 function initSprites(img) {
     turkeySprite = [
-        new Sprite(img, 0, 0, 66, 46),
-        new Sprite(img, 0, 56, 66, 46),
-        new Sprite(img, 0, 102, 66, 46)
+        new Sprite(img, turkey1x, turkey1y, turkey1w, turkey1h),
+        new Sprite(img, turkey2x, turkey2y, turkey2w, turkey2h),
+        new Sprite(img, turkey3x, turkey3y, turkey3w, turkey3h)
     ];
     //backgroundSprite.color = "#ABE1EE";
     backgroundSprite = new Sprite(img, 67, 0, 300, 246);
