@@ -1,32 +1,10 @@
-var app = angular.module('todoApp', ['ngMaterial']);
-app.controller('TodoListController', function() {
-        var todoList = this;
-        todoList.todos = [
-            {text:'learn angular', done:true},
-            {text:'build an angular app', done:false}];
+/**
+ * Created by i68066 on 12/7/15.
+ */
+var app = angular.module('myApp', ['ngMaterial', 'flow', 'hc.marked']);
 
-        todoList.addTodo = function() {
-            todoList.todos.push({text:todoList.todoText, done:false});
-            todoList.todoText = '';
-        };
-
-        todoList.remaining = function() {
-            var count = 0;
-            angular.forEach(todoList.todos, function(todo) {
-                count += todo.done ? 0 : 1;
-            });
-            return count;
-        };
-
-        todoList.archive = function() {
-            var oldTodos = todoList.todos;
-            todoList.todos = [];
-            angular.forEach(oldTodos, function(todo) {
-                if (!todo.done) todoList.todos.push(todo);
-            });
-        };
-});
-app.controller("LocationFormCtrl", function ($scope) {
+app.controller("LocationFormCtrl", function ($scope, $mdSidenav) {
+    $scope.leftOpen = true;
     $scope.date = {
         post: new Date()
     };
@@ -50,6 +28,39 @@ app.controller("LocationFormCtrl", function ($scope) {
         var s = text ? text.split(/\s+/) : 0; // it splits the text on space/tab/enter
         return s ? s.length : '';
     };
+        function buildToggler(navID) {
+            var debounceFn =  $mdUtil.debounce(function(){
+                $mdSidenav(navID)
+                    .toggle()
+                    .then(function () {
+                        $log.debug("toggle " + navID + " is done");
+                    });
+            },300);
+
+            return debounceFn;
+        }
+
+    });
+app.controller('LeftCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+
+});
+app.controller('RightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+    $scope.close = function () {
+        $mdSidenav('right').close()
+            .then(function () {
+                $log.debug("close RIGHT is done");
+            });
+    };
+});
+app.directive('footer', function () {
+    return {
+        restrict: 'A', //This menas that it will be used as an attribute and NOT as an element. I don't like creating custom HTML elements
+        replace: true,
+        templateUrl: "./js/directives/footer.html",
+        controller: ['$scope', '$filter', function ($scope, $filter) {
+            // Your behaviour goes here :)
+        }]
+    }
 });
 app.directive("clickToTag", function () {
     var editorTemplate = '' +
@@ -99,20 +110,55 @@ app.directive("clickToTag", function () {
         }
     };
 });
-app.directive('myEnter', function () {
-    return function (scope, element, attrs) {
-        element.bind("keydown keypress", function (event) {
-            if(event.which === 13) {
-                scope.$apply(function (){
-                    scope.$eval(attrs.myEnter);
-                });
+app.directive("clickToDate", function () {
 
-                event.preventDefault();
-            }
-        });
+    var editorTemplate = '' +
+        '<div class="click-to-date">' +
+        '<div ng-hide="view.editorEnabled">' +
+        '{{value}} ' +
+        '<md-button class="md-primary" ng-click="enableEditor()">Edit</md-button>' +
+        '</div>' +
+        '<div ng-show="view.editorEnabled">' +
+        '<md-datepicker ng-model="view.editableValue">' + '</md-datepicker>' +
+        '<md-button class="md-primary" ng-click="save()">Save</md-button>' +
+        '   or   ' +
+        '<md-button class="md-warn" ng-click="disableEditor()">cancel</md-button>' +
+        '</div>' +
+        '</div>';
+    return {
+        restrict: "A",
+        replace: true,
+        template: editorTemplate,
+        scope: {
+            value: "=clickToDate"
+        },
+        link: function (scope, element, attrs) {
+            scope.view = {
+                editableValue: scope.value,
+                editorEnabled: false
+            };
+
+            scope.enableEditor = function () {
+                scope.view.editorEnabled = true;
+                scope.view.editableValue = scope.value;
+                setTimeout(function () {
+                    element.find('input')[0].focus();
+                });
+            };
+
+            scope.disableEditor = function () {
+                scope.view.editorEnabled = false;
+            };
+
+            scope.save = function () {
+                scope.value = scope.view.editableValue;
+                scope.disableEditor();
+            };
+        }
     };
 });
 app.controller('MyController', function($scope, $mdSidenav) {
     $scope.openLeftMenu = function() {
         $mdSidenav('left').toggle();
-    }});
+    };
+});
