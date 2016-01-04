@@ -24,7 +24,7 @@
             }
         ];
 
-        // Promise-based API
+         //Promise-based API
         return {
             loadAllLists: function () {
                 // Simulate async nature of real remote calls

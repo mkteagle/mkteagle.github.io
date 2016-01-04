@@ -17,6 +17,7 @@
                 return out;
             }
         })
+
         .directive ( 'editInPlace', function() {
         return {
             restrict: 'E',
@@ -57,7 +58,7 @@
             }
         };
     });
-
+    //ListController.$inject['listservice'];
     function ListController(listservice, $mdSidenav, $mdBottomSheet, $log, $q) {
         var self = this;
         var cIndex = 1;
@@ -65,11 +66,10 @@
         var svgindex = 2;
         var currentShow = 0;
         var svgArr = ['svg-1', 'svg-2', 'svg-3', 'svg-4', 'svg-5'];
-        self.lists = listservice.lists;
 
         self.selected = null;
-        self.lists = [];
         self.selectList = selectList;
+        self.lists = listservice.lists;
 
         // Load all registered lists
 
@@ -132,6 +132,13 @@
             self.lists[listnum].archived = true;
             $(".containers").addClass('hide');
         };
+        self.toggleList = function() {
+            var pending = $mdBottomSheet.hide() || $q.when(true);
+
+            pending.then(function () {
+                $mdSidenav('left').toggle();
+            });
+        }
     }
 
 })();
