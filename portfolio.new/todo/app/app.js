@@ -1,7 +1,7 @@
 (function () {
     'use strict';
     angular
-        .module('starterApp', ['ngMaterial', 'ui.router', 'lists', 'navController'])
+        .module('starterApp', ['ngMaterial', 'ui.router', 'listService', 'navController', 'listDirectives', 'listFilter', 'listController'])
         .config(["$stateProvider", "$urlRouterProvider", "$mdThemingProvider", "$mdIconProvider",
             function ($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider) {
 
@@ -19,8 +19,7 @@
                     .state("archived", {
                         url: "/archived",
                         templateUrl: "src/templates/archived.html",
-                        controller: "ListController as ul"
-                    })
+                    });
 
                 // if none of the above states are matched, use this as the fallback
                 $urlRouterProvider.otherwise("/home");

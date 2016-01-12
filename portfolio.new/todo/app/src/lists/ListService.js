@@ -2,49 +2,72 @@
 (function () {
     'use strict';
 
-    angular.module('lists')
-        .service('ListService', ['$q', ListService]);
+    angular.module('listService', ['ngMaterial', 'navController', 'ngStorage'])
+        .service('ListService', ListService);
 
-    /**
-     * Lists DataService
-     * Uses embedded, hard-coded data model; acts asynchronously to simulate
-     * remote data service call(s).
-     *
-     * @returns {{loadAll: Function}}
-     * @constructor
-     */
-    function ListService($q) {
+    ListService.$inject = ['$localStorage'];
+
+    function ListService($localStorage) {
         var self = this;
         var cIndex = 0;
-        var lists = [
-            {
-                index: 0,
-                name: 'List 1',
-                avatar: 'svg-1',
-                items: [],
-                archived: false
-            }
-        ];
-        self.lists = lists;
+        self.lists = $localStorage.lists ? $localStorage.lists : [];
         self.deleteList = deleteList;
         self.addList = addList;
+        self.addItem = addItem;
+        self.deleteItem = deleteItem;
+        self.archiveItem = archiveItem;
+        self.archiveList = archiveList;
+        self.unArchiveItems = unArchiveItems;
+        self.storage = storage;
+
+        function storage () {
+            $localStorage.lists = self.lists;
+        }
+
+        function unArchiveItems() {
+            angular.forEach(self.lists, function(item) {
+                angular.forEach(item.items, function(todo) {
+                    if (todo.done) {
+                        todo.archived = false;
+                        todo.done = false;
+                    }
+                })
+            });
+            storage();
+        }
 
         function addList(name, cIndex, svgArr, svgindex) {
-            return (self.lists.push({index: cIndex, name: name, avatar: svgArr[svgindex], items: [], archived: false
-            }));
+            self.lists.push({index: cIndex, name: name, avatar: svgArr[svgindex], items: [], archived: false
+            });
+            storage();
         }
         function deleteList(list) {
-            return (self.lists.splice(self.lists.indexOf(list), 1));
+            self.lists.splice(self.lists.indexOf(list), 1);
+            storage();
         }
-        // Promise-based API
-        return {
-            addList: addList,
-            deleteList: deleteList,
-            loadAllLists: function () {
-                // Simulate async nature of real remote calls
-                return $q.when(lists);
-            }
-        };
+        function addItem(index, item) {
+            self.lists[index].items.push({text: item, done: false, archived: false});
+            storage();
+        }
+        function deleteItem(index, item) {
+            self.lists[index].items.splice(self.lists[index].items.indexOf(item), 1);
+            storage();
+        }
+        function archiveItem(item) {
+            angular.forEach(item, function (todo) {
+                if (todo.done) {
+                    todo.archived = true;
+                }
+            });
+            storage();
+        }
+        function archiveList(index, item) {
+           angular.forEach(item, function (todo) {
+                todo.done = true;
+                todo.archived = true;
+            });
+            storage();
+        }
     }
 
 })();
