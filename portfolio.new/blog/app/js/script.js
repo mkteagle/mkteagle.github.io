@@ -1,7 +1,7 @@
 /**
  * Created by i68066 on 12/7/15.
  */
-var app = angular.module('myApp', ['ngMaterial', 'hc.marked', 'blogs', 'blogDirective']);
+var app = angular.module('myApp', ['ngMaterial', 'hc.marked', 'blogs', 'blogDirective', 'firebase', 'oathService', 'oathController' ]);
     app.config(function($mdThemingProvider, $mdIconProvider){
 
     $mdIconProvider

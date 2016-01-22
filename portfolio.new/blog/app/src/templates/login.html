@@ -1,0 +1,25 @@
+<div ng-controller="oathController">
+    <div ng-show="othData.displayName"><span class="padding">Welcome {{ othData.displayName }}</span>
+        <span><img class="profilepic" ng-src="{{ othData.profileImageURL }}"></span>
+    </div>
+    <md-button class="md-primary blackify" ng-hide="othData" ng-click="login()">Login</md-button>
+    <md-button class="md-primary blackify" ng-hide="othData" ng-click="signUp()">Register</md-button>
+    <md-button class="md-primary blackify" ng-hide="othData" ng-click="google()">Google Sign In</md-button>
+    <!--<form id="paddingit" ng-submit="login()" ng-hide="othData">-->
+        <!--<label>Email</label>-->
+        <!--<input type="text" ng-model="email">-->
+        <!--<label>Password</label>-->
+        <!--<input type="password" ng-model="password">-->
+        <!--<button id="submitButton" type="submit">Submit</button>-->
+    <!--</form>-->
+</div>
+<!--<md-button ng-controller="oathController" class="md-primary blackify dropdown" ng-click="myDropdownIsActive=!myDropdownIsActive" ng-class="{active:myDropdownIsActive}">-->
+    <!--<i class="fa fa-chevron-circle-down fa-lg blackify"></i>-->
+    <!--<ul class="dropdown-menu">-->
+        <!--<li><md-button class="md-primary blackify" ng-click="signUp()">Register</md-button></li>-->
+        <!--<li><md-button class="md-primary blackify" ng-click="google()">Google Sign In</md-button></li>-->
+        <!--<li><md-button class="md-primary blackify" ng-click="facebook()">Facebook Sign In</md-button></li>-->
+        <!--<li><md-button class="md-primary blackify" ng-click="github()">Github Sign In</md-button></li>-->
+        <!--<li><md-button class="md-primary blackify" ng-click="twitter()">Twitter Sign In</md-button></li>-->
+    <!--</ul>-->
+<!--</md-button>-->

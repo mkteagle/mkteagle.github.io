@@ -334,8 +334,8 @@ footer {
     left: 5%;
     color: black;
     font-family: 'Montserrat', sans-serif;
-font-size: 2em;
-z-index: 200;
+    font-size: 2em;
+    z-index: 200;
 }
 .backwards {
     -webkit-transform: rotate(90deg);

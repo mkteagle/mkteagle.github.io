@@ -1,0 +1,23 @@
+<div class="header" ng-controller="navController as nav">
+    <div layout="row">
+        <h2>{{ 'About' | translate }}</h2>
+        <span flex></span>
+        <div class="settings">
+            <md-button class="md-primary blackify dropdown" ng-click="myDropdownIsActive=!myDropdownIsActive" ng-class="{active:myDropdownIsActive}">
+                <i class="fa fa-chevron-circle-down fa-lg blackify"></i>
+                <ul class="dropdown-menu">
+                    <li><md-button class="md-primary blackify" ui-sref="home" ng-click="{ active: nav.isActive('/home')}">{{ 'HomeBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ui-sref="about" ng-click="{ active: nav.isActive('/about')}">{{ 'AboutBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ui-sref="archived" ng-click="{ active: nav.isActive('/archived')}">{{ 'ArchiveBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('en')">{{ 'EnglishBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('fr')">{{ 'FrenchBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('de')">{{ 'GermanBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('es')">{{ 'SpanishBu' | translate }}</md-button></li>
+                </ul>
+            </md-button></div>
+    </div>
+</div>
+<div id="about" class="anim-slide-left">
+    <h4>by Michael Teagle</h4>
+    <div class="circle"></div>
+</div>

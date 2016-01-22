@@ -1,0 +1,31 @@
+<div class="header" ng-controller="navController as nav">
+    <div layout="row">
+        <h2>{{ 'AI' | translate }}</h2>
+        <span flex></span>
+        <div class="settings">
+            <md-button class="md-primary blackify dropdown" ng-click="myDropdownIsActive=!myDropdownIsActive" ng-class="{active:myDropdownIsActive}">
+                <i class="fa fa-chevron-circle-down fa-lg blackify"></i>
+                <ul class="dropdown-menu">
+                    <li><md-button class="md-primary blackify" ui-sref="home" ng-click="{ active: nav.isActive('/home')}">{{ 'HomeBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ui-sref="about" ng-click="{ active: nav.isActive('/about')}">{{ 'AboutBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ui-sref="archived" ng-click="{ active: nav.isActive('/archived')}">{{ 'ArchiveBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('en')">{{ 'EnglishBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('fr')">{{ 'FrenchBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('de')">{{ 'GermanBu' | translate }}</md-button></li>
+                    <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('es')">{{ 'SpanishBu' | translate }}</md-button></li>
+                </ul>
+            </md-button></div>
+    </div>
+</div>
+<div class="paddingit">
+    <div ng-controller="ListController as ul">
+        <md-button class="md-primary" md-no-ink ng-click="ul.unArchiveItems()">{{ 'Unarchive' | translate}}</md-button>
+        <ul ng-repeat="list in ul.lists">
+            {{list.name | capitalize: true}}
+            <li class="checkboxes" ng-repeat="item in list.items|orderBy:'-'|filter:{archived:true} as archived">
+                <md-checkbox aria-label="checkbox" md-no-ink ng-model="item.done" class="md-primary"></md-checkbox>
+                <edit-in-place value="item.text"></edit-in-place>
+            </li>
+        </ul>
+    </div>
+</div>
