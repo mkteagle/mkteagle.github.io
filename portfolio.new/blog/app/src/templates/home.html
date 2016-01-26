@@ -1,0 +1,66 @@
+<div flex layout row>
+<div ng-include="'./src/templates/bloglist.html'"></div>
+<div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+
+    <md-toolbar id="openToggles" layout="row" class="md-whiteframe-z1">
+        <md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
+            <md-icon id="menuitem" md-svg-icon="menu" ></md-icon>
+        </md-button>
+        <div class="header">
+            <strong><input type="text" ng-model="ul.selected.title" id="newContainer" ng-disabled="ul.blogs.length == 0" placeholder="Title..." ng-change="ul.getChange(ul.selected)"></strong>
+        </div>
+        <div class="right">
+            <div ng-include="'./src/templates/login.html'"></div>
+        </div>
+    </md-toolbar>
+    <md-content flex id="content" ng-hide="ul.blogs.length == 0">
+        <div layout="row">
+            <div flex class="leftCol">
+                <div class="panel">
+                    <div layout="row">
+                        <md-input-container flex>
+                            <md-select-label class="gray">County</md-select-label>
+                            <md-select ng-model="ul.selected.county" ng-change="ul.getChange(ul.selected)">
+                                <md-option class="blackify" ng-repeat="county in ul.counties">{{ county.name }}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <md-select-label class="gray">Category</md-select-label>
+                            <md-select ng-model="ul.selected.category" ng-change="ul.getChange(ul.selected)">
+                                <md-option class="blackify" ng-repeat="category in ul.categories">{{ category.name }}</md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container flex>
+                            <md-select-label class="gray">Season</md-select-label>
+                            <md-select ng-model="ul.selected.season" ng-change="ul.getChange(ul.selected)">
+                                <md-option class="blackify" ng-repeat="season in ul.seasons">{{ season.name }}</md-option>
+                            </md-select>
+                        </md-input-container>
+                    </div>
+                    <hr/>
+                        <div class="field">
+                            <md-input-container class="md-block md-input-has-value">
+                                <textarea froala id="taStyle" ng-model="ul.selected.content" ng-change="ul.getChange(ul.selected)" aria-invalid="false" ng-trim="false"></textarea>
+                            </md-input-container>
+
+                        </div>
+                    </div>
+                </div>
+            <div flex class="rightCol">
+                <div class="panel callout" ng-hide="ul.blogs.length == 0">
+                    <div class="title">
+                        <span ng-bind="ul.selected.title"></span>
+                    </div>
+                    <div id="authorDateLine">
+                        <p><span ng-repeat="tag in ul.selected.tags track by $index"><span ng-class-even="'even'" ng-class-odd="'odd'"><span ng-bind="tag" class="tag"></span></span></span>
+                            <em> By <a href="{{ul.selected.url}}"><span ng-bind="ul.selected.name"></span></a></em> On <span ng-bind="ul.selected.date | date:'MM/dd/yyyy'"></span></p><span><md-icon md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon></span>
+                    </div>
+                    <hr />
+                    <p><div id="messagestyle" ng-bind-html="ul.selected.content"></div></p>
+                </div>
+            </div>
+        </div>
+    </md-content>
+    <footer ng-hide="ul.blogs.length == 0" ng-include="'./src/templates/footer.html'"></footer>
+    </div>
+</div>

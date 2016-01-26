@@ -1,10 +1,11 @@
-<div ng-controller="oathController">
-    <div ng-show="othData.displayName"><span class="padding">Welcome {{ othData.displayName }}</span>
-        <span><img class="profilepic" ng-src="{{ othData.profileImageURL }}"></span>
-    </div>
-    <md-button class="md-primary blackify" ng-hide="othData" ng-click="login()">Login</md-button>
-    <md-button class="md-primary blackify" ng-hide="othData" ng-click="signUp()">Register</md-button>
-    <md-button class="md-primary blackify" ng-hide="othData" ng-click="google()">Google Sign In</md-button>
+<div>
+    <!--<div ng-show="oc.othData.displayName"><span class="padding">Welcome {{ oc.othData.displayName }}</span>-->
+        <!--<span><img class="profilepic" ng-src="{{ oc.othData.profileImageURL }}"></span>-->
+    <!--</div>-->
+    <md-button class="md-primary blackify" ng-hide="ul.othData" ui-sref="home" ng-click="{ active: nav.isActive('/home')}">Home</md-button>
+    <md-button class="md-primary blackify" ng-hide="ul.othData" ui-sref="login" ng-click="{ active: nav.isActive('/login')}">Login</md-button>
+    <md-button class="md-primary blackify" ng-hide="ul.othData" ui-sref="login" ng-click="{ active: nav.isActive('/login')}">Logout</md-button>
+    <md-button class="md-primary blackify" ng-hide="ul.othData" ui-sref="newhome" ng-click="{ active: nav.isActive('/newhome')}">Latest Post</md-button>
     <!--<form id="paddingit" ng-submit="login()" ng-hide="othData">-->
         <!--<label>Email</label>-->
         <!--<input type="text" ng-model="email">-->

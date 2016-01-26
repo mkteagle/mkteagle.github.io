@@ -9,8 +9,11 @@
 
     function ListService($localStorage, $firebaseArray) {
         var self = this;
-        var ref = new Firebase("https://glaring-inferno-7989.firebaseio.com/todoapp/");
-        self.lists = $firebaseArray(ref);
+        var url = "https://glaring-inferno-7989.firebaseio.com/todoapp";
+        var listref = new Firebase(url + '/lists');
+        var todosref = new Firebase(url + '/todos');
+        self.lists = $firebaseArray(listref);
+        self.todos = $firebaseArray(todosref);
         self.deleteList = deleteList;
         self.addList = addList;
         self.addItem = addItem;
@@ -19,6 +22,7 @@
         self.archiveList = archiveList;
         self.unArchiveItems = unArchiveItems;
         self.storage = storage;
+        self.changeList = changeList;
 
         function storage () {
             $localStorage.lists = self.lists;
@@ -36,16 +40,26 @@
             storage();
         }
 
-        function addList(name, cIndex, svgArr, svgindex) {
-            self.lists.$add({index: cIndex, name: name, avatar: svgArr[svgindex], items: [], archived: false
+        function addList(name, svgArr, svgindex) {
+            self.lists.$add({name: name, avatar: svgArr[svgindex], items: [], archived: false
             });
             //storage();
         }
         function deleteList(list) {
             self.lists.$remove(list);
+
+            for (var i = 0; i < self.todos.length; i++) {
+                if (self.todos[i].list == list) {
+                    self.todos.$remove(i);
+                }
+                else if (self.todos[i].list > list) {
+                    self.todos[i].list = self.todos[i].list-1;
+                    self.todos.$save(i);
+                }
+            }
         }
         function addItem(index, item) {
-            self.lists[index].$child('items').$set({text: item, done: false, archived: false});
+            self.todos.$add({list: index, text: item, done: false, archived: false});
             //storage();
         }
         function deleteItem(index, item) {
@@ -66,6 +80,9 @@
                 todo.archived = true;
             });
             storage();
+        }
+        function changeList(cur) {
+            self.curList = cur;
         }
     }
 

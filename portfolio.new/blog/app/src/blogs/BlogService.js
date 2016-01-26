@@ -1,70 +1,80 @@
 (function () {
     'use strict';
 
-    angular.module('blogs')
-        .service('blogService', ['$q', BlogService]);
+    angular.module('blogService', ['firebase'])
+        .service('blogService', blogService);
 
-    /**
-     * Users DataService
-     * Uses embedded, hard-coded data model; acts asynchronously to simulate
-     * remote data service call(s).
-     *
-     * @returns {{loadAll: Function}}
-     * @constructor
-     */
-    function BlogService($q) {
+    blogService.$inject = ['$firebaseArray'];
+
+    function blogService($firebaseArray) {
+        var ref = new Firebase("https://glaring-inferno-7989.firebaseio.com/blog/");
+        var date = Date.now();
         var self = this;
-        var blogs = [
-            {
-                name: 'Michael Teagle',
-                title: 'First Born Daughter!!!',
-                avatar: 'svg-1',
-                url: './michael-teagle.html',
-                date: new Date(),
-                content: 'I love cheese, especially airedale queso. Cheese and biscuits halloumi cauliflower cheese cottage cheese swiss boursin fondue caerphilly. Cow port-salut camembert de normandie macaroni cheese feta who moved my cheese babybel boursin. Red leicester roquefort boursin squirty cheese jarlsberg blue castello caerphilly chalk and cheese. Lancashire.'
-            },
-            {
-                name: 'George Duke',
-                avatar: 'svg-2',
-                content: 'Zombie ipsum reversus ab viral inferno, nam rick grimes malum cerebro. De carne lumbering animata corpora quaeritis. Summus brains sit​​, morbo vel maleficia? De apocalypsi gorger omero undead survivor dictum mauris.'
-            },
-            {
-                name: 'Gener Delosreyes',
-                avatar: 'svg-3',
-                content: "Raw denim pour-over readymade Etsy Pitchfork. Four dollar toast pickled locavore bitters McSweeney's blog. Try-hard art party Shoreditch selfies. Odd Future butcher VHS, disrupt pop-up Thundercats chillwave vinyl jean shorts taxidermy master cleanse letterpress Wes Anderson mustache Helvetica. Schlitz bicycle rights chillwave irony lumberhungry Kickstarter next level sriracha typewriter Intelligentsia, migas kogi heirloom tousled. Disrupt 3 wolf moon lomo four loko. Pug mlkshk fanny pack literally hoodie bespoke, put a bird on it Marfa messenger bag kogi VHS."
-            },
-            {
-                name: 'Lawrence Ray',
-                avatar: 'svg-4',
-                content: 'Scratch the furniture spit up on light gray carpet instead of adjacent linoleum so eat a plant, kill a hand pelt around the house and up and down stairs chasing phantoms run in circles, or claw drapes. Always hungry pelt around the house and up and down stairs chasing phantoms.'
-            },
-            {
-                name: 'Ernesto Urbina',
-                avatar: 'svg-5',
-                content: 'Webtwo ipsum dolor sit amet, eskobo chumby doostang bebo. Bubbli greplin stypi prezi mzinga heroku wakoopa, shopify airbnb dogster dopplr gooru jumo, reddit plickers edmodo stypi zillow etsy.'
-            },
-            {
-                name: 'Gani Ferrer',
-                avatar: 'svg-6',
-                content: "Lebowski ipsum yeah? What do you think happens when you get rad? You turn in your library card? Get a new driver's license? Stop being awesome? Dolor sit amet, consectetur adipiscing elit praesent ac magna justo pellentesque ac lectus. You don't go out and make a living dressed like that in the middle of a weekday. Quis elit blandit fringilla a ut turpis praesent felis ligula, malesuada suscipit malesuada."
-            }
+        self.getChange = getChange;
+        self.removeBlog = removeBlog;
+        self.counties = [
+            {id: '1', name: 'Beaver County'},
+            {id: '2', name: 'Box Elder County'},
+            {id: '3', name: 'Cache County'},
+            {id: '4', name: 'Carbon County'},
+            {id: '5', name: 'Daggett County'},
+            {id: '6', name: 'Davis County'},
+            {id: '7', name: 'Duchesne County'},
+            {id: '8', name: 'Emery County'},
+            {id: '9', name: 'Garfield County'},
+            {id: '10', name: 'Grand County'},
+            {id: '11', name: 'Iron County'},
+            {id: '12', name: 'Juab County'},
+            {id: '13', name: 'Kane County'},
+            {id: '14', name: 'Millard County'},
+            {id: '15', name: 'Morgan County'},
+            {id: '16', name: 'Piute County'},
+            {id: '17', name: 'Rich County'},
+            {id: '18', name: 'Salt Lake County'},
+            {id: '19', name: 'San Juan County'},
+            {id: '20', name: 'Sanpete County'},
+            {id: '21', name: 'Sevier County'},
+            {id: '22', name: 'Summit County'},
+            {id: '23', name: 'Tooele County'},
+            {id: '24', name: 'Uintah County'},
+            {id: '25', name: 'Utah County'},
+            {id: '26', name: 'Wasatch County'},
+            {id: '27', name: 'Washington County'},
+            {id: '28', name: 'Wayne County'},
+            {id: '29', name: 'Weber County'}];
+        self.categories = [
+            {id: '1', name: 'Fun in the Sun'},
+            {id: '1', name: 'Snow for All'}
+
         ];
-        self.blogs = blogs;
-        self.addBlog = addBlog;
-
-        function addBlog(svgArr, svgindex) {
-            return (self.blogs.push({name: 'Michael Teagle', date: new Date(), avatar: svgArr[svgindex], url: '/michael-teagle'
-            }));
+        self.seasons = [
+            {id: '1', name: 'Winter'},
+            {id: '2', name: 'New Years'},
+            {id: '3', name: 'Spring'},
+            {id: '4', name: 'Valentines Day'},
+            {id: '5', name: "St. Patrick's Day"},
+            {id: '6', name: 'Easter'},
+            {id: '7', name: 'Memorial Day'},
+            {id: '8', name: 'Summer'},
+            {id: '9', name: '4th of July'},
+            {id: '10', name: 'Pioneer Day'},
+            {id: '11', name: 'Labor Day'},
+            {id: '12', name: 'Fall'},
+            {id: '13', name: 'Halloween'},
+            {id: '14', name: 'Thanksgiving'},
+            {id: '15', name: 'Holidays'},
+            {id: '16', name: 'Christmas'}
+        ];
+        function removeBlog(blog) {
+            self.blogs.$remove(blog);
         }
-
-        // Promise-based API
-        return {
-            addBlog: addBlog,
-            loadAllBlogs: function () {
-                // Simulate async nature of real remote calls
-                return $q.when(blogs);
-            }
-        };
+        self.blogs = $firebaseArray(ref);
+        self.addBlog = addBlog;
+        function getChange(blog) {
+            self.blogs.$save(blog);
+        }
+        function addBlog(name, pic) {
+            self.blogs.$add({name: 'Michael Teagle', date: date, avatar: name[pic], url: '/michael-teagle', content: '', title: '', category: '', location: '', season: '', county: ''});
+        }
     }
-
 })();

@@ -9,10 +9,11 @@
 
     function ListController(ListService, $mdSidenav, $mdBottomSheet) {
         var self = this;
-        var cIndex = 1;
         var svgindex = 2;
         var svgArr = ['svg-1', 'svg-2', 'svg-3', 'svg-4', 'svg-5'];
         self.lists = ListService.lists;
+        self.todos = ListService.todos;
+        self.currentList = 0;
         self.addList = addList;
         self.toggleList = toggleList;
         self.unArchiveItems = unArchiveItems;
@@ -20,6 +21,7 @@
         self.selected = null;
         self.selectList = selectList;
         self.firstList = firstList;
+        self.changeList = changeList;
 
         function toggleList() {
             var pending = $mdBottomSheet.hide() || $q.when(true);
@@ -46,7 +48,7 @@
             self.selected = angular.isNumber(list) ? $scope.lists[list] : list;
         }
         function addList() {
-            ListService.addList(self.todoList, cIndex, svgArr, svgindex);
+            ListService.addList(self.todoList, svgArr, svgindex);
             self.todoList = '';
             self.selected = ListService.lists[ListService.lists.length - 1];
             if (svgindex == (svgArr.length - 1)) {
@@ -55,8 +57,11 @@
             else {
                 svgindex++;
             }
-            cIndex++;
 
+        }
+        function changeList(i) {
+            self.currentList = i;
+            ListService.changeList(i);
         }
 
         self.addItem = function (list) {

@@ -1,9 +1,5 @@
-/**
- * Created by i68066 on 12/7/15.
- */
-var app = angular.module('myApp', ['ngMaterial', 'hc.marked', 'blogs', 'blogDirective', 'firebase', 'oathService', 'oathController' ]);
-    app.config(function($mdThemingProvider, $mdIconProvider){
-
+var app = angular.module('myApp', ['ngMaterial', 'ui.router', 'blogService', 'blogController', 'blogDirective', 'firebase', 'oathService', 'oathController', 'ngSanitize', 'froala', 'blogFilter' ]);
+    app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider){
     $mdIconProvider
         .defaultIconSet("./assets/svg/avatars.svg", 128)
         .icon("menu"       , "./assets/svg/menu.svg"        , 24)
@@ -16,5 +12,21 @@ var app = angular.module('myApp', ['ngMaterial', 'hc.marked', 'blogs', 'blogDire
     $mdThemingProvider.theme('default')
         .primaryPalette('pink')
         .accentPalette('blue');
+    $stateProvider
+        .state("home", {
+            url: "/home",
+            templateUrl: "./src/templates/home.html"
+        })
+        .state("login", {
+            url: "/login",
+            templateUrl: "src/templates/contentlogin.html"
+        })
+        .state("newhome", {
+            url: "/newhome",
+            templateUrl: "./src/templates/newhome.html"
+        });
+
+        // if none of the above states are matched, use this as the fallback
+        $urlRouterProvider.otherwise("/home");
 
 });
