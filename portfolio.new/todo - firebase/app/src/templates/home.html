@@ -1,0 +1,70 @@
+<div flex layout row>
+    <md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+                md-component-id="left"
+                md-is-locked-open="$mdMedia('gt-sm')">
+
+        <md-toolbar class="md-whiteframe-z1">
+            <div class="blueHeader">
+                <strong><input type="text" class="blueContainer" ng-model="ul.todoList" translate placeholder="{{ 'List' | translate }}" ng-keydown="$event.which === 13 && ul.addList()"></strong>
+            </div>
+        </md-toolbar>
+
+        <md-list>
+            <md-list-item class="mdlists" ng-init="ul.firstList()" ng-repeat="it in ul.lists|orderBy:'-'|filter:{archived:false}">
+                <md-button ng-click="ul.selectList(it); ul.changeList($index)" ng-class="{'selected' : it === ul.selected }">
+                    <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
+                    {{it.name}}
+                </md-button>
+            </md-list-item>
+        </md-list>
+
+    </md-sidenav>
+
+
+    <div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+
+        <md-toolbar layout="row" class="md-whiteframe-z1">
+            <md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show Lists">
+                <md-icon md-svg-icon="menu" ></md-icon>
+            </md-button>
+            <div class="header" ng-controller="navController as nav">
+                <div layout="row">
+                <strong><input type="text"  class="newContainer" ng-model="ul.todo" ng-disabled="ul.lists.length == 0" translate placeholder="{{ 'ToDo' | translate}}" ng-keydown="$event.which === 13 && ul.addItem(ul.selected)"></strong>
+                <span flex></span>
+                    <div class="home-settings">
+                        <md-button class="md-primary blackify dropdown" ng-click="myDropdownIsActive=!myDropdownIsActive" ng-class="{active:myDropdownIsActive}">
+                            <i class="fa fa-chevron-circle-down fa-lg blackify"></i>
+                            <ul class="dropdown-menu">
+                                <li><md-button class="md-primary blackify" ui-sref="home" ng-click="{ active: nav.isActive('/home')}">{{ 'HomeBu' | translate }}</md-button></li>
+                                <li><md-button class="md-primary blackify" ui-sref="about" ng-click="{ active: nav.isActive('/about')}">{{ 'AboutBu' | translate }}</md-button></li>
+                                <li><md-button class="md-primary blackify" ui-sref="archived" ng-click="{ active: nav.isActive('/archived')}">{{ 'ArchiveBu' | translate }}</md-button></li>
+                                <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('en')">{{ 'EnglishBu' | translate }}</md-button></li>
+                                <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('fr')">{{ 'FrenchBu' | translate }}</md-button></li>
+                                <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('de')">{{ 'GermanBu' | translate }}</md-button></li>
+                                <li><md-button class="md-primary blackify" ng-click="nav.changeLanguage('es')">{{ 'SpanishBu' | translate }}</md-button></li>
+                            </ul>
+                        </md-button></div>
+                </div>
+            </div>
+        </md-toolbar>
+        <md-content flex id="content" class="containers">
+            <md-icon ng-hide="ul.selected.archived || ul.lists.length == 0" md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon>
+            <h2><edit-in-place ng-hide="ul.selected.archived || ul.lists.length == 0" value="ul.selected.name">{{ul.selected.name | capitalize:true}}</edit-in-place></h2>
+            <md-button ng-hide="ul.selected.archived || ul.selected.items.length == 0 || ul.lists.length == 0" class="md-primary" md-no-ink aria-label="Archive Items" translate="{{ 'Items' }}" ng-click="ul.archiveItem(ul.selected)">
+                <md-tooltip> {{ 'Items' | translate }}</md-tooltip></md-button>
+            <md-button ng-hide="ul.selected.archived || ul.lists.length == 0" class="md-primary" md-no-ink aria-label="Delete List" translate="{{ 'Delete' }}" ng-click="ul.deleteList(ul.selected)">
+                <md-tooltip ng-hide="ul.selected.archived || ul.lists.length == 0">{{ 'Delete' | translate }}</md-tooltip>
+            </md-button>
+            <md-button ng-hide="ul.selected.archived || ul.lists.length == 0 || ul.selected.items == 0" class="md-primary" md-no-ink ng-click="ul.archiveList(ul.selected)" translate="{{ 'Archived' }}" aria-label="Archive List">
+                <md-tooltip>{{ 'Archived' | translate }}</md-tooltip>
+            </md-button>
+            <ul>
+                <!-- if no items in list, show message -->
+                <li li-nonefound ng-hide="archived.length"></li>
+                <li class="checkboxes" ng-repeat="item in ul.todos | orderBy:'-'| filter:{list:ul.currentList} | filter:{archived: false} as archived" li-item>
+                </li>
+            </ul>
+
+        </md-content>
+    </div>
+</div>

@@ -1,0 +1,460 @@
+html, body {
+    font-family: 'Roboto', sans-serif;
+    font-size:14px;
+    height:100%;
+    margin: 0px;
+    padding: 0px;
+}
+#about {
+    padding: 20px;
+}
+/* Toolbar area */
+.blueHeader {
+    width: 100%;
+    padding-left: 5px;
+    height: auto;
+}
+.blueContainer {
+    width: 100%;
+    /*margin: 0;*/
+    height: auto;
+    font-size: 2em;
+    border: 0;
+    background: transparent;
+}
+.blueContainer:focus {
+    outline: 0;
+}
+.header {
+    width: 100%;
+    background: #F0F0F0;
+    padding-left: 10px;
+    height: auto;
+    border-bottom: 1px solid lightgrey;
+}
+.newContainer {
+    width: 80%;
+    height: auto;
+    font-size: 3em;
+    border: 0;
+    background: transparent;
+}
+
+.newContainer:focus {
+    outline: 0;
+}
+.checkboxes {
+    list-style: none;
+    font-size: 1.5em;
+}
+
+.menu {
+    background-color: transparent;
+    border: none;
+    height: 38px;
+    margin: 16px;
+    width: 36px;
+}
+
+md-toolbar h1 {
+    margin: auto;
+}
+
+/* Sidenav area */
+
+md-list .md-button {
+    color: inherit;
+    font-weight: 500;
+    text-align: left;
+    width: 100%;
+}
+md-list .md-button.selected {
+    color: #03a9f4;
+}
+
+md-sidenav  md-list {
+    padding: 0px 0px 8px 0px;
+}
+
+
+/* Primary content area */
+#content {
+    overflow: hidden;
+}
+
+#content  {
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 5px;
+}
+#content .contactul.contact {
+    background-color: transparent;
+    border: none;
+    width: 100px;
+    height: 48px;
+    margin: 8px auto 16px 0;
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
+#content .md-button.contact {
+    background-color: transparent;
+    border: none;
+    width: 48px;
+    height: 48px;
+    margin: 8px auto 16px 0;
+    position: absolute;
+    top: 10px;
+    right: 40px;
+}
+
+#content md-icon.avatar {
+    margin-top: 10px;
+}
+
+#content .md-button.contact > md-icon {
+    fill:black;
+    width:36px;
+    height:36px;
+}
+
+md-button.menuBtn > md-icon {
+    fill:white;
+    width:24px;
+    height:24px;
+}
+
+#content .md-button.contact:active > md-icon {
+    background-color: #dadada;
+    border-radius: 75%;
+    padding:4px;
+    transition: all 100ms ease-out 30ms;
+}
+
+#content img {
+    display: block;
+    height: auto;
+    max-width: 500px;
+}
+
+/* Utils */
+
+.content-wrapper {
+    position: relative;
+}
+
+/* Typography support coming in 0.8.0 */
+
+md-toolbar h1 {
+    font-size: 1.250em;
+    font-weight: 400;
+}
+
+.avatar {
+    position: relative;
+    width: 128px;
+    height: 128px;
+    border: 1px solid #ddd;
+    border-radius: 50%;
+    display: inline-block;
+    overflow: hidden;
+    margin: 0px;
+    vertical-align: middle;
+    zoom:0.70;
+    transform: translateZ(0);
+    -webkit-transform: scale(0.70);
+    -moz-transform:scale(0.70);
+}
+
+
+md-bottom-sheet  md-icon {
+    margin-right:20px;
+}
+
+span.name {
+    font-weight: bold;
+    font-size:1.1em;
+    padding-left:5px;
+}
+.edit-in-place span {
+    cursor: pointer;
+}
+
+.edit-in-place input {
+    display: none;
+}
+
+.edit-in-place.active span {
+    display: none;
+}
+
+.edit-in-place.active input {
+    display: inline-block;
+}
+.hide {
+    display: none;
+}
+.page-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    width: 100%;
+}
+.page-content {
+    flex: 1;
+}
+.footerlist {
+    display: inline;
+    padding-right: 5px;
+}
+.footerul {
+    list-style-type: none;
+}
+.circle {
+    border-radius: 50%;
+    background-image: url("./img/aboutpic.JPG");
+    background-position: center;
+    background-repeat: no-repeat;
+    width: 200px;
+    height: 200px;
+}
+.footer {
+    width: 100%;
+}
+.footer, .page-wrap:after {
+    height: 48px;
+}
+#footercontainer {
+    padding-left: 20px;
+}
+.footerlist {
+    display: inline;
+    padding-right: 5px;
+}
+.footerul {
+    list-style-type: none;
+}
+#footer {
+    width: 100%;
+    float:left;
+}
+.footerFloat {
+    padding-top: 20px;
+    padding-right: 100px;
+    width: 30%;
+    float: left;
+    min-width:200px;
+    color: white;
+}
+.footerFloat-middle {
+    padding-top: 50px;
+    padding-right: 100px;
+    float: left;
+    min-width: 200px;
+    color: white;
+}
+.footerFloat-end {
+    padding-top: 20px;
+    padding-right: 100px;
+    float: left;
+    min-width: 200px;
+    color: white;
+}
+.spannedclass {
+    height: 90px;
+}
+.sm-logo {
+    display: block;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    z-index: 200;
+}
+.sm-backwards {
+    -webkit-transform: rotate(90deg);
+    position: absolute;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    z-index: 201;
+    display: block;
+}
+.spacing {
+    padding-top: 50px;
+    height: 130px;
+}
+.instathumb {
+    height: 75px;
+    width: 75px;
+}
+#instawrapper {
+    width: 151px;
+}
+#wrapper {
+    width: 100%;
+    max-width: 75%;
+    margin: auto;
+}
+footer {
+    position: absolute;
+    height: 300px;
+    background: #18293B;
+}
+.social-li {
+    display: inline;
+    padding: 5px;
+    cursor: pointer;
+}
+.social-li:hover {
+    display: inline;
+    padding: 5px;
+}
+.md-button {
+    padding: 0;
+}
+.menu-li {
+    display: inline;
+    cursor: pointer;
+    color: white;
+}
+.menu-li a {
+    text-decoration: none;
+    color: white;
+}
+.topbar {
+    background: white;
+    position: absolute;
+    display: inline;
+    height: 100px;
+}
+.logo-text {
+    position: absolute;
+    display: block;
+    top: 10px;
+    left: 5%;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    z-index: 200;
+}
+.backwards {
+    -webkit-transform: rotate(90deg);
+    position: absolute;
+    top: 35px;
+    left: 5%;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
+    z-index: 201;
+    display: block;
+}
+.positionit {
+    position: relative;
+}
+.completed-item { text-decoration: line-through; }
+.archived {
+    padding: 10px;
+}
+.paddingit {
+    padding-left: 10px;
+}
+.settings {
+    position: relative;
+    margin-top: 15px;
+    float: right;
+    padding-right: 30px;
+    width: 10%;
+    color: black;
+}
+.md-button.dropdown {
+    overflow: visible; /*reset*/
+    color: black;
+}
+.blackify {
+    color: black !important;
+}
+
+.dropdown .dropdown-menu {
+    max-width: 0;
+    position: absolute;
+    left: 40px;
+    top: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    overflow: hidden;
+    background-color: lightgray;
+    list-style: none;
+    color: black;
+    z-index: 2000;
+    transition: min-width 0.2s ease-in-out, left 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
+
+.dropdown .dropdown-menu .md-button {
+    min-width: 100%;
+    border-radius: 0;
+    margin: 0;
+    padding: 6px 16px;
+    color: black;
+}
+
+.dropdown.active .dropdown-menu {
+    max-width: 300px; /* set a maxwidth bigger than the widest element */
+    left: 0;
+    opacity: 1;
+    color: black;
+}
+/*Ng Animate classes*/
+[ui-view].ng-enter, [ui-view].ng-leave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+}
+
+[ui-view].ng-enter {
+    opacity: 0;
+    -webkit-transform:scale3d(0.5, 0.5, 0.5);
+    -moz-transform:scale3d(0.5, 0.5, 0.5);
+    transform:scale3d(0.5, 0.5, 0.5);
+}
+
+[ui-view].ng-enter-active {
+    opacity: 1;
+    -webkit-transform:scale3d(1, 1, 1);
+    -moz-transform:scale3d(1, 1, 1);
+    transform:scale3d(1, 1, 1);
+}
+
+[ui-view].ng-leave {
+    opacity: 1;
+    /*padding-left: 0px;*/
+    -webkit-transform:translate3d(0, 0, 0);
+    -moz-transform:translate3d(0, 0, 0);
+    transform:translate3d(0, 0, 0);
+}
+
+[ui-view].ng-leave-active {
+    opacity: 0;
+    /*padding-left: 100px;*/
+    -webkit-transform:translate3d(100px, 0, 0);
+    -moz-transform:translate3d(100px, 0, 0);
+    transform:translate3d(100px, 0, 0);
+}
+.ui-view-container {
+    /*position: relative;*/
+}
+.home-settings {
+    position: relative;
+    color: black;
+    width: 15%;
+    margin-top: 15px;
+    float: right;
+    padding-right: 30px;
+}
+/*md-toolbar {*/
+    /*color: black;*/
+/*}*/

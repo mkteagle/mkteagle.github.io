@@ -1,19 +1,13 @@
 (function () {
 
     angular
-        .module('blogs')
+        .module('blogController', [])
         .controller('BlogController', [
-            'blogService', '$mdSidenav', '$mdBottomSheet', '$log', '$q',
+            'blogService', '$mdSidenav', '$mdBottomSheet', '$log', 'oathService',
             BlogController
         ]);
-    /**
-     * Main Controller for the Angular Material Starter App
-     * @param $scope
-     * @param $mdSidenav
-     * @param avatarsService
-     * @constructor
-     */
-    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $log, $q) {
+
+    function BlogController(blogService, $mdSidenav, $mdBottomSheet, oathService) {
         var self = this;
         var svgArr = ['svg-1', 'svg-2', 'svg-3', 'svg-4', 'svg-5'];
         var svgindex = 0;
@@ -21,39 +15,49 @@
         self.blogs = blogService.blogs;
         self.selectBlog = selectBlog;
         self.toggleList = toggleBlogsList;
-        self.showContactOptions = showContactOptions;
         self.addBlog = addBlog;
-        self.refreshBlogs = refreshBlogs;
-        // Load all registered users
-
-        blogService
-            .loadAllBlogs()
-            .then(function (blogs) {
-                self.blogs = [].concat(blogs);
-                self.selected = blogs[0];
-            });
-        function refreshBlogs() {
-            blogService
-                .loadAllBlogs()
-                .then(function (blogs) {
-                    self.blogs = [].concat(blogs);
-                    self.selected = blogs[0];
-                });
+        self.firstList = firstList;
+        self.getChange = getChange;
+        self.othData = oathService.othData;
+        self.google = google;
+        self.removeBlog = removeBlog;
+        self.logout = logout;
+        self.counties = blogService.counties;
+        self.categories = blogService.categories;
+        self.seasons = blogService.seasons;
+        function firstList() {
+            self.selected = blogService.blogs[0];
         }
 
         // *********************************
         // Internal methods
         // *********************************
+        function logout() {
+            oathService.logout();
+        }
+
+        function google() {
+            oathService.google();
+        }
+
+        function removeBlog(blog) {
+            blogService.removeBlog(blog);
+            self.selected = blogService.blogs[blogService.blogs.length - 1];
+        }
 
         /**
          * First hide the bottomsheet IF visible, then
          * hide or Show the 'left' sideNav area
          */
+        function getChange(blog) {
+            blogService.getChange(blog)
+        }
+
         function addBlog() {
             blogService.addBlog(svgArr, svgindex);
-            refreshBlogs();
             svgindex++;
         }
+
 
         function toggleBlogsList() {
             var pending = $mdBottomSheet.hide() || $q.when(true);
@@ -76,53 +80,47 @@
             var s = text ? text.split(/\s+/) : 0; // it splits the text on space/tab/enter
             return s ? s.length : '';
         };
-        self.upload = function (file) {
-            Upload.upload({
-                url: 'upload/url',
-                data: {file: file, 'username': $scope.username}
-            }).then(function (resp) {
-                console.log('Success ' + resp.config.data.file.name + 'uploaded. Response: ' + resp.data);
-            }, function (resp) {
-                console.log('Error status: ' + resp.status);
-            }, function (evt) {
-                var progressPercentage = parseInt(100.0 * evt.loaded / evt.total);
-                console.log('progress: ' + progressPercentage + '% ' + evt.config.data.file.name);
-            });
+        self.showLoginDialog = function (ev) {
+            console.log('from sign in button!');
+            $mdDialog.show({
+                    templateUrl: './templates/contentlogin.html',
+                    targetEvent: ev
+                })
+                .then(function (userData) {
+
+                }, function () {
+                    $scope.alert = 'You cancelled the dialog.';
+                });
         };
-        /**
-         * Show the bottom sheet
-         */
-        function showContactOptions($event) {
-            var user = self.selected;
+        self.taggerEnabled = false;
+        self.editorEnabled = false;
 
-            return $mdBottomSheet.show({
-                parent: angular.element(document.getElementById('content')),
-                templateUrl: './src/blogs/view/contactSheet.html',
-                controller: ['$mdBottomSheet', ContactPanelController],
-                controllerAs: "cp",
-                bindToController: true,
-                targetEvent: $event
-            }).then(function (clickedItem) {
-                clickedItem && $log.debug(clickedItem.name + ' clicked!');
-            });
+        self.enableEditor = function (dates) {
+            self.editorEnabled = true;
+            self.editableValue = dates;
+        };
 
-            /**
-             * Bottom Sheet controller for the Avatar Actions
-             */
-            function ContactPanelController($mdBottomSheet) {
-                this.user = user;
-                this.actions = [
-                    {name: 'Phone', icon: 'phone', icon_url: 'assets/svg/phone.svg'},
-                    {name: 'Twitter', icon: 'twitter', icon_url: 'assets/svg/twitter.svg'},
-                    {name: 'Google+', icon: 'google_plus', icon_url: 'assets/svg/google_plus.svg'},
-                    {name: 'Hangout', icon: 'hangouts', icon_url: 'assets/svg/hangouts.svg'}
-                ];
-                this.submitContact = function (action) {
-                    $mdBottomSheet.hide(action);
-                };
-            }
-        }
+        self.disableEditor = function () {
+            self.editorEnabled = false;
+        };
 
+        self.save = function () {
+            self.value = self.editableValue;
+            self.disableEditor();
+        };
+        self.enableTagger = function (tags) {
+            self.taggerEnabled = true;
+            self.editableTag = tags;
+        };
+
+        self.disableTagger = function () {
+            self.taggerEnabled = false;
+        };
+
+        self.tagSave = function () {
+            self.value = self.editableTag;
+            self.disableTagger();
+        };
     }
 
 })();

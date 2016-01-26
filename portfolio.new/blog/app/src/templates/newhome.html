@@ -1,0 +1,9 @@
+<div ng-repeat="blog in ul.blogs | limitTo: -1">
+    <div class="title" ng-bind="blog.title"></div>
+    <ul>
+        <li>{{ blog.category }}</li>
+        <li>{{ blog.county }}</li>
+        <li>{{ blog.season }}</li>
+    </ul>
+    <div ng-bind-html="blog.content"></div>
+</div>

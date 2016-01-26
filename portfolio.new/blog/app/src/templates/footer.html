@@ -1,19 +1,17 @@
 <div layout="row">
     <div flex class="leftCol">
         <div layout="row">
-                <strong>Tag(s): </strong>
-                <div click-to-tag tag="ul.selected.tags"></div>
+            <div class="outer">
+                <strong>Words: <span ng-bind="ul.countOf(ul.selected.content)"></span></strong>
+            </div>
+                <!--<strong>Tag(s): </strong>-->
+                <!--<div click-to-tag ng-model="ul.selected.tags" tag="ul.selected.tags"></div>-->
             </div>
         </div>
     <div flex class="rightCol">
         <div layout="row">
-            <div flex class="leftCol">
-                <div class="outer">
-                    <div class="centered"><strong>Words: <span ng-bind="ul.countOf(ul.selected.content)"></span></strong></div>
-                </div>
-            </div>
             <div class="right">
-                <md-button class="md-primary">Submit</md-button>
+                <strong><div class="button" ng-hide="ul.blogs.length == 0" ng-click="ul.removeBlog(ul.selected)">x Delete Blog</div></strong>
             </div>
         </div>
     </div>
