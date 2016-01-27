@@ -5,14 +5,15 @@
     <title>Timesheet</title>
 </head>
 <body ng-app="timeSheet" ng-controller="timeSheetController as ts">
-<span ng-bind="ts.firsttime | date:'h:mma'"></span>
+<span ng-bind="ts.firsttime"></span>
 <button ng-click="ts.getFirstTime()">Enter Work</button>
-<span ng-bind="ts.secondtime | date: 'h:mma'"></span>
+<span ng-bind="ts.secondtime"></span>
 <button ng-click="ts.getSecondTime()">Leave Work</button>
-<span ng-bind="ts.thirdtime | date: 'h:mma'"></span>
+<span ng-bind="ts.thirdtime"></span>
 <button ng-click="ts.getThirdTime()">Enter Work</button>
 <hr/>
-<span>Can Leave: <span ng-bind="ts.total | date:'h:mma'"></span></span>
+<span>Can Leave: <span ng-show="finalCalc != 0" ng-bind="ts.total"></span></span>
+<span ng-hide="ts.finalCalc == 0" ng-bind="ts.finalCalc"></span>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 <script src="app.js"></script>
 </body>
