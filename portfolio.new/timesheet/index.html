@@ -10,15 +10,14 @@
 <body ng-app="timeSheet" ng-controller="timeSheetController as ts" ng-init="ts.add()">
 <span ng-bind="ts.firstTime.time"></span>
 <button ng-click="ts.getFirstTime()">Enter Work</button>
-<span ng-bind="ts.secondTime"></span>
+<span ng-bind="ts.secondTime.time"></span>
 <button ng-click="ts.getSecondTime()">Leave Work</button>
-<span ng-bind="ts.thirdTime"></span>
+<span ng-bind="ts.thirdTime.time"></span>
 <button ng-click="ts.getThirdTime()">Enter Work</button>
 <button ng-click="ts.clickURL()">Click me!!!</button>
 <button ng-click="ts.toastMe()">Toast Me!!!</button>
 <hr/>
-<span>Can Leave: <span ng-bind="ts.total"></span></span>
-<span ng-hide="ts.finalCalc == 0" ng-bind="ts.finalCalc"></span>
+<span>Can Leave: <span ng-hide="ts.finalCalc.finale != null" ng-bind="ts.total.finale"></span><span ng-hide="ts.finalCalc.finale == null" ng-bind="ts.finalCalc.finale"></span></span>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.6/js/ngDialog.min.js"></script>
