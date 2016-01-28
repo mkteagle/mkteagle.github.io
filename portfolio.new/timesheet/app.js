@@ -1,8 +1,8 @@
-angular.module('timeSheet', ['tsService'])
+angular.module('timeSheet', ['tsService', 'ngDialog', 'toastr', 'ngAnimate'])
     .controller('timeSheetController', timeSheetController);
-timeSheetController.$inject = ['tsService'];
+timeSheetController.$inject = ['tsService', 'ngDialog', 'toastr'];
 
-function timeSheetController (tsService) {
+function timeSheetController (tsService, ngDialog, toastr) {
     var self = this;
     self.timesheets = tsService.timesheets;
     self.getFirstTime = getFirstTime;
@@ -11,6 +11,10 @@ function timeSheetController (tsService) {
     //self.totals = totals;
     //self.finale = finale;
     self.add = add;
+    self.clickURL = clickURL;
+    self.toastMe = toastMe;
+    self.firstTime = tsService.firstTime;
+    self.key = tsService.key;
     function add () {
         tsService.add();
     }
@@ -22,6 +26,15 @@ function timeSheetController (tsService) {
     }
     function getThirdTime() {
         tsService.getThirdTime();
+    }
+    function clickURL() {
+        ngDialog.open({
+            template: '<p> my template </p>',
+            plain: true
+        });
+    }
+    function toastMe() {
+        toastr.success('Hello world!', 'Toastr fun!');
     }
     //function totals() {
     //    tsService.totals();
