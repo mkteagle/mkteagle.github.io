@@ -8,13 +8,17 @@ function timeSheetController (tsService, ngDialog, toastr) {
     self.getFirstTime = getFirstTime;
     self.getSecondTime = getSecondTime;
     self.getThirdTime = getThirdTime;
-    //self.totals = totals;
-    //self.finale = finale;
+    self.totals = totals;
+    self.finale = finale;
     self.add = add;
     self.clickURL = clickURL;
     self.toastMe = toastMe;
     self.firstTime = tsService.firstTime;
+    self.secondTime = tsService.secondTime;
+    self.thirdTime = tsService.thirdTime;
+    self.total = tsService.total;
     self.key = tsService.key;
+    self.finalCalc = tsService.finalCalc;
     function add () {
         tsService.add();
     }
@@ -36,10 +40,10 @@ function timeSheetController (tsService, ngDialog, toastr) {
     function toastMe() {
         toastr.success('Hello world!', 'Toastr fun!');
     }
-    //function totals() {
-    //    tsService.totals();
-    //}
-    //function finale() {
-    //    tsService.finale();
-    //}
+    function totals() {
+        tsService.totals();
+    }
+    function finale() {
+        tsService.finale();
+    }
 }

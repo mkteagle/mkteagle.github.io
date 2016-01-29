@@ -11,12 +11,12 @@
         self.timesheets = $firebaseArray(times);
         self.dateStamp = 0;
         self.firstTime = {time:''};
-        self.secondTime = '';
-        self.thirdTime = '';
+        self.secondTime = {time: ''};
+        self.thirdTime = {time: ''};
         self.ftime = 0;
         self.stime = 0;
-        self.total = 0;
-        self.finalCalc = 0;
+        self.total = {finale: ''};
+        self.finalCalc = {finale: ''};
         self.h = 0;
         self.m = 0;
         self.hours = 0;
@@ -39,7 +39,7 @@
         function getFirstTime() {
             var date = new Date();
             self.ftime = Math.floor((date.getTimezoneOffset() / 1000) % 60);
-            self.firstTime.firstTime = $filter('date')(new Date(), 'HH:mm:ss');
+            self.firstTime.time = $filter('date')(new Date(), 'HH:mm:ss');
             console.log(self.firstTime);
             console.log(self.key);
             var num = self.timesheets.$indexFor(self.key);
@@ -47,38 +47,47 @@
         }
         function getSecondTime() {
             var date = new Date();
+            date.setHours(date.getHours() + 3);
+            console.log(date);
             self.stime = Math.floor((date.getTimezoneOffset() / 1000) % 60);
-            self.secondTime = date;
+            self.secondTime.time = $filter('date')(new Date(), 'HH:mm:ss');
             totals();
-            self.timesheets.$save();
+            var num = self.timesheets.$indexFor(self.key);
+            self.timesheets.$save(num);
         }
         function getThirdTime() {
             var date = new Date();
+            date.setHours(date.getHours() + 6);
+            console.log(date);
             self.ttime = Math.floor((date.getTimezoneOffset() / 1000) % 60);
-            self.thirdTime = date;
+            self.thirdTime.time = $filter('date')(new Date(), 'HH:mm:ss');
             finale();
-            self.timesheets.$save();
+            var num = self.timesheets.$indexFor(self.key);
+            self.timesheets.$save(num);
         }
 
         function totals () {
             self.eight = 28800;
-            self.total = self.eight - (self.stime - self.ftime);
-            var d = Number(self.total);
+            self.total.finale = self.eight - (self.stime - self.ftime);
+            var d = Number(self.total.finale);
             self.h = Math.floor(d / 3600);
             self.m = Math.floor(d % 3600 / 60);
             var date = new Date();
             self.hours = Math.floor((date.getHours() + self.h));
-            console.log (self.hours);
             self.mins = Math.floor((date.getMinutes() + self.m) % 60);
-            self.total = (self.hours + ":" + self.mins);
-            self.timesheets.$save();
+            self.total.finale = (self.hours + ":" + self.mins);
+            var num = self.timesheets.$indexFor(self.key);
+            self.timesheets.$save(num);
         }
         function finale() {
             var date = new Date();
             self.hours = (date.getHours() + self.h);
             self.mins = (date.getMinutes() + self.m) % 60;
-            self.finalCalc = (self.hours + ":" + self.mins);
-            self.timesheets.$save();
+            console.log(self.hours);
+            self.finalCalc.finale = (self.hours + ":" + self.mins);
+            console.log(self.finalCalc.finale);
+            var num = self.timesheets.$indexFor(self.key);
+            self.timesheets.$save(num);
         }
     }
 
