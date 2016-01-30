@@ -15,6 +15,7 @@
         self.blogs = blogService.blogs;
         self.selectBlog = selectBlog;
         self.toggleList = toggleBlogsList;
+        self.toggleIt = toggleIt;
         self.addBlog = addBlog;
         self.firstList = firstList;
         self.getChange = getChange;
@@ -65,6 +66,9 @@
             pending.then(function () {
                 $mdSidenav('left').toggle();
             });
+        }
+        function toggleIt () {
+            $mdSidenav('left').toggle();
         }
 
         /**

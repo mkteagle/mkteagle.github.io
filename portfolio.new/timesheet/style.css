@@ -1,0 +1,46 @@
+#flex-container {
+    display: -webkit-box;      /* OLD - iOS 6-, Safari 3.1-6 */
+    display: -moz-box;         /* OLD - Firefox 19- (buggy but mostly works) */
+    display: -webkit-flex;     /* NEW - Chrome */
+    display: flex;             /* NEW, Spec - Opera 12.1, Firefox 20+ */
+    -webkit-box-flex-direction: row;
+    -moz-box-flex-direction: row;
+    -webkit-flex-direction: row;
+    flex-direction: row;
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+#flex-item {
+    margin: auto;
+}
+ul {
+    list-style: none;
+}
+.timeSpan {
+    width: 100px;
+    font-size: 2em;
+    text-align: center;
+}
+.totalSpan {
+    font-size: 2em;
+}
+/* Sidenav area */
+
+md-list .md-button {
+    color: inherit;
+    font-weight: 500;
+    text-align: left;
+    width: 100%;
+}
+md-list .md-button.selected {
+    color: #03a9f4;
+}
+
+md-sidenav  md-list {
+    padding: 0px 0px 8px 0px;
+}

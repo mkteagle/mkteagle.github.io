@@ -7,7 +7,7 @@
     blogService.$inject = ['$firebaseArray'];
 
     function blogService($firebaseArray) {
-        var ref = new Firebase("https://glaring-inferno-7989.firebaseio.com/blog/");
+        var ref = new Firebase("https://doingutahdaily.firebaseio.com/blog/");
         var date = Date.now();
         var self = this;
         self.getChange = getChange;
@@ -44,7 +44,7 @@
             {id: '29', name: 'Weber County'}];
         self.categories = [
             {id: '1', name: 'Fun in the Sun'},
-            {id: '1', name: 'Snow for All'}
+            {id: '2', name: 'Snow for All'}
 
         ];
         self.seasons = [
