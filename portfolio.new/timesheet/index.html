@@ -3,23 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Timesheet</title>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.6/css/ngDialog.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.6/css/ngDialog-theme-default.min.css">
     <link rel="stylesheet" href="https://npmcdn.com/angular-toastr/dist/angular-toastr.css" />
+    <link rel="stylesheet" href="style.css">
 </head>
 <body ng-app="timeSheet" ng-controller="timeSheetController as ts" ng-init="ts.add()">
-<span ng-bind="ts.firstTime.time"></span>
-<button ng-click="ts.getFirstTime()">Enter Work</button>
-<span ng-bind="ts.secondTime.time"></span>
-<button ng-click="ts.getSecondTime()">Leave Work</button>
-<span ng-bind="ts.thirdTime.time"></span>
-<button ng-click="ts.getThirdTime()">Enter Work</button>
-<button ng-click="ts.clickURL()">Click me!!!</button>
-<button ng-click="ts.toastMe()">Toast Me!!!</button>
-<hr/>
-<span>Can Leave: <span ng-hide="ts.finalCalc.finale != null" ng-bind="ts.total.finale"></span><span ng-hide="ts.finalCalc.finale == null" ng-bind="ts.finalCalc.finale"></span></span>
+<md-sidenav class="site-sidenav md-sidenav-left md-whiteframe-z2"
+            md-component-id="left"
+            md-is-locked-open="$mdMedia('gt-sm')">
+
+    <md-toolbar class="md-whiteframe-z1">
+        <div class="blueHeader">
+            <strong>History</strong>
+        </div>
+    </md-toolbar>
+
+    <md-list>
+        <md-list-item class="mdlists" ng-repeat="it in ts.timesheets">
+            <md-button ng-click="ts.selectList(it)" ng-class="{'selected' : it === ts.selected }">
+                {{ it.id }}
+            </md-button>
+        </md-list-item>
+    </md-list>
+
+</md-sidenav>
+<div id="flex-container">
+    <div id="flex-item">
+        <ul>
+            <li><span class="timeSpan" ng-module="ts.selected.firstTime" ng-change="ts.saveTimes(ul.selected)">{{ts.selected.firstTime}}</span></li>
+            <li><md-button class="md-raised md-primary" ng-click="ts.getFirstTime()">Enter Work</md-button></li>
+            <li><span class="timeSpan" ng-module="ts.selected.secondTime" ng-change="ts.saveTimes(ts.selected)">{{ts.selected.secondTime}}</span></li>
+            <li><md-button class="md-raised md-primary" ng-click="ts.getSecondTime()">Leave Work</md-button></li>
+            <li><span class="timeSpan" ng-module="ts.selected.thirdTime" ng-change="ts.saveTimes(ts.selected)">{{ts.selected.thirdTime}}</span></li>
+            <li><md-button class="md-raised md-primary" ng-click="ts.getThirdTime()">Enter Work</md-button></li>
+            <hr/>
+            <li><span>Can Leave: <span class="totalSpan" ng-hide="ts.finalCalc != null" ng-bind="ts.selected.total"></span><span class="totalSpan" ng-hide="ts.finalCalc == null" ng-bind="ts.selected.finalCalc"></span></span>
+        </ul>
+        <button ng-click="ts.clickURL()">Click me!!!</button>
+            <button ng-click="ts.toastMe()">Toast Me!!!</button>
+
+    </div>
+</div>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angular_material/1.0.3/angular-material.min.js"></script>
+<!--<script src="./bower_components/angular-material/angular-material.min.js"></script>-->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-animate.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.9/angular-aria.min.js"></script>
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/ng-dialog/0.5.6/js/ngDialog.min.js"></script>
 <script src="https://cdn.firebase.com/js/client/2.2.4/firebase.js"></script>
 <script src="https://cdn.firebase.com/libs/angularfire/1.1.3/angularfire.min.js"></script>

@@ -1,12 +1,15 @@
 <div flex layout row>
 <div ng-include="'./src/templates/bloglist.html'"></div>
-<div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+<div flex layout="column" tabIndex="-1" role="main">
 
-    <md-toolbar id="openToggles" layout="row" class="md-whiteframe-z1">
+    <md-toolbar id="openToggles" layout="row">
         <md-button class="menu" hide-gt-sm ng-click="ul.toggleList()" aria-label="Show User List">
-            <md-icon id="menuitem" md-svg-icon="menu" ></md-icon>
+            <md-icon md-svg-icon="menu" ></md-icon>
         </md-button>
         <div class="header">
+            <md-button class="menu" ng-click="ul.toggleIt()" aria-label="Show Menu">
+                <md-icon id="menuitem" md-svg-icon="menu" ></md-icon>
+            </md-button>
             <strong><input type="text" ng-model="ul.selected.title" id="newContainer" ng-disabled="ul.blogs.length == 0" placeholder="Title..." ng-change="ul.getChange(ul.selected)"></strong>
         </div>
         <div class="right">

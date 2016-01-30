@@ -1,4 +1,4 @@
-angular.module('timeSheet', ['tsService', 'ngDialog', 'toastr', 'ngAnimate'])
+angular.module('timeSheet', ['ngMaterial', 'ngAria', 'tsService', 'ngDialog', 'toastr', 'ngAnimate'])
     .controller('timeSheetController', timeSheetController);
 timeSheetController.$inject = ['tsService', 'ngDialog', 'toastr'];
 
@@ -13,12 +13,22 @@ function timeSheetController (tsService, ngDialog, toastr) {
     self.add = add;
     self.clickURL = clickURL;
     self.toastMe = toastMe;
+    self.selected = null;
     self.firstTime = tsService.firstTime;
     self.secondTime = tsService.secondTime;
     self.thirdTime = tsService.thirdTime;
     self.total = tsService.total;
     self.key = tsService.key;
     self.finalCalc = tsService.finalCalc;
+    self.selectList = selectList;
+    self.saveTimes = saveTimes;
+
+    function saveTimes (times) {
+        tsService.saveTimes(times);
+    }
+    function selectList(list) {
+        self.selected = angular.isNumber(list) ? $scope.lists[list] : list;
+    }
     function add () {
         tsService.add();
     }

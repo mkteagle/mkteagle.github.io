@@ -1,4 +1,4 @@
-var app = angular.module('myApp', ['ngMaterial', 'ui.router', 'blogService', 'blogController', 'blogDirective', 'firebase', 'oathService', 'oathController', 'ngSanitize', 'froala', 'blogFilter' ]);
+var app = angular.module('myApp', ['ngMaterial', 'ui.router', 'blogService', 'blogController', 'blogDirective', 'firebase', 'oathService', 'oathController', 'ngSanitize', 'froala', 'blogFilter', 'eehNavigation', 'pascalprecht.translate', 'ui.bootstrap' ]);
     app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider){
     $mdIconProvider
         .defaultIconSet("./assets/svg/avatars.svg", 128)
@@ -24,6 +24,10 @@ var app = angular.module('myApp', ['ngMaterial', 'ui.router', 'blogService', 'bl
         .state("newhome", {
             url: "/newhome",
             templateUrl: "./src/templates/newhome.html"
+        })
+        .state("posts", {
+            url: "/posts",
+            templateUrl: "./src/templates/posts.html"
         });
 
         // if none of the above states are matched, use this as the fallback
