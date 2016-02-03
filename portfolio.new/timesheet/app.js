@@ -20,26 +20,26 @@ function timeSheetController (tsService, ngDialog, toastr) {
     self.total = tsService.total;
     self.key = tsService.key;
     self.finalCalc = tsService.finalCalc;
-    self.selectList = selectList;
-    self.saveTimes = saveTimes;
+    self.selectTimesheet = selectTimesheet;
+    self.getChange = getChange;
 
-    function saveTimes (times) {
-        tsService.saveTimes(times);
+    function getChange (times) {
+        tsService.getChange(times);
     }
-    function selectList(list) {
-        self.selected = angular.isNumber(list) ? $scope.lists[list] : list;
+    function selectTimesheet(timesheet) {
+        self.selected = angular.isNumber(timesheet) ? $scope.timesheets[timesheet] : timesheet;
     }
     function add () {
         tsService.add();
     }
-    function getFirstTime() {
-        tsService.getFirstTime();
+    function getFirstTime(ts) {
+        tsService.getFirstTime(ts);
     }
-    function getSecondTime() {
-        tsService.getSecondTime();
+    function getSecondTime(ts) {
+        tsService.getSecondTime(ts);
     }
-    function getThirdTime() {
-        tsService.getThirdTime();
+    function getThirdTime(ts) {
+        tsService.getThirdTime(ts);
     }
     function clickURL() {
         ngDialog.open({
@@ -50,10 +50,10 @@ function timeSheetController (tsService, ngDialog, toastr) {
     function toastMe() {
         toastr.success('Hello world!', 'Toastr fun!');
     }
-    function totals() {
-        tsService.totals();
+    function totals(ts) {
+        tsService.totals(ts);
     }
-    function finale() {
-        tsService.finale();
+    function finale(ts) {
+        tsService.finale(ts);
     }
 }

@@ -77,7 +77,7 @@
          */
         function selectBlog(blog) {
             self.selected = angular.isNumber(blog) ? $scope.blogs[blog] : blog;
-            self.toggleList();
+            //self.toggleList();
         }
 
         self.countOf = function (text) {

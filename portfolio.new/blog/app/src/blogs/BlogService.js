@@ -74,7 +74,7 @@
             self.blogs.$save(blog);
         }
         function addBlog(name, pic) {
-            self.blogs.$add({name: 'Michael Teagle', date: date, avatar: name[pic], url: '/michael-teagle', content: '', title: '', category: '', location: '', season: '', county: ''});
+            self.blogs.$add({name: 'Michael Teagle', date: date, avatar: name[pic], url: '/michael-teagle', content: '', title: '', category: '', location: '', season: '', county: '', posted: false});
         }
     }
 })();
