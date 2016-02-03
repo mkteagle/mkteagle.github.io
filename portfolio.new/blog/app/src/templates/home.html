@@ -40,6 +40,18 @@
                             </md-select>
                         </md-input-container>
                     </div>
+                    <div layout="row">
+                        <md-input-container flex>
+                            <md-radio-group ng-model="ul.selected.posted" ng-change="ul.getChange(ul.selected)">
+                                <md-radio-button ng-value="true" aria-label="Label 1">
+                                    Posted
+                                </md-radio-button>
+                                <md-radio-button ng-value="false" aria-label="Green">
+                                    Draft
+                                </md-radio-button>
+                            </md-radio-group>
+                        </md-input-container>
+                    </div>
                     <hr/>
                         <div class="field">
                             <md-input-container class="md-block md-input-has-value">

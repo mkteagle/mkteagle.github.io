@@ -26,7 +26,7 @@ var app = angular.module('myApp', ['ngMaterial', 'ui.router', 'blogService', 'bl
             templateUrl: "./src/templates/newhome.html"
         })
         .state("posts", {
-            url: "/posts",
+            url: "/posts/{post.title}",
             templateUrl: "./src/templates/posts.html"
         });
 
