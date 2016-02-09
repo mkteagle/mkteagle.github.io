@@ -4,36 +4,37 @@
 <div class="top-padding"></div>
 <div class="outer-categories">
     <div layout="row">
-        <md-input-container flex>
-            <md-select-label class="gray">County</md-select-label>
-            <md-select ng-model="county">
-                <md-option class="blackify" ng-repeat="county in ul.counties">{{ county.name }}</md-option>
+        <md-input-container aria-label="..." flex>
+            <md-select-label aria-label="..." class="gray">County</md-select-label>
+            <md-select aria-label="..." ng-model="county">
+                <md-option aria-label="..." class="blackify" ng-repeat="county in ul.counties">{{ county.name }}</md-option>
             </md-select>
         </md-input-container>
         <md-input-container flex>
-            <md-select-label class="gray">Category</md-select-label>
-            <md-select ng-model="category" ng-change="ul.getChange(ul.selected)">
-                <md-option class="blackify" ng-repeat="category in ul.categories">{{ category.name }}</md-option>
+            <md-select-label aria-label="..." class="gray">Category</md-select-label>
+            <md-select aria-label="..." ng-model="category" ng-change="ul.getChange(ul.selected)">
+                <md-option aria-label="..." class="blackify" ng-repeat="category in ul.categories">{{ category.name }}</md-option>
             </md-select>
         </md-input-container>
-        <md-input-container flex>
-            <md-select-label class="gray">Season</md-select-label>
-            <md-select ng-model="season" ng-change="ul.getChange(ul.selected)">
-                <md-option class="blackify" ng-repeat="season in ul.seasons">{{ season.name }}</md-option>
+        <md-input-container aria-label="..." flex>
+            <md-select-label aria-label="..." class="gray">Season</md-select-label>
+            <md-select aria-label="..." ng-model="season" ng-change="ul.getChange(ul.selected)">
+                <md-option aria-label="..." class="blackify" ng-repeat="season in ul.seasons">{{ season.name }}</md-option>
             </md-select>
         </md-input-container>
     </div>
 </div>
-<div ng-repeat="blog in ul.blogs | filter: county | filter: categories | filter: seasons">
+<div  aria-label="..." ng-repeat="blog in ul.blogs | filter: county">
 <div class="blogContainer">
         <div class="blogOuter">
             <div class="title" ng-bind="blog.title"></div>
             <ul class="filters">
-                <li class="filter"><i>{{ blog.category }}</i> |</li>
-                <li class="filter"><i>{{ blog.county }}</i> |</li>
-                <li class="filter"><i>{{ blog.season }}</i></li>
+                <md-chip><i>{{ blog.category }}</i></md-chip>
+                <md-chip><i>{{ blog.county }}</i></md-chip>
+                <md-chip><i>{{ blog.season }}</i></md-chip>
             </ul>
-            <div class="blogContent" ng-bind-html="blog.content"></div>
+            <p><div class="blogContent messagestyle" ng-bind-html="blog.content | characters: 300: false"></div></p>
+            <div><a ng-href="#/posts/{{blog.param}}">Read more</a></div>
             <div class="right">Comments</div>
         </div>
     </div>

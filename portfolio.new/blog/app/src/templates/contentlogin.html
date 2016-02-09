@@ -1,4 +1,4 @@
-<div ng-controller="oathController as oc" flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
+<div flex layout="column" tabIndex="-1" role="main" class="md-whiteframe-z2">
     <div layout="row">
 <div class="header">
     <span class="long"><h1>Login</h1></span>
@@ -10,7 +10,7 @@
     <md-content>
         <section layout="row">
             <form style="padding: 20px;" flex>
-                <div ng-hide="oc.othData" layout="column" layout-align="center">
+                <div ng-hide="ul.othData" layout="column" layout-align="center">
                     <label>Email</label>
                     <input type="text" ng-model="user.email" type="email">
                     <label>Password</label>
@@ -18,12 +18,12 @@
                 </div>
             </form>
             <section layout="column" style="padding: 20px;" flex layout-align="center">
-                <div ng-show="oc.othData"><span class="padding">Welcome {{ oc.othData.displayName }}</span>
-                <span><img class="profilepic" ng-src="{{ oc.othData.profileImageURL }}"></span>
+                <div ng-show="ul.othData"><span class="padding">Welcome {{ ul.othData.displayName }}</span>
+                <span><img class="profilepic" ng-src="{{ ul.othData.profileImageURL }}"></span>
                 </div>
-                <p ng-hide="oc.othData">Or you can use your Google account</p>
-                <md-button ng-hide="oc.othData" ng-click="oc.google()">Google</md-button>
-                <md-button ng-show="oc.othData" ng-click="oc.logout()">Logout</md-button>
+                <p ng-hide="ul.othData">Or you can use your Google account</p>
+                <md-button ng-hide="ul.othData" ng-click="ul.login()">Google</md-button>
+                <md-button ng-show="ul.othData" ng-click="ul.logout()">Logout</md-button>
             </section>
         </section>
     </md-content>

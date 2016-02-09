@@ -3,11 +3,12 @@
     angular
         .module('blogController', [])
         .controller('BlogController', [
-            'blogService', '$mdSidenav', '$mdBottomSheet', '$log', 'oathService',
+            'blogService', '$mdSidenav', '$mdBottomSheet', '$log', 'oathService', '$stateParams',
             BlogController
         ]);
+    //BlogController.$inject = ['$http', '$state', '$stateParams'];
 
-    function BlogController(blogService, $mdSidenav, $mdBottomSheet, oathService) {
+    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $log, oathService, $stateParams ) {
         var self = this;
         var svgArr = ['svg-1', 'svg-2', 'svg-3', 'svg-4', 'svg-5'];
         var svgindex = 0;
@@ -23,13 +24,33 @@
         self.google = google;
         self.removeBlog = removeBlog;
         self.logout = logout;
+        self.getPost = getPost;
         self.counties = blogService.counties;
         self.categories = blogService.categories;
         self.seasons = blogService.seasons;
+        self.login = login;
+        self.post = blogService.post;
+        self.addPostParam = addPostParam;
         function firstList() {
             self.selected = blogService.blogs[0];
         }
-
+        function login() {
+            auth.signin({}, function (profile, token) {
+                // Success callback
+                store.set('profile', profile);
+                store.set('token', token);
+                $location.path('/');
+            }, function () {
+                console.log("This is an error message");
+                // Error callback
+            });
+        }
+        function getPost() {
+            console.log(self.blogs);
+            console.log($stateParams);
+            console.log($stateParams.blogParam);
+            self.post = blogService.getPost($stateParams.blogParam);
+        }
         // *********************************
         // Internal methods
         // *********************************
@@ -50,8 +71,12 @@
          * First hide the bottomsheet IF visible, then
          * hide or Show the 'left' sideNav area
          */
+        function addPostParam(blog) {
+            blogService.addPostParam(blog);
+        }
         function getChange(blog) {
-            blogService.getChange(blog)
+            blogService.getChange(blog);
+
         }
 
         function addBlog() {

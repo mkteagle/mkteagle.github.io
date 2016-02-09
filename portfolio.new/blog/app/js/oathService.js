@@ -65,23 +65,6 @@
                 console.error("Authentication failed:", error);
             });
         };
-        //self.checkuser = function() {
-        //    auth.$onAuth(function(authData) {
-        //        if (authData) {
-        //            auth.child('users').child(othData.uid).$set({
-        //                displayName: othData.displayName,
-        //                pic: othData.profileImageURL,
-        //                provider: othData.provider,
-        //                provider_id: othData.id
-        //            });
-        //            console.log("Logged in as:", authData.uid);
-        //        } else {
-        //            console.log("Logged out");
-        //        }
-        //    });
-        //};
-
-
         self.twitter = function() {
             auth.$authWithOAuthPopup("twitter").then(function(authData) {
                 self.othData = authData.twitter;

@@ -1,36 +1,27 @@
-var app = angular.module('myApp', ['ngMaterial', 'ui.router', 'blogService', 'blogController', 'blogDirective', 'firebase', 'oathService', 'oathController', 'ngSanitize', 'froala', 'blogFilter', 'eehNavigation', 'pascalprecht.translate', 'ui.bootstrap' ]);
-    app.config(function($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider){
-    $mdIconProvider
-        .defaultIconSet("./assets/svg/avatars.svg", 128)
-        .icon("menu"       , "./assets/svg/menu.svg"        , 24)
-        .icon("share"      , "./assets/svg/share.svg"       , 24)
-        .icon("google_plus", "./assets/svg/google_plus.svg" , 512)
-        .icon("hangouts"   , "./assets/svg/hangouts.svg"    , 512)
-        .icon("twitter"    , "./assets/svg/twitter.svg"     , 512)
-        .icon("phone"      , "./assets/svg/phone.svg"       , 512);
+// Wait for the DOM to be ready (all elements printed on page regardless if loaded or not)
+$(function() {
 
-    $mdThemingProvider.theme('default')
-        .primaryPalette('pink')
-        .accentPalette('blue');
-    $stateProvider
-        .state("home", {
-            url: "/home",
-            templateUrl: "./src/templates/home.html"
-        })
-        .state("login", {
-            url: "/login",
-            templateUrl: "src/templates/contentlogin.html"
-        })
-        .state("newhome", {
-            url: "/newhome",
-            templateUrl: "./src/templates/newhome.html"
-        })
-        .state("posts", {
-            url: "/posts/{post.title}",
-            templateUrl: "./src/templates/posts.html"
-        });
+    // Bind a click event to anything with the class "toggle-nav"
+    $('.toggle-nav').click(function() {
 
-        // if none of the above states are matched, use this as the fallback
-        $urlRouterProvider.otherwise("/home");
+        // Toggle the Body Class "show-nav"
+        $('body').toggleClass('show-nav');
 
+        // Deactivate the default behavior of going to the next page on click
+        return false;
+
+    });
+});
+// Toggle with hitting of ESC
+$(document).keyup(function(e) {
+    if (e.keyCode == 27) {
+        $('body').toggleClass('show-nav');
+        // $('body').removeClass('show-nav');
+    }
+});
+$(function() {
+    $('.toggle-nav').click(function() {
+        $('body').toggleClass('show-nav');
+        return false;
+    });
 });

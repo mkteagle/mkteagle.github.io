@@ -1,0 +1,19 @@
+<div class="right" ng-init="ul.getPost()">
+    <div ng-include="'./src/templates/login.html'"></div>
+</div>
+<div class="top-padding"></div>
+    <div class="outer-categories">
+    </div>
+    <div class="blogContainer">
+        <div class="blogOuter">
+            <div class="title" ng-bind="ul.post.title"></div>
+            <ul class="filters">
+                <md-chip><i>{{ ul.post.category }}</i></md-chip>
+                <md-chip><i>{{ ul.post.county }}</i></md-chip>
+                <md-chip><i>{{ ul.post.season }}</i></md-chip>
+            </ul>
+            <p><div class="blogContent messagestyle" ng-bind-html="ul.post.content"></div></p>
+            <strong><a ng-href="#/edit/{{ul.post.param}}" ng-click="ul.getPost(ul.post)">Edit Blog</a></strong>
+        </div>
+    </div>
+<footer class="footer" ng-include="'./src/templates/footer.html'"></footer>

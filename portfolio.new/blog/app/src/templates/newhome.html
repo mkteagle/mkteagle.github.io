@@ -1,5 +1,9 @@
-<div ng-repeat="blog in ul.blogs | limitTo: -1">
+
+<div class="right">
+    <div ng-include="'./src/templates/login.html'"></div>
+</div>
     <div class="top-padding"></div>
+    <div ng-repeat="blog in ul.blogs | limitTo: 1">
     <div class="outer-categories">
 
     </div>
@@ -11,7 +15,8 @@
             <li class="filter"><i>{{ blog.county }}</i> |</li>
             <li class="filter"><i>{{ blog.season }}</i></li>
         </ul>
-        <div class="blogContent" ng-bind-html="blog.content"></div>
+            <!--blogContent messagestyle-->
+        <p><div class="fr-view" ng-bind-html="blog.content"></div></p>
     </div>
         </div>
 </div>

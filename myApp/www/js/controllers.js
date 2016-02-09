@@ -1,3 +1,5 @@
+(function(){
+  'use strict';
 angular.module('starter.controllers', [])
 
 .controller('DashCtrl', function($scope) {})
@@ -11,13 +13,17 @@ angular.module('starter.controllers', [])
   //$scope.$on('$ionicView.enter', function(e) {
   //});
 
-  $scope.chats = Chats.all();
+  Chats.getData().then(function(response) {
+    $scope.chats = response;
+  });
   $scope.remove = function(chat) {
     Chats.remove(chat);
   };
 })
 
 .controller('ChatDetailCtrl', function($scope, $stateParams, Chats) {
+  console.log(Chats.chats);
+  console.log($stateParams.chatId);
   $scope.chat = Chats.get($stateParams.chatId);
 })
 
@@ -32,3 +38,4 @@ angular.module('starter.controllers', [])
       enableMe: true
     }
   });
+}());

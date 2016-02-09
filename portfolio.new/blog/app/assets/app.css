@@ -21,7 +21,9 @@ md-toolbar h1 {
 }
 
 /* Sidenav area */
-
+.md-sidenav-left {
+    width: 200px;
+}
 md-list .md-button {
   color: inherit;
   font-weight: 500;
@@ -362,13 +364,14 @@ h2 {
     height: 100%;
 }
 #newContainer {
-    width: 98%;
-    margin: 0;
+    width: 100%;
+    margin-top: 10px;
     height: auto;
     font-size: 2em;
     border: 0;
     color: black;
     background: transparent;
+    z-index: 2000;
 }
 #newContainer:focus {
     outline: 0;
@@ -394,12 +397,12 @@ h2 {
     background: #F0F0F0;
     padding-left: 10px;
     height: auto;
-    border-bottom: 1px solid lightgrey;
+    width: 60%;
 }
 .right {
     float: right;
 }
-#messagestyle {
+.messagestyle {
     font-family: 'Merriweather Sans', sans-serif;
     font-size: 1.25em;
 }
@@ -554,9 +557,237 @@ md-option {
 .gray {
     color: lightgrey;
 }
-.fr-dii {
-    margin: 0 auto;
+.blueFooter {
+    background: #1A3240;
+    color: lightgray;
 }
+.c-hamburger {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+    width: 96px;
+    height: 96px;
+    font-size: 0;
+    text-indent: -9999px;
+    appearance: none;
+    box-shadow: none;
+    border-radius: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.c-hamburger:focus {
+    outline: none;
+}
+.c-hamburger span {
+    display: block;
+    position: absolute;
+    top: 44px;
+    left: 18px;
+    right: 18px;
+    height: 8px;
+    background: white;
+}
+
+.c-hamburger span::before,
+.c-hamburger span::after {
+    position: absolute;
+    display: block;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: #fff;
+    content: "";
+}
+
+.c-hamburger span::before {
+    top: -20px;
+}
+.c-hamburger--htx {
+    background-color: #ff3264;
+}
+
+.c-hamburger--htx span {
+    transition: background 0s 0.3s;
+}
+
+.c-hamburger--htx span::before,
+.c-hamburger--htx span::after {
+    transition-duration: 0.3s, 0.3s;
+    transition-delay: 0.3s, 0s;
+}
+
+.c-hamburger--htx span::before {
+    transition-property: top, transform;
+}
+
+.c-hamburger--htx span::after {
+    transition-property: bottom, transform;
+}
+
+/* active state, i.e. menu open */
+.c-hamburger--htx.is-active {
+    background-color: #cb0032;
+}
+
+.c-hamburger--htx.is-active span {
+    background: none;
+}
+
+.c-hamburger--htx.is-active span::before {
+    top: 0;
+    transform: rotate(45deg);
+}
+
+.c-hamburger--htx.is-active span::after {
+    bottom: 0;
+    transform: rotate(-45deg);
+}
+
+.c-hamburger--htx.is-active span::before,
+.c-hamburger--htx.is-active span::after {
+    transition-delay: 0s, 0.3s;
+}
+.bloglist {
+    padding: 10px;
+}
+.clicked {
+    background: lightblue;
+}
+.smalleriC {
+    width: 50px;
+}
+/*Menu Overlay*/
+/* Hides everything pushed outside of it */
+.lower{
+    width:100px;
+    margin:10% auto;
+    opacity:0.8;
+    color:black;
+}
+
+.lower:hover{
+    cursor: pointer;
+    background:black;
+    color:white;
+}
+
+#op{
+    display:none;
+}
+
+.lower label{
+    padding-left: 40px;
+    font-size:30px;
+    text-align:center;
+}
+
+.lower label:hover{
+    cursor:pointer;
+}
+
+.overlay{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 2000;
+}
+
+.overlay label{
+    width: 58px;
+    height:58px;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    background: url('http://tympanus.net/Development/FullscreenOverlayStyles/img/cross.png');
+    z-index: 2000;
+    cursor:pointer;
+}
+
+.overlay nav {
+    text-align: center;
+    position: relative;
+    top: 50%;
+    height: 60%;
+    font-size: 54px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+}
+
+.overlay ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 auto;
+    display: inline-block;
+    height: 100%;
+    position: relative;
+}
+
+.overlay ul li {
+    display: block;
+    height: 20%;
+    height: calc(100% / 5);
+    min-height: 54px;
+}
+
+.overlay ul li a {
+    font-weight: 300;
+    display: block;
+    color: white;
+    text-decoration:none;
+    -webkit-transition: color 0.2s;
+    transition: color 0.2s;
+    text-transform:uppercase;
+}
+
+.overlay ul li a:hover,
+.overlay ul li a:focus {
+    color: #849368;
+}
+
+.lower~.overlay-hugeinc{
+    opacity: 0;
+    visibility: hidden;
+    -webkit-transition: opacity 0.5s, visibility 0s 0.5s;
+    transition: opacity 0.5s, visibility 0s 0.5s;
+}
+
+#op:checked~.overlay-hugeinc{
+    opacity: 1;
+    visibility: visible;
+    -webkit-transition: opacity 0.5s;
+    transition: opacity 0.5s;
+}
+
+.overlay-hugeinc nav {
+    -moz-perspective: 300px;
+}
+
+.overlay-hugeinc nav ul {
+    opacity: 0.4;
+    -webkit-transform: translateY(-25%) rotateX(35deg);
+    transform: translateY(-25%) rotateX(35deg);
+    -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
+    transition: transform 0.5s, opacity 0.5s;
+}
+
+#op:checked~.overlay-hugeinc nav ul {
+    opacity: 1;
+    -webkit-transform: rotateX(0deg);
+    transform: rotateX(0deg);
+}
+
+#op:not(:checked)~.overlay-hugeinc nav ul {
+    -webkit-transform: translateY(25%) rotateX(-35deg);
+    transform: translateY(25%) rotateX(-35deg);
+}
+
 /*footer {*/
     /*height: 30px;*/
 /*}*/

@@ -4,14 +4,19 @@
     angular.module('blogService', ['firebase'])
         .service('blogService', blogService);
 
-    blogService.$inject = ['$firebaseArray'];
+    blogService.$inject = ['$firebaseArray', '$filter'];
 
-    function blogService($firebaseArray) {
+    function blogService($firebaseArray, $filter) {
         var ref = new Firebase("https://doingutahdaily.firebaseio.com/blog/");
         var date = Date.now();
+        var newdate = $filter('date')(new Date(), 'HH:mm:ss');
+
         var self = this;
         self.getChange = getChange;
         self.removeBlog = removeBlog;
+        self.getPost = getPost;
+        self.addPostParam = addPostParam;
+        self.post = {};
         self.counties = [
             {id: '1', name: 'Beaver County'},
             {id: '2', name: 'Box Elder County'},
@@ -65,6 +70,11 @@
             {id: '15', name: 'Holidays'},
             {id: '16', name: 'Christmas'}
         ];
+        function addPostParam(blog) {
+            var postParam = $filter('removeSpacesThenLowercase')(blog.title);
+            blog.param = postParam;
+            self.blogs.$save(blog);
+        }
         function removeBlog(blog) {
             self.blogs.$remove(blog);
         }
@@ -73,8 +83,16 @@
         function getChange(blog) {
             self.blogs.$save(blog);
         }
+        function getPost(blog) {
+            console.log(self.blogs);
+            for (var i = 0; i < self.blogs.length; i++) {
+                if (self.blogs[i].param == blog) {
+                    return self.blogs[i];
+                }
+            }
+        }
         function addBlog(name, pic) {
-            self.blogs.$add({name: 'Michael Teagle', date: date, avatar: name[pic], url: '/michael-teagle', content: '', title: '', category: '', location: '', season: '', county: '', posted: false});
+            self.blogs.$add({name: 'Jennifer Teagle', postDate: '', date: date, avatar: name[pic], url: '/jen', content: '', title: 'Placeholder', category: '', location: '', season: '', county: '', posted: false});
         }
     }
 })();

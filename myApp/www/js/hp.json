@@ -1,0 +1,36 @@
+{
+  "id" : "harry_potter",
+  "name" : "Harry Potter Characters",
+  "description" : "List of Harry Potter Characters",
+  "metadata": {
+    "sourceName": "Harrypottercharacters",
+    "sourceUrl": "http://hpapi.co/"
+  },
+  "characters":[
+    { "id": "hp",
+      "name": "Harry Potter",
+      "born": "31 July, 1980",
+      "profileImg": "http://cdnstatic.visualizeus.com/thumbs/21/5e/harrypotter-215ed1ff7d47eb321bd6fd99ad5c9121_h.jpg",
+    "occupation": "Student",
+    "children": [
+      {"name": "Jame's Sirius Potter"},
+      {"name": "Albus Severus Potter"},
+      {"name": "Lily Luna Potter"}
+    ]},
+    { "id": "lp",
+      "name": "Lily Potter",
+      "born": "30 January, 1960",
+    "occupation": "Deceased",
+    "children": "Harry Potter"},
+    { "id": "jp",
+      "name": "James Potter",
+      "born": "27 March, 1960",
+    "occupation": "Deceased",
+    "children": "Harry Potter"},
+    { "id": "rh",
+      "name": "Rubeus Hagrid",
+      "born": " 6 December, 1928",
+    "occupation": "Teacher",
+    "children": "None"}
+  ]
+}

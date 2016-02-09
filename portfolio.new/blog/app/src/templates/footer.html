@@ -1,3 +1,4 @@
+<div class="blueFooter">
 <div layout="row">
     <div flex class="leftCol">
         <div layout="row">
@@ -12,7 +13,9 @@
         <div layout="row">
             <div class="right">
                 <strong><div class="button" ng-hide="ul.blogs.length == 0" ng-if="!ul.selected.posted" ng-click="ul.removeBlog(ul.selected)">x Delete Blog</div></strong>
+                <strong><a ng-hide="ul.blogs.length == 0" ng-href="#/posts/{{ul.post.param}}" ng-click="ul.getPost(ul.post)">Preview Blog</a></strong>
             </div>
         </div>
     </div>
+</div>
 </div>

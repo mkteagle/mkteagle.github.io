@@ -1,16 +1,22 @@
 <md-sidenav class="site-sidenav md-sidenav-left"
             md-component-id="left"
-            >
-    <!--md-is-locked-open="$mdMedia('gt-sm')"-->
+            md-is-locked-open="$mdMedia('gt-sm')">
+
 
     <md-toolbar>
         <h1>Blogs</h1>
     </md-toolbar>
 
-    <md-list>
-        <md-list-item ng-init="ul.firstList()" ng-repeat="it in ul.blogs">
+    <md-list class="bloglist">
+        <md-subheader>Posts</md-subheader>
+        <md-list-item class="bloglist-item" ng-init="ul.firstList()" ng-repeat="it in ul.blogs | filter: {posted: true}">
             <a ng-click="ul.selectBlog(it)" ng-class="{'selected' : it === ul.selected }">
-                <md-icon md-svg-icon="{{it.avatar}}" class="avatar"></md-icon>
+                {{it.title}}
+            </a>
+        </md-list-item>
+        <md-subheader>Drafts</md-subheader>
+        <md-list-item class="bloglist-item" ng-init="ul.firstList()" ng-repeat="it in ul.blogs | filter: {posted: false}">
+            <a ng-click="ul.selectBlog(it)" ng-class="{'selected' : it === ul.selected }">
                 {{it.title}}
             </a>
         </md-list-item>
