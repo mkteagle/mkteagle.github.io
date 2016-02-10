@@ -1,3 +1,4 @@
+
 <div class="blueFooter">
 <div layout="row">
     <div flex class="leftCol">
@@ -14,6 +15,9 @@
             <div class="right">
                 <strong><div class="button" ng-hide="ul.blogs.length == 0" ng-if="!ul.selected.posted" ng-click="ul.removeBlog(ul.selected)">x Delete Blog</div></strong>
                 <strong><a ng-hide="ul.blogs.length == 0" ng-href="#/posts/{{ul.post.param}}" ng-click="ul.getPost(ul.post)">Preview Blog</a></strong>
+                <div hide-gt-sm layout="row" layout-align="center center" flex="100">
+                    <md-button ng-model="ul.customFullscreen" aria-label="Fullscreen Custom Dialog">Preview Post</md-button>
+                </div>
             </div>
         </div>
     </div>

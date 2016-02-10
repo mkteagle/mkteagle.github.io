@@ -84,12 +84,24 @@
             self.blogs.$save(blog);
         }
         function getPost(blog) {
-            console.log(self.blogs);
-            for (var i = 0; i < self.blogs.length; i++) {
-                if (self.blogs[i].param == blog) {
-                    return self.blogs[i];
-                }
-            }
+            self.blogs.$loaded()
+                .then(function(){
+                    angular.forEach(self.blogs, function(blogname) {
+                        if (blogname.param === blog) {
+                            //console.log(blogname);
+                            self.post = blogname;
+                            console.log(self.post);
+                        }
+                    })
+                });
+            //console.log(self.blogs);
+            //console.log(self.blogs.length);
+            //for (var i = 0; i < self.blogs.length; i++) {
+            //    console.log(self.blogs[i]);
+            //    if (self.blogs[i].param == blog) {
+            //        return self.blogs[i];
+            //    }
+            //}
         }
         function addBlog(name, pic) {
             self.blogs.$add({name: 'Jennifer Teagle', postDate: '', date: date, avatar: name[pic], url: '/jen', content: '', title: 'Placeholder', category: '', location: '', season: '', county: '', posted: false});

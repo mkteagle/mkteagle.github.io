@@ -2,13 +2,12 @@
 
     angular
         .module('blogController', [])
-        .controller('BlogController', [
-            'blogService', '$mdSidenav', '$mdBottomSheet', '$log', 'oathService', '$stateParams',
-            BlogController
-        ]);
-    //BlogController.$inject = ['$http', '$state', '$stateParams'];
+        .controller('BlogController', BlogController)
+        .controller('DialogController', DialogController);
 
-    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $log, oathService, $stateParams ) {
+    BlogController.$inject = ['blogService', '$mdSidenav', '$mdBottomSheet', '$mdDialog','$mdMedia', 'oathService', '$stateParams'];
+
+    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $mdDialog, $mdMedia, oathService, $stateParams, $scope ) {
         var self = this;
         var svgArr = ['svg-1', 'svg-2', 'svg-3', 'svg-4', 'svg-5'];
         var svgindex = 0;
@@ -29,8 +28,21 @@
         self.categories = blogService.categories;
         self.seasons = blogService.seasons;
         self.login = login;
-        self.post = blogService.post;
+        self.post = {};
         self.addPostParam = addPostParam;
+
+        self.showAdvanced = function(ev, post) {
+            $mdDialog.show({
+                    controller: DialogController,
+                    templateUrl: './src/templates/preview-post.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                    locals: {
+                        blog: post
+                    }
+                })
+        };
         function firstList() {
             self.selected = blogService.blogs[0];
         }
@@ -46,10 +58,14 @@
             });
         }
         function getPost() {
-            console.log(self.blogs);
-            console.log($stateParams);
-            console.log($stateParams.blogParam);
-            self.post = blogService.getPost($stateParams.blogParam);
+            self.blogs.$loaded()
+                .then(function() {
+                    angular.forEach(self.blogs, function (blogname) {
+                        if (blogname.param === $stateParams.blogParam) {
+                            self.post = blogname;
+                        }
+                    })
+        })
         }
         // *********************************
         // Internal methods
@@ -150,6 +166,18 @@
             self.value = self.editableTag;
             self.disableTagger();
         };
+    }
+    function DialogController($scope, $mdDialog, blog) {
+        $scope.blog = blog;
+        $scope.hide = function () {
+            $mdDialog.hide();
+        };
+        $scope.cancel = function () {
+            $mdDialog.cancel();
+        };
+        $scope.postCheck = function () {
+            console.log(blog);
+        }
     }
 
 })();
