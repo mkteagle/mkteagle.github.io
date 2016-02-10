@@ -53,19 +53,14 @@
                         <md-input-container class="smalleriC" flex><md-checkbox md-no-ink aria-label="Date Night" ng-model="ul.selected.datenight" ng-change="ul.getChange(ul.selected)" class="md-primary">Date Night</md-checkbox></md-input-container>
                         <md-input-container class="smalleriC" flex><md-checkbox md-no-ink aria-label="Destinations" ng-model="ul.selected.destination" ng-change="ul.getChange(ul.selected)" class="md-primary">Destination</md-checkbox></md-input-container>
                         <md-input-container class="smalleriC" flex>
-                            <md-button ng-model="ul.customFullscreen" ng-click="ul.showAdvanced($event, ul.selected)" aria-label="Fullscreen Custom Dialog">Preview Post</md-button>
+                            <md-button ng-click="ul.showAdvanced($event, ul.selected)" aria-label="Fullscreen Custom Dialog">Preview Post</md-button>
                         </md-input-container>
                         <!--<md-datepicker aria-label="..." ng-model="ul.selected.postDate"></md-datepicker>-->
                     </div>
 
 
                     <hr/>
-                        <div class="field">
-                            <md-input-container class="md-block md-input-has-value">
-                                <textarea aria-label="..." froala id="taStyle" ng-model="ul.selected.content" ng-change="ul.getChange(ul.selected)" aria-invalid="false" ng-trim="false"></textarea>
-                            </md-input-container>
-
-                        </div>
+                            <textarea aria-label="..." froala id="taStyle" ng-model="ul.selected.content" ng-change="ul.getChange(ul.selected)" aria-invalid="false" ng-trim="false"></textarea>
                     </div>
         </div>
     </md-content>
