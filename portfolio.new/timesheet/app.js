@@ -28,6 +28,7 @@ function timeSheetController (tsService, ngDialog, toastr) {
     }
     function selectTimesheet(timesheet) {
         self.selected = angular.isNumber(timesheet) ? $scope.timesheets[timesheet] : timesheet;
+        console.log(self.selected);
     }
     function add () {
         tsService.add();

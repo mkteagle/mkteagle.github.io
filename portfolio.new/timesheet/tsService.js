@@ -1,18 +1,17 @@
 (function () {
     'use strict';
 
-    angular.module('tsService', ['ngResource'])
+    angular.module('tsService', ['firebase'])
         .service('tsService', tsService);
-    tsService.$inject = ['$filter', '$resource'];
-    function tsService($filter, $resource) {
+    tsService.$inject = ['$filter', '$firebaseArray'];
+    function tsService($filter, $firebaseArray) {
         var self = this;
-        self.timesheets = $resource("https://worktimesheets.firebaseio.com/timesheets/:id.json",{id: '@id'}, {update: {method: 'PATCH'}});
+        var ref = new Firebase("http://worktimesheets.firebaseio.com/timesheets");
+        self. timesheets = $firebaseArray(ref);
         self.dateStamp = 0;
         self.firstTime = '';
         self.secondTime = '';
         self.thirdTime = '';
-        self.ftime = 0;
-        self.stime = 0;
         self.total = '';
         self.finalCalc = '';
         self.h = 0;
@@ -34,13 +33,10 @@
 
         function add () {
             self.dateStamp = $filter('date')(new Date(), 'MM-dd-yyyy');
-            self.timesheets.save({name: self.dateStamp, firstTime: self.firstTime, secondTime: self.secondTime, thirdTime: self.thirdTime, totals: self.total, finalCalc: self.finalCalc}, function() {
-                    console.log('succeeded');
-                    self.timesheets.get();
-                });
+            self.timesheets.$add({name: self.dateStamp, firstTime: self.firstTime, secondTime: self.secondTime, thirdTime: self.thirdTime, totals: self.total, finalCalc: self.finalCalc});
         }
         function updateMe(ts) {
-            self.timesheets.update({id: ts}, {firstTime: self.firstTime} )
+            self.timesheets.$save(ts)
         }
         function getFirstTime(ts) {
             var date = new Date();
@@ -54,21 +50,31 @@
             date.setHours(date.getHours() + 3);
             console.log(date);
             self.stime = Math.floor((date.getTimezoneOffset() / 1000) % 60);
-            ts.secondTime = $filter('date')(new Date(), 'HH:mm:ss');
-            //totals();
+            console.log(self.stime);
+            var newdate = $filter('date')(new Date(), 'HH:mm:ss');
+            ts.secondTime = newdate;
+            self.updateMe(ts);
+            self.totals(ts);
         }
         function getThirdTime(ts) {
             var date = new Date();
             date.setHours(date.getHours() + 6);
             console.log(date);
             self.ttime = Math.floor((date.getTimezoneOffset() / 1000) % 60);
-            ts.thirdTime = $filter('date')(new Date(), 'HH:mm:ss');
-            //finale();
+            var newdate = $filter('date')(new Date(), 'HH:mm:ss');
+            ts.thirdTime = newdate;
+            self.updateMe(ts);
+            self.finale(ts);
         }
 
         function totals (ts) {
             self.eight = 28800;
+            self.ftime = ts.firstTime.substr(0, ts.firstTime.indexOf(':'));
+            console.log(self.ftime);
+            //self.stime = ts.secondTime.replace([^,]*$, ts.secondTime);
+            console.log(self.stime);
             self.total = self.eight - (self.stime - self.ftime);
+            console.log(self.total);
             var d = Number(self.total);
             self.h = Math.floor(d / 3600);
             self.m = Math.floor(d % 3600 / 60);
@@ -76,6 +82,7 @@
             self.hours = Math.floor((date.getHours() + self.h));
             self.mins = Math.floor((date.getMinutes() + self.m) % 60);
             ts.total = (self.hours + ":" + self.mins);
+            self.updateMe(ts);
         }
         function finale(ts) {
             var date = new Date();
@@ -84,6 +91,8 @@
             checkOutbounds(self.hours);
             checkLessTen(self.mins);
             ts.finalCalc = (self.hours + ":" + self.mins);
+            self.updateMe(ts);
+            console.log(ts.finalCalc);
         }
         function checkOutbounds (total) {
             if (total == 24) {

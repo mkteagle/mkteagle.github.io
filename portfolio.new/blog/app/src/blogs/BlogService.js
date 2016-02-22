@@ -10,8 +10,9 @@
         var ref = new Firebase("https://doingutahdaily.firebaseio.com/blog/");
         var date = Date.now();
         var newdate = $filter('date')(new Date(), 'HH:mm:ss');
-
         var self = this;
+        self.blogs = $firebaseArray(ref);
+        self.addBlog = addBlog;
         self.getChange = getChange;
         self.removeBlog = removeBlog;
         self.getPost = getPost;
@@ -78,8 +79,6 @@
         function removeBlog(blog) {
             self.blogs.$remove(blog);
         }
-        self.blogs = $firebaseArray(ref);
-        self.addBlog = addBlog;
         function getChange(blog) {
             self.blogs.$save(blog);
         }
@@ -88,20 +87,11 @@
                 .then(function(){
                     angular.forEach(self.blogs, function(blogname) {
                         if (blogname.param === blog) {
-                            //console.log(blogname);
                             self.post = blogname;
                             console.log(self.post);
                         }
                     })
                 });
-            //console.log(self.blogs);
-            //console.log(self.blogs.length);
-            //for (var i = 0; i < self.blogs.length; i++) {
-            //    console.log(self.blogs[i]);
-            //    if (self.blogs[i].param == blog) {
-            //        return self.blogs[i];
-            //    }
-            //}
         }
         function addBlog(name, pic) {
             self.blogs.$add({name: 'Jennifer Teagle', postDate: '', date: date, avatar: name[pic], url: '/jen', content: '', title: 'Placeholder', category: '', location: '', season: '', county: '', posted: false});

@@ -1,10 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
-
-</body>
-</html>
+<input type="text" ng-model="cc.comments.name">
+<textarea aria-label="..." froala id="taStyle" ng-model="cc.comments.content" aria-invalid="false" ng-trim="false"></textarea>
+<md-button ng-click="cc.submit()"></md-button>
+<div ng-repeat="comment in cc.comments">
+    <div>{{comment.name}}</div>
+    <div>{{comment.date}}</div>
+    <div>{{comment.content}}</div>
+</div>
