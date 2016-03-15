@@ -4,19 +4,23 @@
     angular.module('blogService', ['firebase'])
         .service('blogService', blogService);
 
-    blogService.$inject = ['$firebaseArray', '$filter'];
+    blogService.$inject = ['$firebaseArray', '$filter', '$firebaseAuth', '$firebaseObject', 'firebaseUrl', '$timeout', '$state'];
 
-    function blogService($firebaseArray, $filter) {
-        var ref = new Firebase("https://doingutahdaily.firebaseio.com/blog/");
+    function blogService($firebaseArray, $filter, $firebaseAuth, $firebaseObject, firebaseUrl, $timeout, $state) {
+        var ref = new Firebase(firebaseUrl);
+        var blogRef = new Firebase(firebaseUrl + '/blog');
         var date = Date.now();
         var newdate = $filter('date')(new Date(), 'HH:mm:ss');
         var self = this;
-        self.blogs = $firebaseArray(ref);
+        self.authObj = $firebaseAuth(ref);
+        self.blogs = $firebaseArray(blogRef);
         self.addBlog = addBlog;
         self.getChange = getChange;
         self.removeBlog = removeBlog;
         self.getPost = getPost;
         self.addPostParam = addPostParam;
+        self.firebaseAuthLogin = firebaseAuthLogin;
+        self.newUser = {};
         self.post = {};
         self.counties = [
             {id: '1', name: 'Beaver County'},
@@ -71,6 +75,37 @@
             {id: '15', name: 'Holidays'},
             {id: '16', name: 'Christmas'}
         ];
+        self.init = init;
+        init();
+        function init() {
+            self.authObj.$onAuth(function (authData) {
+                if (self.authObj.$getAuth()) {
+                    self.id = authData.uid;
+                    self.isLoggedIn = true;
+
+                    self.user = $firebaseObject(ref.child('users').child(self.id));
+                    self.user.$loaded().then(function () {
+                        if (self.user.name == undefined) {
+                            if (authData.google) {
+                                self.newUser.name = authData.google.displayName;
+                                self.newUser.img = authData.google.profileImageURL;
+                                self.user.$ref().set(self.newUser);
+                            }
+                            if (authData.facebook) {
+                                console.log(authData);
+                                self.newUser.name = authData.facebook.displayName;
+                                self.newUser.img = authData.facebook.profileImageURL;
+                                self.user.$ref().set(self.newUser);
+                            }
+                        }
+                    });
+                }
+
+            });
+        }
+        self.gameState = function () {
+            self.user.$ref().child('blogs').update(self.recorded);
+        };
         function addPostParam(blog) {
             var postParam = $filter('removeSpacesThenLowercase')(blog.title);
             blog.param = postParam;
@@ -93,8 +128,29 @@
                     })
                 });
         }
-        function addBlog(name, pic) {
-            self.blogs.$add({name: 'Jennifer Teagle', postDate: '', date: date, avatar: name[pic], url: '/jen', content: '', title: 'Placeholder', category: '', location: '', season: '', county: '', posted: false});
+        function addBlog() {
+            self.blogs.$add({name: self.newUser.name, postDate: '', date: date, avatar: self.newUser.img, url: '/jen', content: '', title: 'Placeholder', category: '', location: '', season: '', county: '', posted: false});
         }
+        function firebaseAuthLogin(provider) {
+            self.authObj.$authWithOAuthPopup(provider).then(function (authData) {
+                console.log("Authenticated successfully with provider " + provider + " with payload:", authData);
+                $timeout(function() {
+                    init();
+                    //$ionicHistory.nextViewOptions({historyRoot: true});
+                    $state.go('editor');
+                })
+            }).catch(function (error) {
+                console.error("Authentication failed:", error);
+            });
+
+        }
+
+        self.googleLogin = function () {
+            self.firebaseAuthLogin('google');
+        };
+        self.facebookLogin = function () {
+            self.firebaseAuthLogin('facebook');
+        };
+
     }
 })();

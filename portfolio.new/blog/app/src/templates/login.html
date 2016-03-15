@@ -1,18 +1,16 @@
-<div>
-    <input type="checkbox" id="op">
-    <div class="lower">
-        <label for="op">=</label>
-    </div>
-    <div class="overlay overlay-hugeinc">
-        <label for="op"></label>
-        <nav>
-            <ul>
-                <li><a ng-click="{ active: nav.isActive('/home')}" ui-sref="home">Home</a></li>
-                <li><a ui-sref="login" ng-click="{ active: nav.isActive('/login')}">Login</a></li>
-                <li><a ui-sref="login" ng-click="{ active: nav.isActive('/login')}">Logout</a></li>
-                <li><a ui-sref="newhome" ng-click="{ active: nav.isActive('/newhome')}">Latest Post</md-button></li>
-                <li><a ui-sref="posts" ng-click="{ active: nav.isActive('/posts')}">All Posts</md-button></li>
-            </ul>
-        </nav>
+<div class="mainee">
+    <div class="login">
+        <h1>Login</h1>
+        <form method="post">
+            <input class="inputlogin" type="text" name="u" placeholder="Username" required="required" />
+            <input class="inputlogin" type="password" name="p" placeholder="Password" required="required" />
+            <button type="submit" class="btn btn-primary btn-block btn-large">Let me in.</button>
+                <md-button class="md-raised md-primary" ng-click="lc.facebookLogin()">
+                    Facebook Login
+                </md-button>
+                <md-button class="md-raised md-warn" ng-click="lc.googleLogin()">
+                    Google Login
+                </md-button>
+        </form>
     </div>
 </div>

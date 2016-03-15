@@ -12,7 +12,25 @@
                 restrict: "A",
                 templateUrl: "./src/templates/clicktotag.html"
             }
-        });
+        })
+        .directive("commentDir", commentDir);
+        commentDir.$inject = ['commentService'];
+        function commentDir (commentService) {
+            var commentController = function () {
+                var cc = this;
+                cc.add = add;
+                function add() {
+                    commentService.add();
+                }
+            };
+            return {
+                restrict: "EC",
+                templateUrl: "./src/blogs/views/comments.html",
+                controller: commentController,
+                controllerAs: 'cc',
+                bindToController: true
+            }
+        }
 
 }());
 

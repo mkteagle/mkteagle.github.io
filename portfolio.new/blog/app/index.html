@@ -47,6 +47,7 @@
 <body ng-app="myApp" layout="row" ng-controller="BlogController as ul" ng-cloak>
 <div class="page-wrapper">
     <div class="ui-view-container">
+        <div ng-include="'./src/templates/nav.html'"></div>
         <div class="page-content" ui-view></div>
     </div>
 </div>
@@ -82,12 +83,13 @@
 <script src="src/blogs/BlogController.js"></script>
 <script src="src/blogs/BlogService.js"></script>
 <script src="./js/blogFilter.js"></script>
+<script src="./src/blogs/loginController.js"></script>
+<script src="./src/blogs/CommentService.js"></script>
 <script src="js/blogDirective.js"></script>
-<script src="js/oathService.js"></script>
-<script src="js/oathController.js"></script>
 <script src="js/classie.js"></script>
 <script src="js/script.js"></script>
 <script src="./js/app.js"></script>
+
 
 </body>
 </html>

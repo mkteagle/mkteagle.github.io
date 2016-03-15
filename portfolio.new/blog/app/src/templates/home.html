@@ -1,5 +1,5 @@
 <div flex layout row>
-<div ng-include="'./src/templates/bloglist.html'"></div>
+<!--<div ng-include="'./src/templates/bloglist.html'"></div>-->
 <div flex layout="column" tabIndex="-1" role="main">
 
     <md-toolbar aria-label="..." id="openToggles" layout="row">
@@ -13,10 +13,10 @@
             <strong><input type="text" aria-label="..." ng-model="ul.selected.title" id="newContainer" ng-disabled="ul.blogs.length == 0" placeholder="Title..." ng-change="ul.getChange(ul.selected); ul.addPostParam(ul.selected)"></strong>
         </div>
         <div class="right">
-            <div ng-include="'./src/templates/login.html'"></div>
+            <!--<div ng-include="'./src/templates/login.html'"></div>-->
         </div>
     </md-toolbar>
-    <md-content flex id="content" ng-hide="ul.blogs.length == 0">
+    <md-content flex id="content">
         <div layout="row">
                 <div class="panel">
                     <div layout="row">
@@ -58,12 +58,12 @@
                         <!--<md-datepicker aria-label="..." ng-model="ul.selected.postDate"></md-datepicker>-->
                     </div>
 
-
+                    <div ng-bind="ul.selected.content"></div>
                     <hr/>
                             <textarea aria-label="..." froala id="taStyle" ng-model="ul.selected.content" ng-change="ul.getChange(ul.selected)" aria-invalid="false" ng-trim="false"></textarea>
                     </div>
         </div>
     </md-content>
-    <footer ng-hide="ul.blogs.length == 0" class="footer" ng-include="'./src/templates/footer.html'"></footer>
+    <!--<footer ng-hide="ul.blogs.length == 0" class="footer" ng-include="'./src/templates/footer.html'"></footer>-->
     </div>
 </div>

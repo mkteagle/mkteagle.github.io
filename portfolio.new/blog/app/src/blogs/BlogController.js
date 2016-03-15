@@ -5,9 +5,9 @@
         .controller('BlogController', BlogController)
         .controller('DialogController', DialogController);
 
-    BlogController.$inject = ['blogService', '$mdSidenav', '$mdBottomSheet', '$mdDialog','$mdMedia', 'oathService', '$stateParams'];
+    BlogController.$inject = ['blogService', '$mdSidenav', '$mdBottomSheet', '$mdDialog','$mdMedia', '$stateParams', '$scope'];
 
-    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $mdDialog, $mdMedia, oathService, $stateParams, $scope ) {
+    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $mdDialog, $mdMedia, $stateParams, $scope ) {
         var self = this;
         var svgArr = ['svg-1', 'svg-2', 'svg-3', 'svg-4', 'svg-5'];
         var svgindex = 0;
@@ -19,10 +19,7 @@
         self.addBlog = addBlog;
         self.firstList = firstList;
         self.getChange = getChange;
-        self.othData = oathService.othData;
-        self.google = google;
         self.removeBlog = removeBlog;
-        self.logout = logout;
         self.getPost = getPost;
         self.counties = blogService.counties;
         self.categories = blogService.categories;
@@ -70,13 +67,6 @@
         // *********************************
         // Internal methods
         // *********************************
-        function logout() {
-            oathService.logout();
-        }
-
-        function google() {
-            oathService.google();
-        }
 
         function removeBlog(blog) {
             blogService.removeBlog(blog);

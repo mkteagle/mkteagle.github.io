@@ -1,6 +1,8 @@
+<h2>Comments</h2>
+<span>{{cc.selected.title}}</span>
 <input type="text" ng-model="cc.comments.name">
 <textarea aria-label="..." froala id="taStyle" ng-model="cc.comments.content" aria-invalid="false" ng-trim="false"></textarea>
-<md-button ng-click="cc.submit()"></md-button>
+<md-button ng-click="cc.add()">Add Me</md-button>
 <div ng-repeat="comment in cc.comments">
     <div>{{comment.name}}</div>
     <div>{{comment.date}}</div>
