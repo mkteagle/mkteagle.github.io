@@ -27,6 +27,8 @@
         self.login = login;
         self.post = {};
         self.addPostParam = addPostParam;
+        self.currentPage = 1;
+        self.pageSize = 5;
 
         self.showAdvanced = function(ev, post) {
             $mdDialog.show({

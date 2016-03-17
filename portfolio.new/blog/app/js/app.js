@@ -13,10 +13,11 @@
             'ui.bootstrap',
             'truncate',
             'commentService',
-            'loginController'
+            'loginController',
+            'dirPagination'
         ])
         .constant('firebaseUrl', "https://doingutahdaily.firebaseio.com/")
-        .config(function ($stateProvider, $urlRouterProvider, $mdThemingProvider, $mdIconProvider) {
+        .config(function ($stateProvider, $urlRouterProvider, $mdIconProvider) {
         $urlRouterProvider.otherwise("/index");
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
@@ -26,10 +27,6 @@
             .icon("hangouts", "./assets/svg/hangouts.svg", 512)
             .icon("twitter", "./assets/svg/twitter.svg", 512)
             .icon("phone", "./assets/svg/phone.svg", 512);
-
-        $mdThemingProvider.theme('default')
-            .primaryPalette('pink')
-            .accentPalette('blue');
         $stateProvider
                 .state('index', {
                     url:'/index',
