@@ -14,7 +14,9 @@
             'truncate',
             'commentService',
             'loginController',
-            'dirPagination'
+            'dirPagination',
+            'md.data.table',
+            'angular-toArrayFilter'
         ])
         .constant('firebaseUrl', "https://doingutahdaily.firebaseio.com/")
         .config(function ($stateProvider, $urlRouterProvider, $mdIconProvider) {
@@ -57,6 +59,11 @@
             .state("editor", {
                 url:"/editor",
                 templateUrl: "./src/templates/editor.html",
+                controller: "BlogController as uc"
+            })
+            .state("masterlist", {
+                url:"/master",
+                templateUrl: "./src/templates/masterlist.html",
                 controller: "BlogController as uc"
             })
             .state("posts", {

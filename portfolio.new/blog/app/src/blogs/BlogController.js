@@ -29,6 +29,10 @@
         self.addPostParam = addPostParam;
         self.currentPage = 1;
         self.pageSize = 5;
+        self.sort = function(keyname){
+            self.sortKey = keyname;   //set the sortKey to the param passed
+            self.reverse = !self.reverse; //if true make it false and vice versa
+        };
 
         self.showAdvanced = function(ev, post) {
             $mdDialog.show({
