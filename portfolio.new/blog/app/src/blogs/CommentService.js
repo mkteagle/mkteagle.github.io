@@ -13,8 +13,8 @@
         self.selected = blogService.post;
         self.add = add;
         function add () {
-            console.log(self.selected.title);
-            self.comments.$add({name: '', content: '', reference: self.selected.title, date: newdate, time: newtime})
+            //console.log(self.selected.title);
+            self.comments.$add({name: '', content: '', reference: 'new comment', date: newdate, time: newtime})
         }
     }
 })();

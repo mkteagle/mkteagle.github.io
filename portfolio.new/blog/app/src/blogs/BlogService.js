@@ -10,7 +10,7 @@
         var ref = new Firebase(firebaseUrl);
         var blogRef = new Firebase(firebaseUrl + '/blog');
         var date = Date.now();
-        var newdate = $filter('date')(new Date(), 'HH:mm:ss');
+        var newdate = $filter('date')(new Date(), 'MM/dd/yyyy');
         var self = this;
         self.authObj = $firebaseAuth(ref);
         self.blogs = $firebaseArray(blogRef);
@@ -129,7 +129,7 @@
                 });
         }
         function addBlog() {
-            self.blogs.$add({name: self.newUser.name, postDate: '', date: date, avatar: self.newUser.img, url: '/jen', content: '', title: 'Placeholder', category: '', location: '', season: '', county: '', posted: false});
+            self.blogs.$add({name: 'Jennifer Teagle', postDate: '', date: newdate, avatar: '', url: '/jen', content: '', title: 'Placeholder', category: '', location: '', season: '', county: '', posted: false});
         }
         function firebaseAuthLogin(provider) {
             self.authObj.$authWithOAuthPopup(provider).then(function (authData) {
@@ -137,7 +137,7 @@
                 $timeout(function() {
                     init();
                     //$ionicHistory.nextViewOptions({historyRoot: true});
-                    $state.go('editor');
+                    $state.go('editord');
                 })
             }).catch(function (error) {
                 console.error("Authentication failed:", error);

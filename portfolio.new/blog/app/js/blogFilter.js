@@ -8,6 +8,7 @@
                 return new Date(input);
         }
         })
+
         .filter('removeSpacesThenLowercase', function () {
         return function (text) {
 
@@ -15,6 +16,16 @@
             var str2 = str.replace(/[`~!@#$%^&*()_|+=?;:'",.<>\{\}\[\]\\\/]/gi, '');
             return str2.toLowerCase();
         };
-        });
+        })
+        .filter('postFilter', function() {
+        return function(input) {
+            if (input) {
+                return 'posted';
+            }
+            else {
+                return 'draft';
+            }
+        };
+    })
 }());
 

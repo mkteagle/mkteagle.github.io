@@ -7,7 +7,6 @@
             'blogController',
             'blogDirective',
             'firebase',
-            'ngSanitize',
             'froala',
             'blogFilter',
             'ui.bootstrap',
@@ -15,8 +14,7 @@
             'commentService',
             'loginController',
             'dirPagination',
-            'md.data.table',
-            'angular-toArrayFilter'
+            'md.data.table'
         ])
         .constant('firebaseUrl', "https://doingutahdaily.firebaseio.com/")
         .config(function ($stateProvider, $urlRouterProvider, $mdIconProvider) {
@@ -50,11 +48,12 @@
             .state("post", {
                 url: "/posts/:blogParam",
                 templateUrl: "./src/templates/post.html",
-                controller: 'BlogController'
+                controller: "BlogController as uc"
             })
             .state("edit", {
                 url: "/edit/:blogParam",
-                templateUrl: "./src/templates/edit-post.html"
+                templateUrl: "./src/templates/edit-post.html",
+                controller: "BlogController as uc"
             })
             .state("editor", {
                 url:"/editor",
@@ -69,7 +68,7 @@
             .state("posts", {
                 url: "/posts",
                 templateUrl: "./src/templates/posts.html",
-                controller: 'BlogController'
+                controller: 'BlogController as uc'
             });
 
 

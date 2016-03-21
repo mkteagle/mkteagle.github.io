@@ -79,11 +79,10 @@
                                 <em> By <a ui-sref="jen" href="{{ul.selected.url}}"><span ng-bind="ul.selected.name"></span></a></em> On <span ng-bind="ul.selected.date | date:'MM/dd/yyyy'"></span></p><span><md-icon md-svg-icon="{{ul.selected.avatar}}" class="avatar"></md-icon></span>
                         </div>
                         <hr />
-                        <p><div class="messagestyle" ng-bind-html="ul.selected.content"></div></p>
+                        <p><div class="messagestyle" froala-view="ul.selected.content"></div></p>
                     </div>
                 </div>
             </div>
         </md-content>
-        <footer ng-hide="ul.blogs.length == 0" class="footer" ng-include="'./src/templates/footer.html'"></footer>
     </div>
 </div>

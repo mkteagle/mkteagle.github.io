@@ -1,14 +1,42 @@
-<div layout="row">
-    <div class="menu-row">
-        <div flex="33">
-            <h3>Doing Utah Daily</h3>
-        </div>
-        <div class="end">
-            <div flex="10"><a ui-sref="index">Login</a></div>
-            <div flex="10">Latest Post</div>
-            <div flex="10"><a ui-sref="editor">Editor</a></div>
-            <div flex="10"><a ui-sref="posts">View Blog</a></div>
-            <div flex="10"><a ui-sref="masterlist">All Blogs</a></div>
-        </div>
+<!--<div class="menu-row">-->
+    <!--<div class="flexbox">-->
+            <!--<div class="end">-->
+                <!--<div flex="10"><a ui-sref="index">Login</a></div>-->
+                <!--<div flex="10">Latest Post</div>-->
+                <!--<div flex="10"><a ui-sref="editor">Editor</a></div>-->
+                <!--<div flex="10"><a ui-sref="posts">View Blog</a></div>-->
+                <!--<div flex="10"><a ui-sref="masterlist">All Blogs</a></div>-->
+            <!--</div>-->
+        <!--</div>-->
+<!--<div flex="33">-->
+    <!--<img class="logo" ng-src="./assets/Doing_Utah_Daily.png">-->
+<!--</div>-->
+<!--</div>-->
+<div class="flexbox">
+        <ul class="navul">
+            <li class="navli"><a class="nava" href="#">ABOUT</a></li>
+            <li class="navli"><a class="nava" ui-sref="index">LOGIN</a></li>
+            <li class="navli"><a class="nava" href="#">LATEST POST</a></li>
+            <li class="navli"><a class="nava" ui-sref="editor">EDITOR</a></li>
+            <li class="navli"><a class="nava" ui-sref="posts">VIEW BLOG</a></li>
+            <li class="navli"><a class="nava" ui-sref="masterlist">ALL BLOGS</a></li>
+            <li class="navli"><md-menu md-offset="0 -7">
+                <a class="nava" ng-click="$mdOpenMenu($event)">COUNTIES</a>
+            <md-menu-content width="4">
+                <md-menu-item ng-repeat="item in [1, 2, 3]">
+                    <md-button ng-click="ctrl.announceClick($index)"> <span md-menu-align-target>Option</span> {{item}} </md-button>
+                </md-menu-item>
+            </md-menu-content>
+            </md-menu>
+            </li>
+            <li class="navli"><a class="nava" href="#">SEASONS</a></li>
+            <li class="navli"></li>
+        </ul>
+        <!--<div flex="20"></div>-->
+        <!--<div flex="10"><a ui-sref="index">Login</a></div>-->
+        <!--<div flex="10">Latest Post</div>-->
+        <!--<div flex="10"><a ui-sref="editor">Editor</a></div>-->
+        <!--<div flex="10"><a ui-sref="posts">View Blog</a></div>-->
+        <!--<div flex="10"><a ui-sref="masterlist">All Blogs</a></div>-->
     </div>
 </div>

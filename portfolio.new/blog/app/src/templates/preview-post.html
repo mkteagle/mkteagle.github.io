@@ -11,7 +11,7 @@
         </md-toolbar>
         <md-dialog-content>
             <div class="md-dialog-content">
-                <div class="panel callout" ng-hide="ul.blogs.length == 0">
+                <div class="panel callout" ng-hide="uc.blogs.length == 0">
                     <div class="title">
                         <span ng-bind="blog.title"></span>
                     </div>
@@ -20,7 +20,7 @@
                             <em> By <a ui-sref="jen" href="{{blog.url}}"><span ng-bind="blog.name"></span></a></em> On <span ng-bind="blog.date | date:'MM/dd/yyyy'"></span></p><span><md-icon md-svg-icon="{{blog.avatar}}" class="avatar"></md-icon></span>
                     </div>
                     <hr />
-                    <p><div class="messagestyle" ng-bind-html="blog.content"></div></p>
+                    <p><div class="messagestyle" froala-view="blog.content"></div></p>
                 </div>
             </div>
         </md-dialog-content>

@@ -4,24 +4,24 @@
         <md-input-container aria-label="..." flex>
             <md-select-label aria-label="..." class="gray">County</md-select-label>
             <md-select aria-label="..." ng-model="county">
-                <md-option aria-label="..." class="blackify" ng-repeat="county in ul.counties">{{ county.name }}</md-option>
+                <md-option aria-label="..." class="blackify" ng-repeat="county in uc.counties">{{ county.name }}</md-option>
             </md-select>
         </md-input-container>
         <md-input-container flex>
             <md-select-label aria-label="..." class="gray">Category</md-select-label>
-            <md-select aria-label="..." ng-model="category" ng-change="ul.getChange(ul.selected)">
+            <md-select aria-label="..." ng-model="category" ng-change="uc.getChange(uc.selected)">
                 <md-option aria-label="..." class="blackify" ng-repeat="category in ul.categories">{{ category.name }}</md-option>
             </md-select>
         </md-input-container>
         <md-input-container aria-label="..." flex>
             <md-select-label aria-label="..." class="gray">Season</md-select-label>
-            <md-select aria-label="..." ng-model="season" ng-change="ul.getChange(ul.selected)">
-                <md-option aria-label="..." class="blackify" ng-repeat="season in ul.seasons">{{ season.name }}</md-option>
+            <md-select aria-label="..." ng-model="season" ng-change="uc.getChange(uc.selected)">
+                <md-option aria-label="..." class="blackify" ng-repeat="season in uc.seasons">{{ season.name }}</md-option>
             </md-select>
         </md-input-container>
     </div>
 </div>
-<div  aria-label="..." ng-repeat="blog in ul.blogs | filter: county | filter: {posted: true}">
+<div  aria-label="..." ng-repeat="blog in uc.blogs | filter: county | filter: {posted: true}">
 <div class="blogContainer">
         <div class="blogOuter">
             <div class="title" ng-bind="blog.title"></div>
@@ -30,7 +30,7 @@
                 <md-chip><i>{{ blog.county }}</i></md-chip>
                 <md-chip><i>{{ blog.season }}</i></md-chip>
             </ul>
-            <p><div class="blogContent messagestyle" ng-bind-html="blog.content | characters: 300: false"></div></p>
+            <p><div class="blogContent messagestyle" froala-view="blog.content | characters: 300: false"></div></p>
             <div><a ng-href="#/posts/{{blog.param}}">Read more</a></div>
             <div class="right">Comments</div>
         </div>

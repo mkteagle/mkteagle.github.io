@@ -29,6 +29,7 @@
         self.addPostParam = addPostParam;
         self.currentPage = 1;
         self.pageSize = 5;
+        self.reverse = '';
         self.sort = function(keyname){
             self.sortKey = keyname;   //set the sortKey to the param passed
             self.reverse = !self.reverse; //if true make it false and vice versa
@@ -108,10 +109,6 @@
             $mdSidenav('left').toggle();
         }
 
-        /**
-         * Select the current avatars
-         * @param menuId
-         */
         function selectBlog(blog) {
             self.selected = angular.isNumber(blog) ? $scope.blogs[blog] : blog;
             //self.toggleList();
@@ -120,18 +117,6 @@
         self.countOf = function (text) {
             var s = text ? text.split(/\s+/) : 0; // it splits the text on space/tab/enter
             return s ? s.length : '';
-        };
-        self.showLoginDialog = function (ev) {
-            console.log('from sign in button!');
-            $mdDialog.show({
-                    templateUrl: './templates/contentlogin.html',
-                    targetEvent: ev
-                })
-                .then(function (userData) {
-
-                }, function () {
-                    $scope.alert = 'You cancelled the dialog.';
-                });
         };
         self.taggerEnabled = false;
         self.editorEnabled = false;
