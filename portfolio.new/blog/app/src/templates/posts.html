@@ -22,17 +22,17 @@
     </div>
 </div>
 <div  aria-label="..." ng-repeat="blog in uc.blogs | filter: county | filter: {posted: true}">
-<div class="blogContainer">
-        <div class="blogOuter">
+<div>
+        <div>
             <div class="title" ng-bind="blog.title"></div>
-            <ul class="filters">
+            <ul>
                 <md-chip><i>{{ blog.category }}</i></md-chip>
                 <md-chip><i>{{ blog.county }}</i></md-chip>
                 <md-chip><i>{{ blog.season }}</i></md-chip>
             </ul>
             <p><div class="blogContent messagestyle" froala-view="blog.content | characters: 300: false"></div></p>
             <div><a ng-href="#/posts/{{blog.param}}">Read more</a></div>
-            <div class="right">Comments</div>
+            <div>Comments</div>
         </div>
     </div>
 </div>

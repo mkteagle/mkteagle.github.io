@@ -14,11 +14,13 @@
             'commentService',
             'loginController',
             'dirPagination',
-            'md.data.table'
+            'md.data.table',
+            'ui.bootstrap',
+            'homeController'
         ])
         .constant('firebaseUrl', "https://doingutahdaily.firebaseio.com/")
         .config(function ($stateProvider, $urlRouterProvider, $mdIconProvider) {
-        $urlRouterProvider.otherwise("/index");
+        $urlRouterProvider.otherwise("/login");
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
             .icon("menu", "./assets/svg/menu.svg", 24)
@@ -28,14 +30,15 @@
             .icon("twitter", "./assets/svg/twitter.svg", 512)
             .icon("phone", "./assets/svg/phone.svg", 512);
         $stateProvider
-                .state('index', {
-                    url:'/index',
-                    templateUrl: './src/templates/login.html',
-                    controller: 'loginController as lc'
+            .state('login', {
+                url:'/login',
+                templateUrl: './src/templates/login.html',
+                controller: 'loginController as lc'
             })
             .state("home", {
                 url: "/home",
-                templateUrl: "./src/templates/home.html"
+                templateUrl: "./src/templates/home.html",
+                controller: "HomeController"
             })
             .state("newhome", {
                 url: "/newhome",
@@ -70,7 +73,6 @@
                 templateUrl: "./src/templates/posts.html",
                 controller: 'BlogController as uc'
             });
-
 
         // if none of the above states are matched, use this as the fallback
 

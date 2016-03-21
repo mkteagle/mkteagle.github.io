@@ -1,11 +1,3 @@
-@import url(http://weloveiconfonts.com/api/?family=entypo);
-
-/* entypo */
-[class*="entypo-"]:before {
-    font-family: 'entypo', sans-serif;
-}
-
-
 html, body {
   font-family: 'Roboto', sans-serif;
   font-size:14px;
@@ -204,10 +196,6 @@ h2 {
     width: 92px;
     height: 0;
 }
-.outer-categories {
-    margin: 0 auto;
-    width: 500px;
-}
 .filters {
     list-style-type: none;
     text-align: center;
@@ -285,23 +273,13 @@ h2 {
 #authorDateLine {
     text-align: center;
 }
-.blogContainer {
-    display: flex;
-}
-.blogOuter {
-    margin: 0 auto;
-    width: 900px;
-}
 .top-padding {
-    height: 100px;
+    height: 120px;
 }
 .title {
     font-family: 'Montserrat', sans-serif;
     font-size: 2em;
     text-align: center;
-}
-.blogContent {
-    justify-content: center;
 }
 .odd {
     color: white;
@@ -357,23 +335,6 @@ h2 {
 }
 #newContainer:focus {
     outline: 0;
-}
-.page-wrap {
-    margin-bottom: -30px;
-}
-.page-wrap:after {
-    content: "";
-    display: block;
-}
-.footer {
-    background: #F0F0F0;
-    width: 100%;
-}
-.footer, .page-wrap:after {
-    height: 20px;
-}
-#footercontainer {
-    padding-left: 20px;
 }
 .header {
     background: #F0F0F0;
@@ -500,96 +461,6 @@ md-option {
 .blueFooter {
     background: #1A3240;
     color: lightgray;
-}
-.c-hamburger {
-    display: block;
-    position: relative;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-    width: 96px;
-    height: 96px;
-    font-size: 0;
-    text-indent: -9999px;
-    appearance: none;
-    box-shadow: none;
-    border-radius: none;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s;
-}
-
-.c-hamburger:focus {
-    outline: none;
-}
-.c-hamburger span {
-    display: block;
-    position: absolute;
-    top: 44px;
-    left: 18px;
-    right: 18px;
-    height: 8px;
-    background: white;
-}
-
-.c-hamburger span::before,
-.c-hamburger span::after {
-    position: absolute;
-    display: block;
-    left: 0;
-    width: 100%;
-    height: 8px;
-    background-color: #fff;
-    content: "";
-}
-
-.c-hamburger span::before {
-    top: -20px;
-}
-.c-hamburger--htx {
-    background-color: #ff3264;
-}
-
-.c-hamburger--htx span {
-    transition: background 0s 0.3s;
-}
-
-.c-hamburger--htx span::before,
-.c-hamburger--htx span::after {
-    transition-duration: 0.3s, 0.3s;
-    transition-delay: 0.3s, 0s;
-}
-
-.c-hamburger--htx span::before {
-    transition-property: top, transform;
-}
-
-.c-hamburger--htx span::after {
-    transition-property: bottom, transform;
-}
-
-/* active state, i.e. menu open */
-.c-hamburger--htx.is-active {
-    background-color: #cb0032;
-}
-
-.c-hamburger--htx.is-active span {
-    background: none;
-}
-
-.c-hamburger--htx.is-active span::before {
-    top: 0;
-    transform: rotate(45deg);
-}
-
-.c-hamburger--htx.is-active span::after {
-    bottom: 0;
-    transform: rotate(-45deg);
-}
-
-.c-hamburger--htx.is-active span::before,
-.c-hamburger--htx.is-active span::after {
-    transition-delay: 0s, 0.3s;
 }
 .bloglist {
     padding: 10px;
@@ -985,12 +856,18 @@ input[type="checkbox"]{display:none;}
 }
 .bloglistheading {
     padding-left: 10px;
-    flex: 50;
+    flex: 75;
 }
 .addbutton {
     padding-top: 20px;
-
-    flex: 50;
+    flex: 25;
+}
+.addbutton a {
+    color: black;
+    cursor: pointer;
+}
+.addbutton a:hover {
+    color: #275074;
 }
 .sort-icon {
     font-size: 9px;
@@ -1063,4 +940,13 @@ th {
 .nava {
     display: block;
     color: lightgray;
+}
+.deleteblog {
+    cursor: pointer;
+}
+.bloglistitems {
+    width: 20%;
+}
+.bloglist_ctrls {
+    padding-left: 10px;
 }

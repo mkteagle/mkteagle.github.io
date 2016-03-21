@@ -1,12 +1,13 @@
 <md-sidenav class="site-sidenav md-sidenav-right"
             md-component-id="right"
             md-is-locked-open="$mdMedia('gt-sm')">
-    <div layout="row"><div class="bloglistheading"><h3>List</h3></div><div class="addbutton"><i class="fa fa-plus" ng-click="uc.addBlog()"></i></div></div>
-    <!--<md-button id="newpost">Add New Post</md-button>-->
-    <label for="search">Search:</label>
-    <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
-    <label for="search">items per page:</label>
-    <input type="number" min="1" max="100" class="form-control" ng-model="uc.pageSize">
+    <div layout="row"><div class="bloglistheading"><h3>List</h3></div><div class="addbutton"><a ng-click="uc.addBlog()"><i class="fa fa-plus"></i></a></div></div>
+    <div class="bloglist_ctrls">
+        <label for="search">Search:</label>
+        <input ng-model="q" id="search" class="form-control" placeholder="Filter text">
+        <label for="search">items per page:</label>
+        <input type="number" class="bloglistitems" min="1" max="100" class="form-control" ng-model="uc.pageSize">
+    </div>
     <md-list class="bloglist">
         <md-subheader>Posts</md-subheader>
         <md-list-item class="bloglist-item" ng-init="uc.firstList()" dir-paginate="it in uc.blogs | filter: {posted: true} | filter:q | itemsPerPage: uc.pageSize" currentPage="uc.currentPage">

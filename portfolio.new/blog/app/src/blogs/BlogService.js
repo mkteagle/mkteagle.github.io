@@ -137,7 +137,7 @@
                 $timeout(function() {
                     init();
                     //$ionicHistory.nextViewOptions({historyRoot: true});
-                    $state.go('editord');
+                    $state.go('editor');
                 })
             }).catch(function (error) {
                 console.error("Authentication failed:", error);
