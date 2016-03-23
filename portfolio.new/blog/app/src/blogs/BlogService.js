@@ -110,8 +110,8 @@
             self.blogs.$loaded()
                 .then(function() {
                     angular.forEach(self.blogs, function(blog) {
-                        if (blog.cParam = cParam) {
-                            blog.county = self.county;
+                        if (blog.cParam == cParam) {
+                            self.county = blog.county;
                             console.log(self.county);
                         }
                     })

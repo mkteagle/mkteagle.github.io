@@ -1,5 +1,6 @@
-<div>These are the counties yo!!!</div>
-<div  aria-label="..." ng-repeat="blog in uc.blogs | filter: !uc.county | filter: {posted: true}">
+<div class="top-padding"></div>
+<div ng-init="uc.getCounty()">These are the counties yo!!!</div>
+<div  aria-label="..." ng-repeat="blog in uc.blogs | filter: uc.county | filter: {posted: true}">
 <div>
     <div>
         <div class="title" ng-bind="blog.title"></div>
