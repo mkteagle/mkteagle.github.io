@@ -26,6 +26,7 @@
         self.seasons = blogService.seasons;
         self.login = login;
         self.post = {};
+        self.county = blogService.county;
         self.addPostParam = addPostParam;
         self.currentPage = 1;
         self.pageSize = 5;

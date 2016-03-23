@@ -68,6 +68,16 @@
                 templateUrl: "./src/templates/masterlist.html",
                 controller: "BlogController as uc"
             })
+            .state("about", {
+                url:"/about",
+                templateUrl: "./src/templates/about.html",
+                controller: "BlogController as uc"
+            })
+            .state("counties", {
+                url:"/counties/:cParam",
+                templateUrl: "./src/templates/counties.html",
+                controller: "BlogController as uc"
+            })
             .state("posts", {
                 url: "/posts",
                 templateUrl: "./src/templates/posts.html",
