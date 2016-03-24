@@ -1,12 +1,11 @@
 (function () {
     'use strict';
-
     angular.module('blogService', ['firebase'])
         .service('blogService', blogService);
 
-    blogService.$inject = ['$firebaseArray', '$filter', '$firebaseAuth', '$firebaseObject', 'firebaseUrl', '$timeout', '$state'];
+    blogService.$inject = ['$firebaseArray', '$filter', '$firebaseAuth', '$firebaseObject', 'firebaseUrl', '$timeout', '$state', '$stateParams'];
 
-    function blogService($firebaseArray, $filter, $firebaseAuth, $firebaseObject, firebaseUrl, $timeout, $state) {
+    function blogService($firebaseArray, $filter, $firebaseAuth, $firebaseObject, firebaseUrl, $timeout, $state, $stateParams) {
         var ref = new Firebase(firebaseUrl);
         var blogRef = new Firebase(firebaseUrl + '/blog');
         var date = Date.now();
@@ -20,39 +19,43 @@
         self.getPost = getPost;
         self.addPostParam = addPostParam;
         self.firebaseAuthLogin = firebaseAuthLogin;
+        self.addCountyParams = addCountyParams;
+        self.getCounties = getCounties;
+        self.county = '';
         self.newUser = {};
         self.post = {};
         self.saveBlog = saveBlog;
         self.counties = [
-            {id: '1', name: 'Beaver County'},
-            {id: '2', name: 'Box Elder County'},
-            {id: '3', name: 'Cache County'},
-            {id: '4', name: 'Carbon County'},
-            {id: '5', name: 'Daggett County'},
-            {id: '6', name: 'Davis County'},
-            {id: '7', name: 'Duchesne County'},
-            {id: '8', name: 'Emery County'},
-            {id: '9', name: 'Garfield County'},
-            {id: '10', name: 'Grand County'},
-            {id: '11', name: 'Iron County'},
-            {id: '12', name: 'Juab County'},
-            {id: '13', name: 'Kane County'},
-            {id: '14', name: 'Millard County'},
-            {id: '15', name: 'Morgan County'},
-            {id: '16', name: 'Piute County'},
-            {id: '17', name: 'Rich County'},
-            {id: '18', name: 'Salt Lake County'},
-            {id: '19', name: 'San Juan County'},
-            {id: '20', name: 'Sanpete County'},
-            {id: '21', name: 'Sevier County'},
-            {id: '22', name: 'Summit County'},
-            {id: '23', name: 'Tooele County'},
-            {id: '24', name: 'Uintah County'},
-            {id: '25', name: 'Utah County'},
-            {id: '26', name: 'Wasatch County'},
-            {id: '27', name: 'Washington County'},
-            {id: '28', name: 'Wayne County'},
-            {id: '29', name: 'Weber County'}];
+            {id: '1', name: 'Beaver', param: 'beaver'},
+            {id: '2', name: 'Box Elder', param: 'box-elder'},
+            {id: '3', name: 'Cache', param: 'cache'},
+            {id: '4', name: 'Carbon', param: 'carbon'},
+            {id: '5', name: 'Daggett', param: 'daggett'},
+            {id: '6', name: 'Davis', param: 'davis'},
+            {id: '7', name: 'Duchesne', param: 'duchesne'},
+            {id: '8', name: 'Emery', param: 'emery'},
+            {id: '9', name: 'Garfield', param: 'garfield'},
+            {id: '10', name: 'Grand', param: 'grand'},
+            {id: '11', name: 'Iron', param: 'iron'},
+            {id: '12', name: 'Juab', param: 'juab'},
+            {id: '13', name: 'Kane', param: 'kane'},
+            {id: '14', name: 'Millard', param: 'millard'},
+            {id: '15', name: 'Morgan', param: 'morgan'},
+            {id: '16', name: 'Piute', param: 'piute'},
+            {id: '17', name: 'Rich', param: 'rich'},
+            {id: '18', name: 'Salt Lake', param: 'salt-lake'},
+            {id: '19', name: 'San Juan', param: 'san-juan'},
+            {id: '20', name: 'Sanpete', param: 'sanpete'},
+            {id: '21', name: 'Sevier', param: 'sevier'},
+            {id: '22', name: 'Summit', param: 'summit'},
+            {id: '23', name: 'Tooele', param: 'tooele'},
+            {id: '24', name: 'Uintah', param: 'unintah'},
+            {id: '25', name: 'Utah', param: 'utah'},
+            {id: '26', name: 'Wasatch', param: 'wasatch'},
+            {id: '27', name: 'Washington', param: 'washington'},
+            {id: '28', name: 'Wayne', param: 'wayne'},
+            {id: '29', name: 'Weber', param: 'weber'}];
+
         self.categories = [
             {id: '1', name: 'Fun in the Sun'},
             {id: '2', name: 'Snow for All'}
@@ -111,24 +114,44 @@
         function saveBlog() {
             self.user.$ref().child('blogs').update(self.blogs);
         }
+        
+        function getCounties(cParam) {
+            self.blogs.$loaded()
+                .then(function() {
+                    angular.forEach(self.blogs, function(blog) {
+                        if (blog.cParam == cParam) {
+                            self.county = blog.county;
+                            console.log(self.county);
+                        }
+                    })
+                })
+        }
         self.gameState = function () {
             self.user.$ref().child('blogs').update(self.recorded);
         };
+        function addCountyParams(blog, county) {
+            blog.cParam = county;
+            self.blogs.$save(blog);
+        }
+
         function addPostParam(blog) {
             var postParam = $filter('removeSpacesThenLowercase')(blog.title);
             blog.param = postParam;
             self.blogs.$save(blog);
         }
+
         function removeBlog(blog) {
             self.blogs.$remove(blog);
         }
+
         function getChange(blog) {
             self.blogs.$save(blog);
         }
+
         function getPost(blog) {
             self.blogs.$loaded()
-                .then(function(){
-                    angular.forEach(self.blogs, function(blogname) {
+                .then(function () {
+                    angular.forEach(self.blogs, function (blogname) {
                         if (blogname.param === blog) {
                             self.post = blogname;
                             console.log(self.post);
@@ -136,9 +159,25 @@
                     })
                 });
         }
+
         function addBlog() {
-            self.blogs.$add({name: 'Jennifer Teagle', postDate: '', date: newdate, avatar: '', url: '/jen', content: '', title: 'Placeholder', category: '', location: '', season: '', county: '', posted: false});
+            self.blogs.$add({
+                name: 'Jennifer Teagle',
+                postDate: '',
+                date: newdate,
+                avatar: '',
+                url: '/jen',
+                content: '',
+                title: 'Placeholder',
+                category: '',
+                location: '',
+                season: '',
+                county: '',
+                cparam: '',
+                posted: false
+            });
         }
+
         function firebaseAuthLogin(provider) {
             self.authObj.$authWithOAuthPopup(provider).then(function (authData) {
                 console.log("Authenticated successfully with provider " + provider + " with payload:", authData);
@@ -146,7 +185,7 @@
                     self.newUser.name = authData.google.name;
                     self.newUser.img = authData.google.profileImageURL;
                 }
-                $timeout(function() {
+                $timeout(function () {
                     init();
                     //$ionicHistory.nextViewOptions({historyRoot: true});
                     $state.go('editor');

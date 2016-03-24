@@ -26,10 +26,14 @@
         self.seasons = blogService.seasons;
         self.login = login;
         self.post = {};
+        self.county = blogService.county;
         self.addPostParam = addPostParam;
         self.currentPage = 1;
         self.pageSize = 5;
         self.reverse = '';
+        self.getCounty = getCounty;
+        self.getCounties = getCounties;
+
         self.sort = function(keyname){
             self.sortKey = keyname;   //set the sortKey to the param passed
             self.reverse = !self.reverse; //if true make it false and vice versa
@@ -47,6 +51,9 @@
                     }
                 })
         };
+        function getCounties(cParam) {
+            blogService.getCounties(cParam);
+        }
         function firstList() {
             self.selected = blogService.blogs[0];
         }
@@ -60,6 +67,10 @@
                 console.log("This is an error message");
                 // Error callback
             });
+        }
+        function getCounty() {
+            self.county = $stateParams.cParam;
+            console.log(self.county);
         }
         function getPost() {
             self.blogs.$loaded()

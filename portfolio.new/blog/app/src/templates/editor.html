@@ -13,7 +13,7 @@
                 <md-input-container aria-label="..." flex>
                     <md-select-label aria-label="..." class="gray">County</md-select-label>
                     <md-select aria-label="..." ng-model="uc.selected.county" ng-change="uc.getChange(uc.selected)">
-                        <md-option aria-label="..." class="blackify" ng-repeat="county in uc.counties">{{ county.name }}</md-option>
+                        <md-option aria-label="..." class="blackify" ng-repeat="county in uc.counties" ng-click="uc.addCountyParams(uc.selected, county.param)">{{ county.name }}</md-option>
                     </md-select>
                 </md-input-container>
                 <md-input-container flex aria-label="...">
