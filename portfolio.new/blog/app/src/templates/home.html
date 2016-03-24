@@ -1,16 +1,16 @@
-<div class="top-padding"></div>
-<div>
-    <div>
-        <div class="col-md-12">
-        <uib-carousel active="active" interval="myInterval" no-wrap="noWrapSlides">
-            <uib-slide ng-repeat="slide in slides track by slide.id" index="slide.id">
-                <img ng-src="{{slide.image}}" style="margin:auto;">
-                <div class="carousel-caption">
-                    <h4>Slide {{slide.id}}</h4>
-                    <p>{{slide.text}}</p>
-                </div>
-            </uib-slide>
-        </uib-carousel>
-            </div>
-    </div>
+<!--<div class="top-padding"></div>-->
+<div class="container slider">
+    <img ng-repeat="slide in hc.slides" class="slide slide-animation" ng-hide="!hc.isCurrentSlideIndex($index)"
+         ng-style="{'background-image': 'url(' + slide.image + ')', 'background-size': 'cover'}">
+    <a class="arrow prev" href="#" ng-click="hc.nextSlide()"></a>
+    <a class="arrow next" href="#" ng-click="hc.prevSlide()"></a>
+    <nav class="nav">
+        <div class="wrapper">
+            <ul class="dots">
+                <li class="dot" ng-repeat="slide in hc.slides">
+                    <a href="#" ng-class="{'active':hc.isCurrentSlideIndex($index)}"
+                       ng-click="hc.setCurrentSlideIndex($index);">{{slide.description}}</a></li>
+            </ul>
+        </div>
+    </nav>
 </div>

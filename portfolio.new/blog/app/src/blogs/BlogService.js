@@ -22,6 +22,7 @@
         self.firebaseAuthLogin = firebaseAuthLogin;
         self.newUser = {};
         self.post = {};
+        self.saveBlog = saveBlog;
         self.counties = [
             {id: '1', name: 'Beaver County'},
             {id: '2', name: 'Box Elder County'},
@@ -82,13 +83,13 @@
                 if (self.authObj.$getAuth()) {
                     self.id = authData.uid;
                     self.isLoggedIn = true;
-
                     self.user = $firebaseObject(ref.child('users').child(self.id));
                     self.user.$loaded().then(function () {
                         if (self.user.name == undefined) {
                             if (authData.google) {
                                 self.newUser.name = authData.google.displayName;
                                 self.newUser.img = authData.google.profileImageURL;
+                                console.log(self.newUser);
                                 self.user.$ref().set(self.newUser);
                             }
                             if (authData.facebook) {
@@ -98,10 +99,17 @@
                                 self.user.$ref().set(self.newUser);
                             }
                         }
+                        if (self.user.blogs = null) {
+                            self.user.blogs = self.blogs;
+                            self.saveBlog();
+                        }
                     });
                 }
 
             });
+        }
+        function saveBlog() {
+            self.user.$ref().child('blogs').update(self.blogs);
         }
         self.gameState = function () {
             self.user.$ref().child('blogs').update(self.recorded);
@@ -134,6 +142,10 @@
         function firebaseAuthLogin(provider) {
             self.authObj.$authWithOAuthPopup(provider).then(function (authData) {
                 console.log("Authenticated successfully with provider " + provider + " with payload:", authData);
+                if (authData.google) {
+                    self.newUser.name = authData.google.name;
+                    self.newUser.img = authData.google.profileImageURL;
+                }
                 $timeout(function() {
                     init();
                     //$ionicHistory.nextViewOptions({historyRoot: true});
@@ -142,9 +154,7 @@
             }).catch(function (error) {
                 console.error("Authentication failed:", error);
             });
-
         }
-
         self.googleLogin = function () {
             self.firebaseAuthLogin('google');
         };

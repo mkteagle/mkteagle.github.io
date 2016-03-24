@@ -16,11 +16,12 @@
             'dirPagination',
             'md.data.table',
             'ui.bootstrap',
-            'homeController'
+            'homeController',
+            'ngAnimate'
         ])
         .constant('firebaseUrl', "https://doingutahdaily.firebaseio.com/")
         .config(function ($stateProvider, $urlRouterProvider, $mdIconProvider) {
-        $urlRouterProvider.otherwise("/login");
+        //$urlRouterProvider.otherwise("/login");
         $mdIconProvider
             .defaultIconSet("./assets/svg/avatars.svg", 128)
             .icon("menu", "./assets/svg/menu.svg", 24)
@@ -38,7 +39,7 @@
             .state("home", {
                 url: "/home",
                 templateUrl: "./src/templates/home.html",
-                controller: "HomeController"
+                controller: "HomeController as hc"
             })
             .state("newhome", {
                 url: "/newhome",

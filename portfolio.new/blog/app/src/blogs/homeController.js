@@ -1,61 +1,53 @@
 (function() {
     angular
         .module('homeController', [])
-        .controller('HomeController', function ($scope) {
-        $scope.myInterval = 5000;
-        $scope.noWrapSlides = false;
-        $scope.active = 0;
-        var slides = $scope.slides = [];
-        var currIndex = 0;
+        .controller('HomeController', function () {
+            var self = this;
+            self.slides = [
+                {image: '../app/img/img00.jpg', description: 'Image 00'},
+                {image: '../app/img/img01.jpg', description: 'Image 01'},
+                {image: '../app/img/img02.jpg', description: 'Image 02'},
+                {image: '../app/img/img03.jpg', description: 'Image 03'},
+                {image: '../app/img/img04.jpg', description: 'Image 04'}
+            ];
+            self.currentIndex = 0;
 
-        $scope.addSlide = function() {
-            var newWidth = 1000 + slides.length + 1;
-            slides.push({
-                image: 'http://lorempixel.com/' + newWidth + '/300',
-                text: ['Nice image','Awesome photograph','That is so cool','I love that'][slides.length % 4],
-                id: currIndex++
-            });
-        };
+            self.setCurrentSlideIndex = function (index) {
+                self.currentIndex = index;
+            };
 
-        $scope.randomize = function() {
-            var indexes = generateIndexesArray();
-            assignNewIndexesToSlides(indexes);
-        };
+            self.isCurrentSlideIndex = function (index) {
+                return self.currentIndex === index;
+            };
+            self.prevSlide = function () {
+                self.currentIndex = (self.currentIndex < self.slides.length - 1) ? ++self.currentIndex : 0;
+            };
 
-        for (var i = 0; i < 4; i++) {
-            $scope.addSlide();
-        }
+            self.nextSlide = function () {
+                self.currentIndex = (self.currentIndex > 0) ? --self.currentIndex : self.slides.length - 1;
+            };
+        })
+        .animation('.slide-animation', function () {
+            return {
+                addClass: function (element, className, done) {
+                    if (className == 'ng-hide') {
+                        TweenMax.to(element, 0.5, {left: -element.parent().width(), onComplete: done});
+                    }
+                    else {
+                        done();
+                    }
+                },
+                removeClass: function (element, className, done) {
+                    if (className == 'ng-hide') {
+                        element.removeClass('ng-hide');
 
-        // Randomize logic below
-
-        function assignNewIndexesToSlides(indexes) {
-            for (var i = 0, l = slides.length; i < l; i++) {
-                slides[i].id = indexes.pop();
-            }
-        }
-
-        function generateIndexesArray() {
-            var indexes = [];
-            for (var i = 0; i < currIndex; ++i) {
-                indexes[i] = i;
-            }
-            return shuffle(indexes);
-        }
-
-        // http://stackoverflow.com/questions/962802#962890
-        function shuffle(array) {
-            var tmp, current, top = array.length;
-
-            if (top) {
-                while (--top) {
-                    current = Math.floor(Math.random() * (top + 1));
-                    tmp = array[current];
-                    array[current] = array[top];
-                    array[top] = tmp;
+                        TweenMax.set(element, { left: element.parent().width() });
+                        TweenMax.to(element, 0.5, {left: 0, onComplete: done });
+                    }
+                    else {
+                        done();
+                    }
                 }
-            }
-
-            return array;
-        }
-    });
+            };
+        });
 })();
