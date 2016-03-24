@@ -114,7 +114,7 @@
         function saveBlog() {
             self.user.$ref().child('blogs').update(self.blogs);
         }
-        
+
         function getCounties(cParam) {
             self.blogs.$loaded()
                 .then(function() {

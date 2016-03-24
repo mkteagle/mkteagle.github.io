@@ -430,10 +430,22 @@ h2 {
 .padding {
     padding-top: 10px;
 }
+.page-content {
+    overflow: auto;
+    padding-bottom: 100px;
+}
+footer {
+    position:relative;
+    clear:both;
+    height:100px; /* Tinggi footer */
+    line-height:30px;
+    padding:0 15px;
+    margin-top:-100px; /* Angkat ke atas setinggi 'tinggi footer' */
+    background-color:black;
+    color:white;
+}
 .page-wrapper {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
+    min-height: 100%;
     width: 100%;
 }
 .button {
@@ -1079,4 +1091,86 @@ NAV
 .dots .dot a.active {
     border-color: #FFF;
     background-color: transparent;
+}
+/*Styled Menu*/
+.clearfix:after {
+    display:block;
+    clear:both;
+}
+
+/*----- Menu Outline -----*/
+.menu-wrap {
+    width:100%;
+    background:#2D3030;
+}
+
+.menu {
+    width:1000px;
+    margin:0px auto;
+}
+
+.menu li {
+    margin: 0px;
+    list-style: none;
+    font-family: 'Cabin', sans-serif;
+}
+
+.menu a {
+    transition:all linear 0.15s;
+    color:white;
+}
+
+.menu li:hover > a, .menu .current-item > a {
+    text-decoration:none;
+    color:black;
+}
+
+
+/*----- Top Level -----*/
+.menu > ul > li {
+    float:left;
+    display:inline-block;
+    position:relative;
+    font-weight: bold;
+}
+
+.menu > ul > li > a {
+    padding:10px 10px;
+    display:inline-block;
+}
+
+.menu > ul > li:hover > a, .menu > ul > .current-item > a {
+    background:#2e2728;
+}
+
+/*----- Bottom Level -----*/
+.menu li:hover .sub-menu {
+    z-index:1;
+    opacity:1;
+}
+
+.sub-menu {
+    width:160%;
+    padding:5px 0px;
+    position:absolute;
+    top:100%;
+    left:0px;
+    z-index:-1;
+    opacity:0;
+    transition:opacity linear 0.15s;
+    background:#2D3030;
+}
+
+.sub-menu li {
+    display:block;
+    font-size:16px;
+}
+
+.sub-menu li a {
+    padding:10px 30px;
+    display:block;
+}
+
+.sub-menu li a:hover, .sub-menu .current-item a {
+    background: lightgrey;
 }

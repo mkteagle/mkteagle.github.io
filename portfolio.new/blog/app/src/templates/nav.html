@@ -1,22 +1,19 @@
-<div class="flexbox" ng-controller="BlogController as uc">
-        <ul class="navul">
+<div ng-controller="BlogController as uc">
+    <nav class="menu">
+        <ul class="clearfix">
             <li class="navli"><a class="nava" ui-sref="about">ABOUT</a></li>
             <li class="navli"><a class="nava" ui-sref="login">LOGIN</a></li>
             <li class="navli"><a class="nava" href="#">LATEST POST</a></li>
             <li class="navli"><a class="nava" ui-sref="editor">EDITOR</a></li>
             <li class="navli"><a class="nava" ui-sref="posts">VIEW BLOG</a></li>
             <li class="navli"><a class="nava" ui-sref="masterlist">ALL BLOGS</a></li>
-            <li class="navli"><md-menu md-offset="0 -7">
-                <a class="nava" ng-click="$mdOpenMenu($event)">COUNTIES</a>
-            <md-menu-content width="4">
-                <md-menu-item ng-repeat="blog in uc.blogs | unique:'county'" ng-if="blog.county">
-                    <a ng-href="#/counties/{{ blog.cParam }}" ng-click="uc.getCounties(blog.cParam)">{{blog.county}}</a>
-                </md-menu-item>
-            </md-menu-content>
-            </md-menu>
+            <li class="navli"><a class="nava" ui-sref="counties">COUNTIES</a>
+                <ul class="sub-menu">
+                    <li ng-repeat="blog in uc.blogs | unique:'county'" ng-if="blog.county"><a ng-href="#/counties/{{ blog.cParam }}" ng-click="uc.getCounties(blog.cParam)">{{ blog.county }}</a></li>
+                </ul>
             </li>
             <li class="navli"><a class="nava" href="#">SEASONS</a></li>
             <li class="navli"></li>
         </ul>
-    </div>
+</nav>
 </div>

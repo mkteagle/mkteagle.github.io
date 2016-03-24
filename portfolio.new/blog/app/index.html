@@ -45,12 +45,14 @@
 
 </head>
 
-<body ng-app="myApp" layout="row" ng-cloak>
+<body ng-app="myApp" ng-cloak>
 <div class="page-wrapper">
+        <!--<div ng-include="'./src/templates/menu.html'"></div>-->
         <div class="navbar" ng-include="'./src/templates/nav.html'"></div>
         <div class="logobar" ng-include="'./src/templates/logo.html'"></div>
         <div class="page-content" ui-view></div>
 </div>
+<footer ng-include="'./src/templates/footer.html'"></footer>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 <script src="./lib/angular.min.js"></script>

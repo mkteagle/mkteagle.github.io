@@ -4,7 +4,7 @@
         .controller('HomeController', function () {
             var self = this;
             self.slides = [
-                {image: '../app/img/img00.jpg', description: 'Image 00'},
+                {image: 'http://localhost:63342/mkteagle.github.io/portfolio.new/blog/app/img/img00.jpg', description: 'Image 00'},
                 {image: '../app/img/img01.jpg', description: 'Image 01'},
                 {image: '../app/img/img02.jpg', description: 'Image 02'},
                 {image: '../app/img/img03.jpg', description: 'Image 03'},
