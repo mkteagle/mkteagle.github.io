@@ -33,7 +33,6 @@
         self.location = $location;
         self.showEditBlog = showEditBlog;
         self.show = false;
-        self.uploadFile = uploadFile;
         self.sort = function (keyname) {
             self.sortKey = keyname; //set the sortKey to the param passed
             self.reverse = !self.reverse; //if true make it false and vice versa
@@ -58,26 +57,6 @@
                 self.show = true;
                 return self.show;
             }
-        }
-        function uploadFile(file) {
-            self.f = file;
-            if (file) {
-                file.upload = Upload.upload({
-                    url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-                    data: {file: file}
-                });
-
-                file.upload.then(function (response) {
-                    $timeout(function () {
-                        file.result = response.data;
-                    });
-                }, function (response) {
-                    if (response.status > 0)
-                        self.errorMsg = response.status + ': ' + response.data;
-                }, function (evt) {
-                    file.progress = Math.min(100, parseInt(100.0 *
-                        evt.loaded / evt.total));
-                });
         }
         function getCounties(cParam) {
             blogService.getCounties(cParam);
