@@ -75,6 +75,19 @@
 
             return output;
         };
-    });
+    })
+        .filter('dated', function() {
+        return function(input) {
+            //console.log(input);
+            //var date = new Date(input);
+            //console.log(date);
+            return new Date(input);
+        }
+    })
+        .filter('addCounty', function() {
+            return function(input) {
+                return input + ' County';
+            }
+        })
 }());
 

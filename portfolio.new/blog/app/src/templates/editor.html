@@ -1,4 +1,3 @@
-<div class="top-padding"></div>
 <div class="content">
     <div class="header">
         <div layout="row" layout-sm="column">
@@ -9,6 +8,13 @@
     <div layout="row" layout-sm="column">
         <div ng-include="'./src/templates/bloglist.html'"></div>
         <div class="textarea">
+            <div>Featured Image:
+                <div ngf-drop="uploadFile($files)" class="drop-box"
+                     ngf-drag-over-class="'dragover'" ngf-multiple="false"
+                     ngf-pattern="'image/*'">Drop Image here</div>
+                <div ngf-no-file-drop>File Drag/Drop is not supported for this browser</div>
+
+            </div>
             <div layout="row">
                 <md-input-container aria-label="..." flex>
                     <md-select-label aria-label="..." class="gray">County</md-select-label>

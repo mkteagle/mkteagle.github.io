@@ -17,7 +17,8 @@
             'md.data.table',
             'ui.bootstrap',
             'homeController',
-            'ngAnimate'
+            'ngAnimate',
+            'ngFileUpload'
         ])
         .constant('firebaseUrl', "https://doingutahdaily.firebaseio.com/")
         .config(function ($stateProvider, $urlRouterProvider, $mdIconProvider) {

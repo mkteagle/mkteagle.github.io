@@ -1,29 +1,7 @@
-<div class="top-padding"></div>
-<div class="outer-categories">
-    <div layout="row">
-        <md-input-container aria-label="..." flex>
-            <md-select-label aria-label="..." class="gray">County</md-select-label>
-            <md-select aria-label="..." ng-model="county">
-                <md-option aria-label="..." class="blackify" ng-repeat="county in uc.counties">{{ county.name }}</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container flex>
-            <md-select-label aria-label="..." class="gray">Category</md-select-label>
-            <md-select aria-label="..." ng-model="category" ng-change="uc.getChange(uc.selected)">
-                <md-option aria-label="..." class="blackify" ng-repeat="category in ul.categories">{{ category.name }}</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container aria-label="..." flex>
-            <md-select-label aria-label="..." class="gray">Season</md-select-label>
-            <md-select aria-label="..." ng-model="season" ng-change="uc.getChange(uc.selected)">
-                <md-option aria-label="..." class="blackify" ng-repeat="season in uc.seasons">{{ season.name }}</md-option>
-            </md-select>
-        </md-input-container>
-    </div>
-</div>
-<div  aria-label="..." ng-repeat="blog in uc.blogs | filter: county | filter: {posted: true}">
+<div  aria-label="..." ng-repeat="blog in uc.blogs | filter: {posted: true}">
 <div>
         <div>
+            <div class="newpost" ng-style="{'background-image' : 'url(' + blog.featured + ')','background-size': 'cover','background-position': 'center center'}"></div>
             <div class="title" ng-bind="blog.title"></div>
             <ul>
                 <md-chip><i>{{ blog.category }}</i></md-chip>

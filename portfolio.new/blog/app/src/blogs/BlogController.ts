@@ -1,10 +1,13 @@
 (function () {
+
     angular
         .module('blogController', [])
         .controller('BlogController', BlogController)
         .controller('DialogController', DialogController);
-    BlogController.$inject = ['blogService', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdMedia', '$stateParams', '$scope', '$location', 'Upload'];
-    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $mdDialog, $mdMedia, $stateParams, $scope, $location, Upload) {
+
+    BlogController.$inject = ['blogService', '$mdSidenav', '$mdBottomSheet', '$mdDialog','$mdMedia', '$stateParams', '$scope', '$location'];
+
+    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $mdDialog, $mdMedia, $stateParams, $scope, $location ) {
         var self = this;
         var svgArr = ['svg-1', 'svg-2', 'svg-3', 'svg-4', 'svg-5'];
         var svgindex = 0;
@@ -33,51 +36,33 @@
         self.location = $location;
         self.showEditBlog = showEditBlog;
         self.show = false;
-        self.uploadFile = uploadFile;
-        self.sort = function (keyname) {
-            self.sortKey = keyname; //set the sortKey to the param passed
+
+        self.sort = function(keyname){
+            self.sortKey = keyname;   //set the sortKey to the param passed
             self.reverse = !self.reverse; //if true make it false and vice versa
         };
-        self.showAdvanced = function (ev, post) {
+
+        self.showAdvanced = function(ev, post) {
             $mdDialog.show({
-                controller: DialogController,
-                templateUrl: './src/templates/preview-post.html',
-                parent: angular.element(document.body),
-                targetEvent: ev,
-                clickOutsideToClose: true,
-                locals: {
-                    blog: post
-                }
-            });
+                    controller: DialogController,
+                    templateUrl: './src/templates/preview-post.html',
+                    parent: angular.element(document.body),
+                    targetEvent: ev,
+                    clickOutsideToClose:true,
+                    locals: {
+                        blog: post
+                    }
+                })
         };
-        function showEditBlog() {
+        function showEditBlog () {
             var reg = /^(?:((?:https?|s?ftp):)\/\/)([^:\/\s]+)(?::(\d*))?(?:\/([^\s?#]+)?([?][^?#]*)?(#.*)?)?/;
             console.log(reg.test(self.location));
+
             //regex to get first part of path and return it
             if (self.location = '/edit/') {
                 self.show = true;
                 return self.show;
             }
-        }
-        function uploadFile(file) {
-            self.f = file;
-            if (file) {
-                file.upload = Upload.upload({
-                    url: 'https://angular-file-upload-cors-srv.appspot.com/upload',
-                    data: {file: file}
-                });
-
-                file.upload.then(function (response) {
-                    $timeout(function () {
-                        file.result = response.data;
-                    });
-                }, function (response) {
-                    if (response.status > 0)
-                        self.errorMsg = response.status + ': ' + response.data;
-                }, function (evt) {
-                    file.progress = Math.min(100, parseInt(100.0 *
-                        evt.loaded / evt.total));
-                });
         }
         function getCounties(cParam) {
             blogService.getCounties(cParam);
@@ -102,21 +87,23 @@
         }
         function getPost() {
             self.blogs.$loaded()
-                .then(function () {
-                angular.forEach(self.blogs, function (blogname) {
-                    if (blogname.param === $stateParams.blogParam) {
-                        self.post = blogname;
-                    }
-                });
-            });
+                .then(function() {
+                    angular.forEach(self.blogs, function (blogname) {
+                        if (blogname.param === $stateParams.blogParam) {
+                            self.post = blogname;
+                        }
+                    })
+        })
         }
         // *********************************
         // Internal methods
         // *********************************
+
         function removeBlog(blog) {
             blogService.removeBlog(blog);
             self.selected = blogService.blogs[blogService.blogs.length - 1];
         }
+
         /**
          * First hide the bottomsheet IF visible, then
          * hide or Show the 'left' sideNav area
@@ -126,37 +113,47 @@
         }
         function getChange(blog) {
             blogService.getChange(blog);
+
         }
+
         function addBlog() {
             blogService.addBlog(svgArr, svgindex);
             svgindex++;
         }
+
+
         function toggleBlogsList() {
             var pending = $mdBottomSheet.hide() || $q.when(true);
+
             pending.then(function () {
                 $mdSidenav('left').toggle();
             });
         }
-        function toggleIt() {
+        function toggleIt () {
             $mdSidenav('left').toggle();
         }
+
         function selectBlog(blog) {
             self.selected = angular.isNumber(blog) ? $scope.blogs[blog] : blog;
             //self.toggleList();
         }
+
         self.countOf = function (text) {
             var s = text ? text.split(/\s+/) : 0; // it splits the text on space/tab/enter
             return s ? s.length : '';
         };
         self.taggerEnabled = false;
         self.editorEnabled = false;
+
         self.enableEditor = function (dates) {
             self.editorEnabled = true;
             self.editableValue = dates;
         };
+
         self.disableEditor = function () {
             self.editorEnabled = false;
         };
+
         self.save = function () {
             self.value = self.editableValue;
             self.disableEditor();
@@ -165,9 +162,11 @@
             self.taggerEnabled = true;
             self.editableTag = tags;
         };
+
         self.disableTagger = function () {
             self.taggerEnabled = false;
         };
+
         self.tagSave = function () {
             self.value = self.editableTag;
             self.disableTagger();
@@ -183,6 +182,7 @@
         };
         $scope.postCheck = function () {
             console.log(blog);
-        };
+        }
     }
+
 })();
