@@ -3,9 +3,9 @@
     angular.module('blogService', ['firebase'])
         .service('blogService', blogService);
 
-    blogService.$inject = ['$firebaseArray', '$filter', '$firebaseAuth', '$firebaseObject', 'firebaseUrl', '$timeout', '$state', '$stateParams'];
+    blogService.$inject = ['$firebaseArray', '$filter', '$firebaseAuth', '$firebaseObject', 'firebaseUrl', '$timeout', '$state', '$stateParams', 'Upload', 'S3UploadService'];
 
-    function blogService($firebaseArray, $filter, $firebaseAuth, $firebaseObject, firebaseUrl, $timeout, $state, $stateParams) {
+    function blogService($firebaseArray, $filter, $firebaseAuth, $firebaseObject, firebaseUrl, $timeout, $state, $stateParams, Upload, S3UploadService) {
         var ref = new Firebase(firebaseUrl);
         var blogRef = new Firebase(firebaseUrl + '/blog');
         var date = Date.now();
@@ -25,6 +25,11 @@
         self.newUser = {};
         self.post = {};
         self.saveBlog = saveBlog;
+        self.uploadFiles = uploadFiles;
+        self.file = {};
+        self.Files = {};
+        self.file.Success = false;
+        self.file.progress = 0;
         self.counties = [
             {id: '1', name: 'Beaver', param: 'beaver'},
             {id: '2', name: 'Box Elder', param: 'box-elder'},
@@ -111,6 +116,29 @@
 
             });
         }
+        function uploadFiles(files) {
+            var self = this;
+            self.Files = files;
+            if (files && files.length > 0) {
+                angular.forEach(self.Files, function (file, key) {
+                    S3UploadService.Upload(file).then(function (result) {
+                        // Mark as success
+                        self.file = file;
+                        var newname = $filter('spaceless')(self.file.name);
+                        self.post.featured = 'https://s3-us-west-2.amazonaws.com/doingutahdaily/' + newname;
+                        self.blogs.$save(self.post);
+                        self.file.Success = true;
+                        //self.file = file;
+                    }, function (error) {
+                        // Mark the error
+                        self.file.Error = error;
+                    }, function (progress) {
+                        // Write the progress as a percentage
+                        self.file.Progress = (progress.loaded / progress.total) * 100
+                    });
+                });
+            }
+        }
         function saveBlog() {
             self.user.$ref().child('blogs').update(self.blogs);
         }
@@ -148,11 +176,11 @@
             self.blogs.$save(blog);
         }
 
-        function getPost(blog) {
+        function getPost() {
             self.blogs.$loaded()
                 .then(function () {
                     angular.forEach(self.blogs, function (blogname) {
-                        if (blogname.param === blog) {
+                        if (blogname.param === $stateParams.blogParam) {
                             self.post = blogname;
                             console.log(self.post);
                         }
@@ -174,6 +202,7 @@
                 season: '',
                 county: '',
                 cparam: '',
+                featured: '',
                 posted: false
             });
         }

@@ -3,8 +3,8 @@
         .module('blogController', [])
         .controller('BlogController', BlogController)
         .controller('DialogController', DialogController);
-    BlogController.$inject = ['blogService', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdMedia', '$stateParams', '$scope', '$location', 'Upload'];
-    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $mdDialog, $mdMedia, $stateParams, $scope, $location, Upload) {
+    BlogController.$inject = ['blogService', '$mdSidenav', '$mdBottomSheet', '$mdDialog', '$mdMedia', '$stateParams', '$scope', '$location'];
+    function BlogController(blogService, $mdSidenav, $mdBottomSheet, $mdDialog, $mdMedia, $stateParams, $scope, $location) {
         var self = this;
         var svgArr = ['svg-1', 'svg-2', 'svg-3', 'svg-4', 'svg-5'];
         var svgindex = 0;
@@ -22,7 +22,7 @@
         self.categories = blogService.categories;
         self.seasons = blogService.seasons;
         self.login = login;
-        self.post = {};
+        self.post = blogService.post;
         self.county = blogService.county;
         self.addPostParam = addPostParam;
         self.currentPage = 1;
@@ -33,6 +33,11 @@
         self.location = $location;
         self.showEditBlog = showEditBlog;
         self.show = false;
+        self.Files = blogService.Files;
+        self.file = blogService.file;
+        self.uploadFiles = function (files) {
+            blogService.uploadFiles(files);
+        };
         self.sort = function (keyname) {
             self.sortKey = keyname; //set the sortKey to the param passed
             self.reverse = !self.reverse; //if true make it false and vice versa
@@ -80,6 +85,7 @@
             console.log(self.county);
         }
         function getPost() {
+            blogService.getPost();
             self.blogs.$loaded()
                 .then(function () {
                 angular.forEach(self.blogs, function (blogname) {

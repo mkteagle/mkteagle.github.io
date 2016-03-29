@@ -18,7 +18,8 @@
             'ui.bootstrap',
             'homeController',
             'ngAnimate',
-            'ngFileUpload'
+            'ngFileUpload',
+            'uploaderApp'
         ])
         .constant('firebaseUrl', "https://doingutahdaily.firebaseio.com/")
         .config(function ($stateProvider, $urlRouterProvider, $mdIconProvider) {

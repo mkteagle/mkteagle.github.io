@@ -1,29 +1,47 @@
-<div flex layout="column" tabIndex="-1" role="main" ng-init="uc.getPost($stateParams)">
+<div class="content" ng-init="uc.getPost($stateParams)">
 <div class="header">
-        <strong><input type="text" aria-label="..." ng-model="uc.post.title" id="newContainer" ng-disabled="uc.blogs.length == 0" placeholder="Title..." ng-change="uc.getChange(uc.post); uc.addPostParam(uc.post)"></strong>
+    <div layout="row" layout-sm="column">
+        <input type="text" class="title" ng-model="uc.post.title" placeholder="Title..." ng-change="uc.getChange(uc.post); uc.addPostParam(uc.post)">
+        <div flex="33"><md-button ng-click="uc.showAdvanced($event, uc.post)" aria-label="Fullscreen Custom Dialog">Preview Post</md-button></div>
     </div>
-<div class="panel">
-    <div layout="row">
-        <md-input-container aria-label="..." flex>
-            <md-select-label aria-label="..." class="gray">County</md-select-label>
-            <md-select aria-label="..." ng-model="uc.post.county" ng-change="uc.getChange(uc.post)">
-                <md-option aria-label="..." class="blackify" ng-repeat="county in uc.counties" ng-click="uc.addCountyParams(uc.selected, county.param)">{{ county.name }}</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container flex aria-label="...">
-            <md-select-label aria-label="..." class="gray" aria-label="...">Category</md-select-label>
-            <md-select aria-label="..." ng-model="uc.post.category" ng-change="uc.getChange(uc.post)" aria-label="...">
-                <md-option aria-label="..." class="blackify" ng-repeat="category in uc.categories" aria-label="...">{{ category.name }}</md-option>
-            </md-select>
-        </md-input-container>
-        <md-input-container flex>
-            <md-select-label class="gray" aria-label="...">Season</md-select-label>
-            <md-select ng-model="uc.post.season" ng-change="uc.getChange(uc.post)" aria-label="...">
-                <md-option class="blackify" ng-repeat="season in uc.seasons" aria-label="...">{{ season.name }}</md-option>
-            </md-select>
-        </md-input-container>
     </div>
-    <div layout="row">
+    <div layout="row" layout-sm="column">
+        <div ng-include="'./src/templates/bloglist.html'"></div>
+        <div class="textarea">
+            <div layout="row">
+        <div>Featured Image:
+            <form novalidate>
+                <div>
+                    <p>
+                        <button type="file" ngf-select="uc.uploadFiles($files)" ngf-multiple="true">
+                            Select File
+                        </button>
+                    </p>
+                </div>
+                <div ng-show="Files.length > 0">
+                    <div ng-repeat="file in uc.Files">
+                        File:
+                        <div>
+                            {{uc.file.name}} {{uc.file.$error}} {{uc.file.$errorParam}}
+                        </div>
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: {{file.Progress}}%;">
+                                {{uc.file.Progress | number:0}}%
+                            </div>
+                        </div>
+                        <div class="alert alert-info" role="alert" ng-show="uc.file.Progress == 100 && !uc.file.Success">Processing, please wait...</div>
+                        <div class="alert alert-success" role="alert" ng-show="uc.file.Success">Upload Complete!</div>
+                    </div>
+                    <div class="alert alert-danger" role="alert" ng-show="uc.file.errorMsg.length > 0">
+                        Oooops we had trouble uploading the file. Please refresh the page and try again.
+                        <p>If the problem persits please supply us with the following details</p>
+                        <p>{{errorMsg}}</p>
+                    </div>
+                    <div>{{Error}}</div>
+                </div>
+            </form>
+            <!--<div ng-include="'./src/templates/upload.html'"></div>-->
+        </div>
         <md-input-container flex>
             <md-radio-group aria-label="..." ng-model="uc.post.posted" ng-change="uc.getChange(uc.post)">
                 <md-radio-button ng-value="true" aria-label="Label 1">
@@ -45,7 +63,7 @@
     </div>
 </div>
 </div>
-
+</div>
 </div>
 
 
